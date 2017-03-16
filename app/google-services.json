@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "673875868491",
+    "firebase_url": "https://tcl-demo-json.firebaseio.com",
+    "project_id": "tcl-demo-json",
+    "storage_bucket": "tcl-demo-json.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673875868491:android:b6e6d3bcb484aec6",
+        "android_client_info": {
+          "package_name": "com.hawk.android.adsdk.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673875868491-b8lsc75m613577vmrh7li14r4ckehc5l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2HOosuvD-f7J64XxDgc36GvUsbpR9zO0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

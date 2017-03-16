@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">adsdkDemo</string>
+
+    <!-- 正式服务器上的id-->
+    <!--<string name="app_key">670cb5671c9949a0bbc69d5404604965</string>
+    <string name="banner_ad_unitid">5a756e33373142c99dcee61f70006873</string>
+    <string name="intersitial_ad_unitid">ba3f58d2dc03456b8b6e5dc97f4f1241</string>
+    <string name="native_ad_unitid">19386f9531c941cbbccd0b49ee193106</string>-->
+
+    <!-- 57服务器上的id-->
+    <string name="app_key">0e04c99598ed4ee7ad61c599dae3414a</string>
+    <string name="banner_ad_unitid">a725b5aa04e340229bd9d77f0beabe20</string>
+    <string name="intersitial_ad_unitid">17dc7ad86f9444a8b587751f39684e7f</string>
+    <string name="native_ad_unitid">43961188400a463bb00188ba38ff9d30</string>
+</resources>
+
+
+
