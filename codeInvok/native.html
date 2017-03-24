@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>2.4.	原生广告</h3>
+<h4>2.4.1.	广告接入代码示例</h4>
+<p>原生广告代码较多，这里只截取片段，具体参考demo</p>
+    <pre><code>    //初始化并加载广告
+        private void loadNativeAd(final RefreshMode refreshMode) {
+        mHKNativeAd = new HKNativeAd(getActivity(),getString(R.string.native_ad_unitid));
+        mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
+        @Override
+        public void onNativeAdLoaded() {
+        }
+
+        @Override
+        public void onNativeAdLoaded(List<HawkNativeAd> list) {
+            }
+
+            @Override
+            public void onNativeAdFailed(int i) {
+            }
+
+            @Override
+            public void onAdClick(HawkNativeAdapter hawkNativeAdapter) {
+
+            }
+
+            @Override
+            public void onOpen(HawkNativeAdapter hawkNativeAdapter) {
+
+            }
+            });
+            mHKNativeAd.loadAd(new HawkAdRequest());
+            }
+
+            /**
+            * 原生广告请求成功后，在app需要展示广告时调用
+            */
+            private void showAd(){
+            if(mHKNativeAd != null){
+            Object ad = mHKNativeAd.getAd();
+            if (ad == null) {
+            Toast.makeText(this, "no native ad loaded!", Toast.LENGTH_SHORT).show();
+            return;
+            }
+            if (mAdView != null) {
+            // remove old ad view
+            nativeAdContainer.removeAllViews();
+            }
+            //the mAdView is custom by publisher
+            mAdView = NativeViewBuild.createAdView(getApplicationContext(), ad);
+            if (mHKNativeAd != null) {
+            mHKNativeAd.unregisterView();
+            mHKNativeAd.registerViewForInteraction(mAdView);
+            }
+            //add the mAdView into the layout of view container.(the container should be prepared by youself)
+            nativeAdContainer.addView(mAdView);
+            }
+            }
+    </code></pre>
+
+<h4>2.4.2	原生广告主要API</h4>
+<ul>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HKNativeAd:</strong></p>
+        <p>原生广告入口，用于初始化并加载原生广告</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">HKNativeAd(Context context, String unitId)</td>
+                <td align="left">原生广告构造函数，unitId为广告平台对应广告位ID</td>
+            </tr>
+            <tr>
+                <td align="left">loadAd(HawkAdRequest adRequest)</td>
+                <td align="left">加载广告，adRequest可用于添加第三方平台的测试设备ID,设备ID可从facebook的log中查看到</td>
+            </tr>
+            <tr>
+                <td align="left">getAd()</td>
+                <td align="left">原生广告请求成功后，获取到原生广告对象</td>
+            </tr>
+            <tr>
+                <td align="left">registerViewForInteraction(View nativeAdView)</td>
+                <td align="left">原生广告完成填充后需要调用给该方法，以确保点击有效</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+
+    <li>
+        <p><strong>com.tcl.mediator.HkNativeAdListenerr:</strong></p>
+        <p>广告状态回调接口</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">onNativeAdLoaded()</td>
+                <td align="left">广告加载成功回调</td>
+            </tr>
+            <tr>
+                <td align="left">onNativeAdFailed(int errCode)</td>
+                <td align="left">广告加载失败，errCode用于描述失败原因。参考文档中ErrorCode相关章节</td>
+            </tr>
+            <tr>
+                <td align="left">onAdClick()</td>
+                <td align="left">广告被点击时回调</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+</ul>
+<h4>2.4.3	接入注意事项</h4>
+<ul>
+    <li>1.具体接入流程参考原生广告demo。</li>
+</ul>
+
+</body>
+</html>

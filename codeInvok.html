@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代码调用</title>
+    <script type="text/javascript">
+
+        alert(" 代码调用")
+        window.onload=function(){
+            console.log(" 代码调用 载入完毕");
+           // L.e(" 代码调试部分 载入完毕")
+        }
+
+        $(function(){
+            alert(" 代码调试   加载回调");
+            $("#banner").load("codeInvok/banner.html");
+         //   _("banner").load("codeInvok/banner.html");
+        //    _("interstitial").load("codeInvok/interstitial.html");
+        //    _("native").load("codeInvok/native.html");
+        })
+    </script>
+</head>
+<body>
+<h2>2.  接入代码</h2>
+
+<h3>2.1.初始化，</h3>
+<div>
+<p>在app的入口Application里调用sdk初始化代码(appkey和广告位ID从广告管理平台申请)</p>
+    <pre><code>        /**
+        * Initialize the Mobile Ads SDK. The SDK will configure itself.
+        * @param context the context running in
+        * @param applicationCode appkey
+        * @param unitIds mutil unit Id string
+        */
+        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid));
+    </code></pre>
+</div>
+<!-- banner 广告接入文档 -->
+<div id="banner"></div>
+<!-- interstitial 广告接入文档 -->
+<div id="interstitial"></div>
+<!-- native 广告接入文档 -->
+<div id="native"></div>
+</body>
+</html>

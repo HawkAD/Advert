@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>2.2.	Banner广告</h3>
+<h4>2.2.1. 广告接入代码示例</h4>
+<p>在Activity对应的布局文件中加入如下的代码，目前只支持BANNER(320*50)尺寸</p>
+        <pre><code>    &lt  ;com.hawk.android.adsdk.ads.HkAdView
+            android:id=&quot;@+id/adView&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_centerHorizontal=&quot;true&quot;
+            android:layout_alignParentBottom=&quot;true&quot;
+            ads:hkAdSize=&quot;BANNER&quot;
+            ads:hkAdUnitId=&quot;@string/banner_ad_unitid&quot;/&gt;
+        </code></pre>
+<p>(详细内容请参考的代码示例)</p>
+    <pre><code>
+        public class BannerActivity extends Activity {
+        private HkAdView mAdView;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_banner);
+        mAdView = (HkAdView)findViewById(R.id.adView);
+        mAdView.setAdListner(new HkAdListener() {
+        @Override
+        public void onAdLoaded() {
+        super.onAdLoaded();
+        }
+        @Override
+        public void onAdFailedLoad() {
+        super.onAdFailedLoad();
+        }
+        @Override
+        public void onAdShowed() {
+        super.onAdShowed();
+        }
+        @Override
+        public void onAdClicked() {
+        super.onAdClicked();
+        }
+        @Override
+        public void onAdOpen() {
+        super.onAdOpen();
+        }
+        @Override
+        public void onAdClosed() {
+        super.onAdClosed();
+        }
+        });
+        HkAdRequest request = new HkAdRequest();
+        mAdView.loadAd(request);
+        }
+        @Override
+        protected void onDestroy() {
+        super.onDestroy();
+        if (this.mAdView != null) {
+        this.mAdView.destory();
+        }
+        }
+        @Override
+        protected void onPause() {
+        super.onPause();
+        if (this.mAdView != null) {
+        this.mAdView.pause();
+        }
+        }
+        @Override
+        protected void onResume() {
+        super.onResume();
+        if (this.mAdView != null) {
+        this.mAdView.resume();
+        }
+        }
+        }
+    </code></pre>
+
+<h4>2.2.2. Banner广告主要API</h4>
+<ul>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HkAdView:</strong></p>
+        <p>HkAdView继承自Android ViewGroup类。</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">HkAdView(Context context)</td>
+                <td align="left">构造函数</td>
+            </tr>
+            <tr>
+                <td align="left">HkAdView(Context context, AttributeSet attributeSet)</td>
+                <td align="left">构造函数</td>
+            </tr>
+            <tr>
+                <td align="left">HkAdView(Context context, HkAdSize hkAdSize, String adUnitId)</td>
+                <td align="left">构造函数</td>
+            </tr>
+            <tr>
+                <td align="left">setAdUnitId(String unitId)</td>
+                <td align="left">设置广告位ID</td>
+            </tr>
+            <tr>
+                <td align="left">setAdSize(HkAdSize hkAdSize)</td>
+                <td align="left">设置广告位尺寸(聚合平台目前只支持320*50)</td>
+            </tr>
+            <tr>
+                <td align="left">setAdListner(HkAdListener hkAdListener)</td>
+                <td align="left">设置状态回调函数</td>
+            </tr>
+            <tr>
+                <td align="left">loadAd(HkAdRequest hkAdRequest)</td>
+                <td align="left">加载广告，hkAdRequest可传递请求参数</td>
+            </tr>
+            <tr>
+                <td align="left">pause()</td>
+                <td align="left">暂停banner广告轮播、上报事件。（聚合平台暂不支持该方法）</td>
+            </tr>
+            <tr>
+                <td align="left">resume()</td>
+                <td align="left">可继续banner广告轮播、上报事件。（聚合平台暂不支持该方法）</td>
+            </tr>
+            <tr>
+                <td align="left">destroy()</td>
+                <td align="left">当不需要展示Banner时用于主动释放Banner广告资源,调用后实例销毁，不可以再调用</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HkAdListener:</strong></p>
+        <p>Banner广告回调接口，对于大部分开发者只需要关注其中少量的方法。</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">onAdLoaded()</td>
+                <td align="left">广告加载成功回调，表示广告相关的资源已经加载完毕，Ready To Show</td>
+            </tr>
+            <tr>
+                <td align="left">onAdFailedLoad()</td>
+                <td align="left">广告加载失败</td>
+            </tr>
+            <tr>
+                <td align="left">onAdShowed()</td>
+                <td align="left">当广告曝光时发起的回调</td>
+            </tr>
+            <tr>
+                <td align="left">onAdClicked()</td>
+                <td align="left">当广告点击时发起的回调，由于点击去重等原因可能和联盟平台最终的统计数据有差异</td>
+            </tr>
+            <tr>
+                <td align="left">onAdOpen()</td>
+                <td align="left">当广告打开浮层时调用，如打开内置浏览器、内容展示浮层，一般发生在点击之后</td>
+            </tr>
+            <tr>
+                <td align="left">onAdClosed()</td>
+                <td align="left">浮层关闭时调用</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.ADSize:</strong></p>
+        <p>广告尺寸枚举，目前只有一个值Banner</p>
+    </li>
+</ul>
+</body>
+</html>

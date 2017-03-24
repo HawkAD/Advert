@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>2.3.	插屏广告</h3>
+<h4>2.3.1	广告接入代码示例</h4>
+    <pre><code>(详细内容请参考压缩包中的代码示例)
+
+        public class InterstitialActivity extends Activity {
+        private Button mButtonShowAd;
+        private HkInterstitialAd ad;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_interstitial);
+        ad = new HkInterstitialAd(this);
+        //设置广告位ID
+        ad.setAdUnitId(getString(R.string.intersitial_ad_unitid));
+        initView();
+        }
+
+        private void initView() {
+        mButtonShowAd = (Button)findViewById(R.id.btn_show_interstitial);
+        loadAd();
+        mButtonShowAd.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+        show();
+        }
+        });
+        ad.setAdListner(new HkAdListener() {
+        @Override
+        public void onAdLoaded() {
+        super.onAdLoaded();
+        Toast.makeText(InterstitialActivity.this,"插屏加载成功",Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onAdFailedLoad() {
+        super.onAdFailedLoad();
+        }
+
+        @Override
+        public void onAdShowed() {
+        super.onAdShowed();
+        }
+
+        @Override
+        public void onAdClicked() {
+        super.onAdClicked();
+        }
+
+        @Override
+        public void onAdClosed() {
+        super.onAdClosed();
+        }
+        });
+        }
+
+        private void loadAd() {
+        if (!ad.isLoaded()) {
+        ad.loadAd(null);
+        }
+        }
+
+        private void show(){
+        if (ad.isLoaded()) {
+        ad.show();
+        }
+        }
+
+        @Override
+        protected void onDestroy() {
+        super.onDestroy();
+        if (ad !=  null) {
+        ad.close();
+        }
+        }
+        }
+    </code></pre>
+
+
+<h4>2.3.2 插屏广告主要API</h4>
+<ul>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HkInterstitialAd:</strong></p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">HkInterstitialAd(Activity context)</td>
+                <td align="left">构造函数</td>
+            </tr>
+            <tr>
+                <td align="left">setAdListner(HkAdListener adlistener)</td>
+                <td align="left">设置插屏状态回调</td>
+            </tr>
+            <tr>
+                <td align="left">setAdUnitId(String unitId)</td>
+                <td align="left">设置广告位ID</td>
+            </tr>
+            <tr>
+                <td align="left">loadAd(HkAdRequest hkAdRequest)</td>
+                <td align="left">加载广告</td>
+            </tr>
+            <tr>
+                <td align="left">isLoaded()</td>
+                <td align="left">是否加载完成</td>
+            </tr>
+            <tr>
+                <td align="left">show()</td>
+                <td align="left">展示插屏广告，有遮罩</td>
+            </tr>
+            <tr>
+                <td align="left">close()</td>
+                <td align="left">关闭插屏广告</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HkAdListener:</strong></p>
+        <p>Banner广告回调接口，对于大部分开发者只需要关注其中少量的方法。</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">onAdLoaded()</td>
+                <td align="left">广告加载成功回调，表示广告相关的资源已经加载完毕，Ready To Show</td>
+            </tr>
+            <tr>
+                <td align="left">onAdFailedLoad()</td>
+                <td align="left">广告加载失败</td>
+            </tr>
+            <tr>
+                <td align="left">onAdShowed()</td>
+                <td align="left">当广告曝光时发起的回调</td>
+            </tr>
+            <tr>
+                <td align="left">onAdClicked()</td>
+                <td align="left">当广告点击时发起的回调，由于点击去重等原因可能和联盟平台最终的统计数据有差异</td>
+            </tr>
+            <tr>
+                <td align="left">onAdOpen()</td>
+                <td align="left">当广告打开浮层时调用，如打开内置浏览器、内容展示浮层，一般发生在点击之后</td>
+            </tr>
+            <tr>
+                <td align="left">onAdClosed()</td>
+                <td align="left">浮层关闭时调用</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+</ul>
+</body>
+</html>

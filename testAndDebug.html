@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript">
+        $(function(){
+            alert(" testand debug  加载完成")
+
+            window.onload();
+            alert(" onload 执行")
+        })
+
+    </script>
+</head>
+<body>
+<h2>3.	SDK相关问题排查</h2>
+<p>如果根据正常的注册流程仍然无法在嵌入sdk的app中看到广告，可以尝试使用logcat排查问题。</p>
+
+<h2>4.	SDK错误码</h2>
+<table>
+    <thead>
+    <tr>
+        <th align="left">错误码</th>
+        <th align="left">错误类型</th>
+        <th>描述</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td align="left">0</td>
+        <td align="left">ERROR_CODE_INTERNAL_ERROR</td>
+        <td>内部错误</td>
+    </tr>
+    <tr>
+        <td align="left">1</td>
+        <td align="left">ERROR_CODE_INVALID_REQUEST</td>
+        <td>无效的请求</td>
+    </tr>
+    <tr>
+        <td align="left">2</td>
+        <td align="left">ERROR_CODE_NETWORK_ERROR</td>
+        <td>网络超时：建议检查网络状态</td>
+    </tr>
+    <tr>
+        <td align="left">3</td>
+        <td align="left">ERROR_CODE_NO_FILL</td>
+        <td>没有填充</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

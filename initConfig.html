@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="mainContent" class="mainContent">
+    <h1 id="1"> <span>1</span>.  SDK嵌入</h1>
+    <h3>1.1.	步骤1：添加SDK到工程中</h3>
+    <p>请在工程文件根目录下创建一个名为 libs 的子目录，并将广告 SDK 的 aar（adsdk.aar） 包拷贝到 libs 目录下。</p>
+    <h3>1.2.	步骤2: 修改build.gradle文件</h3>
+    <p>在dependencies节点添加如下代码：</p>
+    <pre><code>        compile(name: 'app-release', ext: 'aar')
+        compile 'com.google.firebase:firebase-ads:9.4.0'
+        compile 'com.facebook.android:audience-network-sdk:4.+'
+        // For banners
+        compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
+        transitive = true
+        }
+        // For interstitials
+        compile('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
+        transitive = true
+        }
+    </code></pre>
+    <h3>1.3.	步骤3: 修改AndroidManifest.xml文件</h3>
+    <p>添加权限声明：</p>
+    <pre><code>        &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
+        &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot;/&gt;
+        &lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;
+        //mopub need this permission
+        &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
+        //only needed if you want the device to automatically send the user’s location for targeting.
+        &lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot;/&gt;
+        &lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot;/&gt;
+
+    </code></pre>
+
+    <p>接入任意平台广告都需要在XML中的application节点添加以下声明：</p>
+    <pre><code>        //facebook ad need add this
+        &lt;activity android:name="com.facebook.ads.InterstitialAdActivity"
+        android:configChanges="keyboardHidden|orientation|screenSize" //&gt;
+        //admob ad need add this
+        &lt;meta-data android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" //&gt;
+        //mopub ad need add this
+        &lt;activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        &lt;activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/&gt;
+        &lt;activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/&gt;
+        &lt;activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize"/&gt;
+    </code></pre>
+
+    <p>目前支持的SDK版本，最低到API 15（即Android系统版本4.0）：</p>
+    <pre><code>    &lt;uses-sdk android:minSdkVersion=&quot;15&quot; android:targetSdkVersion=&quot;22&quot; /&gt;
+        // 如果开发者一定要targetSdkVersion到API 23以上，请确保调用任何聚合SDK的接口前，已经申请到了SDK要求的所有权限。否则聚合SDK将无法工作。
+    </code></pre>
+
+    <h3>1.4.	步骤4: 修改混淆文件</h3>
+    <p>在proguard-rules.pro添加如下代码：</p>
+    <pre><code>    -keep class com.hawk.android.adsdk.ads.**{*;}
+        -keep class com.tcl.mediator.**{*;}
+    </code></pre>
+    <p>如果添加了mopub平台需要添加以下混淆代码：</p>
+    <pre><code>    -keep class com.mopub.mobileads.MoPubActivity{
+        &lt;fields&gt;;
+        &lt;methods&gt;;
+        }
+        -keep class com.mopub.mobileads.MraidActivity{
+        &lt;fields&gt;;
+        &lt;methods&gt;;
+        }
+        -keep class com.mopub.common.MoPubBrowser{
+        &lt;fields&gt;;
+        &lt;methods&gt;;
+        }
+        -keep class com.mopub.mobileads.MraidVideoPlayerActivity{
+        &lt;fields&gt;;
+        &lt;methods&gt;;
+        }
+    </code></pre>
+    </div>
+</body>
+</html>
