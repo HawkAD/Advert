@@ -178,7 +178,7 @@ pre, code, tt {
 code, tt {
     margin: 0 0px;
     padding: 0px 0px;
-    white-space: nowrap;
+    white-space: pre;
     border: 1px solid #eaeaea;
     background-color: #f8f8f8;
     border-radius: 3px;

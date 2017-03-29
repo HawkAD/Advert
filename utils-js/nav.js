@@ -48,3 +48,68 @@ function echoArray(array,callback){
         callback.call(array[i]);
     }
 }
+
+
+//获取元素相对于页面的偏移
+function getOffset(ele){
+    if(ele.getBoundingClientRect){
+        return getOffsetRect(ele);
+    }else{
+        return getOffsetSum(ele);
+    }
+}
+
+function getOffsetRect(ele){
+    var box=ele.getBoundingClientRect();
+    var body=document.body,
+        docElem=document.documentElement;
+    //获取页面的scrollTop,scrollLeft(兼容性写法)
+    var scrollTop=window.pageYOffset||docElem.scrollTop||body.scrollTop,
+        scrollLeft=window.pageXOffset||docElem.scrollLeft||body.scrollLeft;
+    var clientTop=docElem.clientTop||body.clientTop,
+        clientLeft=docElem.clientLeft||body.clientLeft;
+    var top=box.top+scrollTop-clientTop,
+        left=box.left+scrollLeft-clientLeft;
+    return {
+        //Math.round 兼容火狐浏览器bug
+        top:Math.round(top),
+        left:Math.round(left)
+    }
+}
+
+function getOffsetSum(ele){
+    var top= 0,left=0;
+    while(ele){
+        top+=ele.offsetTop;
+        left+=ele.offsetLeft;
+        ele=ele.offsetParent;
+    }
+    return {
+        top:top,
+        left:left
+    }
+}
+
+function myParseInt(s) {
+    var ret = parseInt(s);
+    return (isNaN(ret) ? 0 : ret);
+}
+
+function moveEle(el,offset){
+    if(!el||!offset){
+        return
+    }
+   var parent =  document.body;
+    var bodyWidth = parent.clientWidth+parent.scrollLeft;
+    var bodyHight = parent.clientHeight+parent.scrollTop;
+    var i = el.style;
+    L.e(" el =="+i.top);
+    el.style.top =(myParseInt(el.style.top) + offset) + "px";
+    L.e(" el2 =="+el.style.top);
+    if(parent.scrollLeft<=myParseInt(el.style.left)<= bodyWidth){
+        el.style.left =(myParseInt(el.style.left) + offset) + "px";
+    }
+    if(parent.scrollTop<=myParseInt(el.style.top)<= bodyHight){
+
+    }
+}

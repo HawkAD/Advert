@@ -8,6 +8,8 @@
     <script type="text/javascript" src="./utils-js/dynamicLoadHtml.js"></script>
     <script type="text/javascript" src="./utils-js/nav.js"></script>
     <script type="text/javascript">
+
+        console.log(true == "10")
         function callBack(){
                 _("banner").load("codeInvok/banner.html");
                 _("interstitial").load("codeInvok/interstitial.html");
@@ -17,17 +19,45 @@
              _("initConfig").load("initConfig.html");
              _("codeInvok").load("codeInvok.html",callBack);
              _("testAndDebug").load("testAndDebug.html");
+             _("warn").load("warn.html");
             event("lis","#000000","#0000FF","red",function(){
                 location.hash = this.id;
             });
+        }
+
+        function getById(idName){
+            if(!getById.array){
+                getById.array = new Array();
+            }
+            var array = getById.array;
+            if(idName && (idName.constructor.name==="String"||typeof idName =="string")){
+                var ele = array[idName];
+                if(!ele){
+                    ele = document.getElementById(idName);
+                    array[idName]=ele;
+                }
+                return ele;
+            }
+        }
+
+
+        window.onscroll=function(){
+              var offset = window.pageYOffset||document.body.scrollTop;
+              var e =  getById("nav");
+             e.style.top =offset+"px";
+
+              console.log(document.getElementById("nav").style.top)
 
         }
     </script>
 
     <style type="text/css">
-        .list{float: right;margin-right: 30px;margin-top: 60px;position: fixed;top: 20px;left: 10%;}
-        .content{float: right;}
+        .codezhushi{  color: blue;}
+   /*     .list{float: right;margin-right: 30px;margin-top: 60px;position: fixed;top: 20px;left: 10%;}*/
+         .list{float: right;margin-right: 30px;margin-top: 60px;position: relative;width:20%}
+        .content{float: right;width:70%}
         #nav li{margin-top: 20px;font-size: 20px;color:black ;font-weight: bold}
+        .zhushi{background-color: lightgoldenrodyellow;font-weight: bold;font-size: smaller;padding:5px;padding-top: 10px;padding-bottom: 10px}
     </style>
 </head>
 <body>
@@ -39,6 +69,8 @@
    <div id="codeInvok"></div>
    <!-- 测试模块 -->
    <div id="testAndDebug"></div>
+    <!-- 注意事项与常见问题 -->
+   <div id="warn"></div>
 </div>
 
 <div id="nav" class="list"  >
@@ -65,6 +97,10 @@
         <!--  测试与问题调试 -->
         <li id="#testAndDebug" name="lis">
             代码调试
+        </li>
+        <!--  注意事项与常见问题 -->
+        <li id="#warn" name="lis">
+            注意事项与常见问题
         </li>
     </ul>
 </div>

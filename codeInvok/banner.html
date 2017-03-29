@@ -8,7 +8,7 @@
 <h3>2.2.	Banner广告</h3>
 <h4>2.2.1. 广告接入代码示例</h4>
 <p>在Activity对应的布局文件中加入如下的代码，目前只支持BANNER(320*50)尺寸</p>
-        <pre><code>    &lt  ;com.hawk.android.adsdk.ads.HkAdView
+        <pre><code>    &lt com.hawk.android.adsdk.ads.HkAdView
             android:id=&quot;@+id/adView&quot;
             android:layout_width=&quot;wrap_content&quot;
             android:layout_height=&quot;wrap_content&quot;
@@ -17,7 +17,7 @@
             ads:hkAdSize=&quot;BANNER&quot;
             ads:hkAdUnitId=&quot;@string/banner_ad_unitid&quot;/&gt;
         </code></pre>
-<p>(详细内容请参考的代码示例)</p>
+<p class="zhushi">(详细内容请参考<a href="https://github.com/HawkAD/Advert.git">sdkDemo</a>示例)</p>
     <pre><code>
         public class BannerActivity extends Activity {
         private HkAdView mAdView;

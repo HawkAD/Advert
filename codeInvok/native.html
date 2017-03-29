@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+
+
+    </style>
 </head>
 <body>
 <h3>2.4.	原生广告</h3>
@@ -10,34 +14,44 @@
 <p>原生广告代码较多，这里只截取片段，具体参考demo</p>
     <pre><code>    //初始化并加载广告
         private void loadNativeAd(final RefreshMode refreshMode) {
+        // <span class="codezhushi"><span style="font-size: 20px">1、</span>创建HKNativeAd对象,并传入原生广告位id</span>
         mHKNativeAd = new HKNativeAd(getActivity(),getString(R.string.native_ad_unitid));
+        // <span  class="codezhushi"><span style="font-size: 20px">2、</span>为mHkNativeAd设置监听器(HkNativeAdListener),已监听广告获取和广告展示的状态</span>
         mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
-        @Override
-        public void onNativeAdLoaded() {
-        }
-
-        @Override
-        public void onNativeAdLoaded(List<HawkNativeAd> list) {
+            @Override
+            public void onNativeAdLoaded() {
+          // <span  class="codezhushi">原生广告成功时被回调</span>
             }
 
+
             @Override
-            public void onNativeAdFailed(int i) {
+            public void onNativeAdFailed(int error) {
+           // <span  class="codezhushi">当广告失败时被回调,参数error是返回的错误码(关于错误码详细情况可参考代码调试部分)</span>
             }
 
             @Override
             public void onAdClick(HawkNativeAdapter hawkNativeAdapter) {
-
+            // <span  class="codezhushi">广告被点击时回调</span>
             }
 
             @Override
             public void onOpen(HawkNativeAdapter hawkNativeAdapter) {
-
+             // <span  class="codezhushi">广告被点击后打开详情页时被回调</span>
             }
             });
-            mHKNativeAd.loadAd(new HawkAdRequest());
+
+        // <span  class="codezhushi"><span style="font-size: 20px">3、</span>调用loadAd方法,发起广告请求</span>
+            mHKNativeAd.loadAd();
             }
 
-            /**
+        或者：
+            HawkAdRequest hawkAdRequest = new HawkAdRequest()  // 关于HawkAdRequest()的使用参见下面的ApI讲解
+                                          .addTestDevice("441eef257ec3736e03c516a86844e1c4")
+                                          .setImgUrlMode(true)
+            mHKNativeAd.loadAd(hawkAdRequest);
+
+
+        /**
             * 原生广告请求成功后，在app需要展示广告时调用
             */
             private void showAd(){
@@ -85,12 +99,20 @@
                 <td align="left">加载广告，adRequest可用于添加第三方平台的测试设备ID,设备ID可从facebook的log中查看到</td>
             </tr>
             <tr>
+                <td align="left">HawkAdRequest . ddTestDevice("XXXXXX-XXXXX")</td>
+                <td align="left">添加测试facebook测试设备ID(<a href="">测试设备Id</a>)</td>
+            </tr>
+            <tr>
+                <td align="left">HawkAdRequest . setImgUrlMode(true)</td>
+                <td align="left">设置返回原生广告图片的url需要自己联网加载,设置false将会直接返回图片,不设置默认为false</td>
+            </tr>
+            <tr>
                 <td align="left">getAd()</td>
                 <td align="left">原生广告请求成功后，获取到原生广告对象</td>
             </tr>
             <tr>
                 <td align="left">registerViewForInteraction(View nativeAdView)</td>
-                <td align="left">原生广告完成填充后需要调用给该方法，以确保点击有效</td>
+                <td align="left">原生广告完成填充后需要调用给该方法，以确保点击有效(<span style="color: red">不调用，广告被点击SDK将不会做出响应</span>)</td>
             </tr>
             </tbody>
         </table>
@@ -113,7 +135,7 @@
             </tr>
             <tr>
                 <td align="left">onNativeAdFailed(int errCode)</td>
-                <td align="left">广告加载失败，errCode用于描述失败原因。参考文档中ErrorCode相关章节</td>
+                <td align="left">广告加载失败，errCode用于描述失败原因。参考文档中<a href="#errorCode">ErrorCode相关章节</a></td>
             </tr>
             <tr>
                 <td align="left">onAdClick()</td>
@@ -122,10 +144,6 @@
             </tbody>
         </table>
     </li>
-</ul>
-<h4>2.4.3	接入注意事项</h4>
-<ul>
-    <li>1.具体接入流程参考原生广告demo。</li>
 </ul>
 
 </body>

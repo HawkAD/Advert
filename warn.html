@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注意事项</title>
+</head>
+<body>
+<h2><span>5.</span>接入注意事项</h2>
+<ul>
+    <li>注意事项
+      <ol>
+          <li>
+              多进程问题:<br>
+                当多进程时,写在Application类中oncreat()方法中的初始化方法，会被调用多次。
+                将导致多次初始化,如果频率过短，会被服务器认为有刷广告嫌弃;导致广告拉取失败。
+                <br><br>
+              正确做法：使用if语句判断是否主进程，如果是才初始化；
+                <br>
+              <pre><code>
+                  public static String getCurProcessName() {
+                  try {
+                  int pid = android.os.Process.myPid();
+                  ActivityManager mActivityManager = (ActivityManager) MyApplication.myApplication.getSystemService(Context.ACTIVITY_SERVICE);
+                  for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager.getRunningAppProcesses()) {
+                  if (appProcess.pid == pid) {
+                  return appProcess.processName;
+                  }
+                  }
+                  } catch (Exception e) {
+                  e.printStackTrace();
+                  }
+                  return null;
+
+                  }
+
+                  if (!TextUtils.isEmpty(getCurProcessName()) && getCurProcessName().equals(getPackageName())){
+                     HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),
+                             getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid));
+                  }
+              </code></pre>
+
+          </li>
+          <li>
+               Facebook依赖包4.18.0以上，需要 依赖 'com.android.support:appcompat-v7:25.0.0'等扩展包，如果编译时发生警告
+               请检查build文件是否是这样依赖的 ：compile 'com.facebook.android:audience-network-sdk:4.+'
+               <br>
+               解决方法：<br>
+               改为 ：compile 'com.facebook.android:audience-network-sdk:4.18.0'
+          </li>
+          <br>
+          <li>
+              问题：<br>
+              原生广告可以展示，但是点击没有反应.
+
+              解决方法：<br>
+              1、检查是调用了 mHKNativeAd.registerViewForInteraction(mAdView); 方法。
+              2、是否为要注册的View(mAdView)又设置了监听，或者夺取了view的焦点，再或者将enable属性设置为了false等一切
+                 可以拦截到这个view的点击事件。
+          </li>
+      </ol>
+
+    </li>
+
+</ul>
+</body>
+</html>

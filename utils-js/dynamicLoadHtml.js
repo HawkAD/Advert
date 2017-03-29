@@ -6,7 +6,6 @@ function WP(id,document){
     this.ele = document.getElementById(id);
 }
 function _(id){
-    console.log("$ fang fa ")
     return new WP(id,this.document);
  }
 
