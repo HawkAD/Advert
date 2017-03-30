@@ -21,7 +21,9 @@
              _("testAndDebug").load("testAndDebug.html");
              _("warn").load("warn.html");
             event("lis","#000000","#0000FF","red",function(){
-                location.hash = this.id;
+                L.e("锚点测试 == "+this.id);
+                location.href = this.id;
+                L.e("锚点测试 == "+this.id+" 锚点已经跳转");
             });
         }
 
@@ -81,7 +83,8 @@
         </li>
 
         <!--  代码调用 -->
-        <li name="lis" > 代码调用
+        <li >
+            <span id="#codeInvok" name="lis">代码调用</span>
          <ul>
             <li id="#banner" name="lis">
                    banner广告

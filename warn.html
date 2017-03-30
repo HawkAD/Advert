@@ -9,10 +9,11 @@
 <ul>
     <li>注意事项
       <ol>
-          <li>
-              多进程问题:<br>
+          <li  onclick='wufanyin1.style.display=wufanyin1.style.display=="block"?"none":"block"'>
+              多进程问题: &nbsp;&nbsp;<a  >(展开收起)</a> <br>
                 当多进程时,写在Application类中oncreat()方法中的初始化方法，会被调用多次。
                 将导致多次初始化,如果频率过短，会被服务器认为有刷广告嫌弃;导致广告拉取失败。
+              <span id="wufanyin1" style="display: none">
                 <br><br>
               正确做法：使用if语句判断是否主进程，如果是才初始化；
                 <br>
@@ -38,7 +39,7 @@
                              getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid));
                   }
               </code></pre>
-
+            </span>
           </li>
           <li>
                Facebook依赖包4.18.0以上，需要 依赖 'com.android.support:appcompat-v7:25.0.0'等扩展包，如果编译时发生警告
@@ -48,14 +49,15 @@
                改为 ：compile 'com.facebook.android:audience-network-sdk:4.18.0'
           </li>
           <br>
-          <li>
+          <li onclick='wufanyin.style.display=wufanyin.style.display=="block"?"none":"block"'>
               问题：<br>
-              原生广告可以展示，但是点击没有反应.
-
-              解决方法：<br>
-              1、检查是调用了 mHKNativeAd.registerViewForInteraction(mAdView); 方法。
+              原生广告可以展示，但是点击没有反应. &nbsp;&nbsp;<a  >(展开收起)</a> <br>
+              <span id="wufanyin" style="display: none">
+              <br>解决方法：<br>
+              1、检查是调用了 mHKNativeAd.registerViewForInteraction(mAdView); 方法。<br>
               2、是否为要注册的View(mAdView)又设置了监听，或者夺取了view的焦点，再或者将enable属性设置为了false等一切
                  可以拦截到这个view的点击事件。
+              </span>
           </li>
       </ol>
 

@@ -6,17 +6,39 @@
 
     <script type="text/javascript">
         $(function(){
-            alert(" testand debug  加载完成")
-
             window.onload();
-            alert(" onload 执行")
         })
 
     </script>
 </head>
 <body>
 <h2><span>3.</span> SDK相关问题排查</h2>
-<p>如果根据正常的注册流程仍然无法在嵌入sdk的app中看到广告，可以尝试使用logcat排查问题。</p>
+<h4>3.1  Log日志调试</h4>
+<p>当代码全部按照接入流程集成完毕后，如果无法在嵌入sdk的app中看到广告，可以尝试使用logcat排查问题。Sdk提供有Log日志的开关，
+    在Application中调用 HkMobileAds.openLog()打开日志，以关键字" adsdk "过滤;
+    <img src="res/logOpen.png">
+    <p class="zhushi">※  如果是正式发版，可以删除“HkMobileAds.openLog()”此行代码以关闭日志输出。</p>
+</p>
+
+<h4>3.2  测试设备ID(DeviceId)</h4>
+<p>DeviceId是手机的一个唯一标识，由sdk内部算法生成，主要用于标识一个手机是接入方的测试手机。
+    将此ID传入SDK后，此手机所拉取到的广告即使被频繁点击也不会被屏蔽，也不会产生任何广告收益。</p>
+  <p>DeviceId的获取：<br>
+  目前只有Facebook平台在测试需要DeviceID来防止屏蔽应用，所以这里只讲Facebook DeviceID获取方法。
+  <br> 集成facebook平台的依赖后，运行APP，正常拉取广告，然后以AdSetting | facebook 等关键字过滤Log，会看到以下输出：
+<img src="res/facebook-deviceid.png">
+  </p>
+  <p class="zhushi">※1、 如果使用测试广告ID时，务必添加上DeviceId，否则会拉取不到广告.<br>
+                       &nbsp; &nbsp;2、必须集成了Facebook的依赖和初始化成功，不然不会输出此日志。<br>
+                       &nbsp; &nbsp;3、集成之后仍会捕捉到这条Log，多拉取几次广告之后，再次尝试过滤</p>
+<h4>3.3  测试广告位ID</h4>
+<p>测试广告位作用有二：
+     <br> 1、每次只要成功都会返回一条广告用于测试，即便当前目标地区没有广告商投放广告也会返回广告。
+     <br>2、所返回的广告均是测试广告，不会计入收益，仅用于集成测试。
+</p>
+<p id="testUnidId">如何获取测试广告位:<br>
+    测试广告位id已写在前边<a href="#codeInvok">配置广告位</a>部分。请<a href="#codeInvok">点击查看</a>。
+</p>
 
 <h2 id="errorCode"><span>4.</span>	SDK错误码</h2>
 <table >
@@ -30,23 +52,43 @@
     <tbody>
     <tr>
         <td align="left">0</td>
-        <td align="left">ERROR_CODE_INTERNAL_ERROR</td>
+        <td align="left">ErrorCode.ERROR_CODE_INTERNAL_ERROR</td>
         <td>内部错误</td>
     </tr>
     <tr>
         <td align="left">1</td>
-        <td align="left">ERROR_CODE_INVALID_REQUEST</td>
+        <td align="left">ErrorCode.ERROR_CODE_INVALID_REQUEST</td>
         <td>无效的请求</td>
     </tr>
     <tr>
         <td align="left">2</td>
-        <td align="left">ERROR_CODE_NETWORK_ERROR</td>
+        <td align="left">ErrorCode.ERROR_CODE_NETWORK_ERROR</td>
         <td>网络超时：建议检查网络状态</td>
     </tr>
     <tr>
         <td align="left">3</td>
-        <td align="left">ERROR_CODE_NO_FILL</td>
+        <td align="left">ErrorCode.ERROR_CODE_NO_FILL</td>
         <td>没有填充</td>
+    </tr>
+    <tr>
+        <td align="left">4</td>
+        <td align="left">ErrorCode.HKSDK_NETWORK_ERROR</td>
+        <td>豪客平台Sdk网络错误</td>
+    </tr>
+    <tr>
+        <td align="left">5</td>
+        <td align="left">ErrorCode.ERROR_CODE_EXCEPTION</td>
+        <td>豪客平台Sdk内部错误</td>
+    </tr>
+    <tr>
+        <td align="left">10</td>
+        <td align="left">ErrorCode.INIT_CONFIG_ERROR</td>
+        <td>初始化错误</td>
+    </tr>
+    <tr>
+        <td align="left">9999</td>
+        <td align="left">ErrorCode.ERROR_UNKONWN</td>
+        <td>未知错误</td>
     </tr>
     </tbody>
 </table>
