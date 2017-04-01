@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../indexpage.css">
+</head>
+<body  >
+<div style="margin-left: auto;margin-right: auto; width: 70%;max-width:600px;align-content: center;" ><h2 id="errors">Facebook广告错误代码</h2>
+    <p>测试 Facebook Audience Network 的集成时，可能会在发出请求时遇到其中一个可能出现的错误代码。这些错误代码如下所述。</p>
+    <h3><code>1000 - Network Error</code></h3>
+    <div >
+        <table >
+            <thead>
+            <tr>
+                <th>
+                    服务器响应
+                </th>
+                <th>
+                    SDK 文档
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><p><code>Code=1000 “Network Error"</code></p></td>
+                <td>
+                    <ul >
+                        <li>
+                            <div ><code>Error 1000 - Network Error</code>。Audience Network SDK 无法访问
+                                facebook.com (http://facebook.com/)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="fcb">应用应尝试再次发出请求，直到可以访问网络。我们建议发出增量请求，直到重新建立连接或声明超时。</div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3><code>1001 - No Fill</code></h3>
+    <p>这是测试时的常见错误，与“No Fill”响应相关；最常见的原因是用户在测试移动应用时未登录 Facebook 应用，或用户在测试移动网站时未登录 Facebook 移动网站。</p>
+    <div class="_57-c">
+        <table class="_4-ss _5k9x">
+            <thead>
+            <tr>
+                <th>
+                    服务器响应
+                </th>
+                <th>
+                    SDK 文档
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><p><code>Code=1001 “No Fill”</code></p></td>
+                <td>
+                    <ul class="uiList _4of _4kg">
+                        <li>
+                            <div class="fcb"><code>Error 1001 - No Fill</code>。可能由以下一个或多个原因导致：</div>
+                        </li>
+                        <li>
+                            <div class="fcb">用户未在移动设备上登录原生 Facebook 应用</div>
+                        </li>
+                        <li>
+                            <div class="fcb">打开了“限制广告跟踪”(iOS)</div>
+                        </li>
+                        <li>
+                            <div class="fcb">打开了“退订以兴趣为依据的广告”(Android)</div>
+                        </li>
+                        <li>
+                            <div class="fcb">当前用户无广告库存</div>
+                        </li>
+                        <li>
+                            <div class="fcb">测试设备必须安装原生 Facebook 应用</div>
+                        </li>
+                        <li>
+                            <div class="fcb">应用应在 30 秒后尝试再次发出请求。</div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3><code>1002 - Ad Load Too Frequently</code></h3>
+    <div class="_57-c">
+        <table class="_4-ss _5k9x">
+            <thead>
+            <tr>
+                <th>
+                    服务器响应
+                </th>
+                <th>
+                    SDK 文档
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><p><code>Code=1002 “Load Too Frequently”</code></p></td>
+                <td>
+                    <ul class="uiList _4of _4kg">
+                        <li>
+                            <div class="fcb">广告请求基于以下要素的组合：</div>
+                        </li>
+                        <li>
+                            <div class="fcb">设备编号</div>
+                        </li>
+                        <li>
+                            <div class="fcb">版位编号</div>
+                        </li>
+                        <li>
+                            <div class="fcb">显示格式（横幅、插屏、原生）</div>
+                        </li>
+                        <li>
+                            <div class="fcb">应用应在 30 分钟后尝试再次发出请求。我们还建议调整刷新率或请求率。</div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3><code>2000 - Server Error</code></h3>
+    <div class="_57-c">
+        <table class="_4-ss _5k9x">
+            <thead>
+            <tr>
+                <th>
+                    服务器响应
+                </th>
+                <th>
+                    SDK 文档
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><p><code>Code=2000 “Server Error"</code></p></td>
+                <td>
+                    <ul class="uiList _4of _4kg">
+                        <li>
+                            <div class="fcb"><code>Error 2000 - Server Error</code>。可能原因包括：</div>
+                        </li>
+                        <li>
+                            <div class="fcb">版位编号无效：每个版位和类型都有唯一的编号</div>
+                        </li>
+                        <li>
+                            <div class="fcb">SDK 版本不受支持或过期：请下载最新版本，或更新 Pod（如果使用 Cocoa Pod）</div>
+                        </li>
+                        <li>
+                            <div class="fcb">错误调用/使用 loadAd 方法。我们建议在 loadAd 及任何关联的方法/回调上放置断点</div>
+                        </li>
+                        <li>
+                            <div class="fcb">应用应在 30 秒后尝试再次发出请求。</div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3><code>2001 - Internal Error</code></h3>
+    <div class="_57-c">
+        <table class="_4-ss _5k9x">
+            <thead>
+            <tr>
+                <th>
+                    服务器响应
+                </th>
+                <th>
+                    SDK 文档
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><p><code>Code=2001 “Internal Error”</code></p></td>
+                <td>
+                    <ul class="uiList _4of _4kg">
+                        <li>
+                            <div class="fcb"><code>Error 2001 - Internal Error</code>。 Audience Network SDK 无法处理来自 <a
+                                    href="https://www.facebook.com/facebook.html">facebook.com</a> 的响应
+                            </div>
+                        </li>
+                        <li>
+                            <div class="fcb">应用应在 30 秒后尝试再次发出请求。</div>
+                        </li>
+                        <li>
+                            <div class="fcb">如果问题持续出现，请向 Facebook 提交漏洞报告。</div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div data-click-area="to_top_nav"><a class="_2k32" href="#"><i alt="" class="img sp_gWtAh1Llw6c sx_553716"></i></a>
+    </div>
+</div>
+</body>
+</html>

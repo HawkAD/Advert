@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head >
     <meta charset="UTF-8">
     <title>豪客互联广告Sdk</title>
     <link rel="stylesheet" type="text/css" href="indexpage.css">
@@ -56,47 +56,36 @@
     <style type="text/css">
         .codezhushi{  color: blue;}
    /*     .list{float: right;margin-right: 30px;margin-top: 60px;position: fixed;top: 20px;left: 10%;}*/
-         .list{float: right;margin-right: 30px;margin-top: 60px;position: relative;width:20%}
-        .content{float: right;width:70%}
+         .list{padding-top: 100px;width:15%;position: relative;background-color: whitesmoke;}
+        .content{width:60%;background-color:white;padding-left: 20px}
+        .body{display:-webkit-box;-webkit-box-pack: center;background-color: #dddddd}
         #nav li{margin-top: 20px;font-size: 20px;color:black ;font-weight: bold}
         .zhushi{background-color: lightgoldenrodyellow;font-weight: bold;font-size: smaller;padding:5px;padding-top: 10px;padding-bottom: 10px}
     </style>
 </head>
-<body>
-
-<div  class="content">
-   <!-- 初始化配置（准备阶段）-->
-   <div id="initConfig"></div>
-   <!-- 代码调用 （拉取广告阶段） -->
-   <div id="codeInvok"></div>
-   <!-- 测试模块 -->
-   <div id="testAndDebug"></div>
-    <!-- 注意事项与常见问题 -->
-   <div id="warn"></div>
-</div>
-
-<div id="nav" class="list"  >
-    <ul>
+<body class="body" >
+<div class="list">
+    <ul id="nav" style="position: relative" >
         <!--  配置重要信息 -->
         <li id="#initConfig" name="lis">
-          配置重要信息
+            配置重要信息
         </li>
 
         <!--  代码调用 -->
         <li >
             <span id="#codeInvok" name="lis">代码调用</span>
-         <ul>
-            <li id="#banner" name="lis">
-                   banner广告
-            </li>
-             <li id="#interstitial" name="lis">
-                插屏广告
-             </li >
-             <li id ="#native" name="lis">
-              原生广告
-             </li>
-         </ul>
-         </li>
+            <ul>
+                <li id="#banner" name="lis">
+                    banner广告
+                </li>
+                <li id="#interstitial" name="lis">
+                    插屏广告
+                </li >
+                <li id ="#native" name="lis">
+                    原生广告
+                </li>
+            </ul>
+        </li>
         <!--  测试与问题调试 -->
         <li id="#testAndDebug" name="lis">
             代码调试
@@ -106,6 +95,16 @@
             注意事项与常见问题
         </li>
     </ul>
+</div>
+<div  class="content">
+   <!-- 初始化配置（准备阶段）-->
+   <div id="initConfig"></div>
+   <!-- 代码调用 （拉取广告阶段） -->
+   <div id="codeInvok"></div>
+   <!-- 测试模块 -->
+   <div id="testAndDebug"></div>
+    <!-- 注意事项与常见问题 -->
+   <div id="warn"></div>
 </div>
 
 </body>

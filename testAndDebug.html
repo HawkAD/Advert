@@ -37,7 +37,52 @@
      <br>2、所返回的广告均是测试广告，不会计入收益，仅用于集成测试。
 </p>
 <p id="testUnidId">如何获取测试广告位:<br>
-    测试广告位id已写在前边<a href="#codeInvok">配置广告位</a>部分。请<a href="#codeInvok">点击查看</a>。
+    测试广告位id已写在前边<a href="#codeInvok">配置广告位</a>部分。请<a href="#codeInvok">点击查看</a>。h
+</p>
+
+<h4>3.4  Log打印的错误码</h4>
+<p>
+    豪客sdk中聚合有其它广告平台，每一个广告平台都会有自己特有的错误码返回（接入方在监听器中接收到的ErrorCode都被转换成了豪客自己的错误码），
+    接入方可以在日志中看到每次请求的广告平台和平台的错误码。
+</p>
+<p>FaceBook平台对照表:-->><a href="./otherPlatform/facebook-errorcode.html" target="_blank">点击这里</a>
+    <br><a href="https://developers.facebook.com/docs/audience-network/testing"></a>
+</p>
+
+<p>
+    Admob平台对照表：<br>
+    <table >
+        <thead>
+        <tr>
+            <th align="left">错误码</th>
+            <th align="left">错误类型</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td align="left">0</td>
+            <td align="left">ErrorCode.ERROR_CODE_INTERNAL_ERROR</td>
+            <td>内部错误。例如，从广告服务器中收到无效响应。</td>
+        </tr>
+        <tr>
+            <td align="left">1</td>
+            <td align="left">.ERROR_CODE_INVALID_REQUEST</td>
+            <td>广告请求无效。例如，广告单元 ID 不正确。</td>
+        </tr>
+        <tr>
+            <td align="left">2</td>
+            <td align="left">.ERROR_CODE_NETWORK_ERROR </td>
+            <td>广告请求因网络连接而未成功。</td>
+        </tr>
+        <tr>
+            <td align="left">3</td>
+            <td align="left">.ERROR_CODE_NO_FILL </td>
+            <td> 广告请求已成功，但因缺少广告库存而未返回广告。</td>
+        </tr>
+        </tbody>
+    </table>
+
 </p>
 
 <h2 id="errorCode"><span>4.</span>	SDK错误码</h2>
@@ -52,18 +97,18 @@
     <tbody>
     <tr>
         <td align="left">0</td>
-        <td align="left">ErrorCode.ERROR_CODE_INTERNAL_ERROR</td>
+        <td align="left">.ERROR_CODE_INTERNAL_ERROR</td>
         <td>内部错误</td>
     </tr>
     <tr>
         <td align="left">1</td>
-        <td align="left">ErrorCode.ERROR_CODE_INVALID_REQUEST</td>
+        <td align="left">.ERROR_CODE_INVALID_REQUEST</td>
         <td>无效的请求</td>
     </tr>
     <tr>
         <td align="left">2</td>
         <td align="left">ErrorCode.ERROR_CODE_NETWORK_ERROR</td>
-        <td>网络超时：建议检查网络状态</td>
+        <td>广告请求因网络连接而未成功。例如网络超时：建议检查网络状态</td>
     </tr>
     <tr>
         <td align="left">3</td>
