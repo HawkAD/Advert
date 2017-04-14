@@ -6,10 +6,8 @@ import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
 
 import com.facebook.ads.AdChoicesView;
-import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.hawk.android.adsdk.ads.HKNativeAd;
-import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
 import com.hawk.android.adsdk.demo.R;
 
 import android.content.Context;
@@ -21,28 +19,20 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
-
 /**
- * this Ad view  custom by publisher
- * step1:
- * View mAdView = View.inflate(Context,"Your Ad layout", null);
- * <p/>
- * step2:
- * Bind the ad with the mAdView
- * ad.registerViewForInteraction(mAdView);
- * notice: this step is necessary，if don't ,the event like click of the ad will not effective.
- * <p/>
- * unregisterView should be used when the ad no need to show.
- * ad.unregisterView();
+ * Created by tzh on 2016/11/3.
  */
 public class NativeViewBuild {
 
     final protected Context mContext;
-    public Object mNativeAd;
     protected View mNativeAdView;
 
-    public static View createAdView(Context context, Object ad, HKNativeAd HKNativeAd) {
+    public static View createAdView(Context context, HKNativeAd hkNativeAd) {
+        if(!hkNativeAd.isLoaded()){
+            return null;
+        }
         NativeViewBuild build = new NativeViewBuild(context);
+        Object ad = hkNativeAd.getAd();
         return build.initAdView(ad);
     }
 
@@ -51,50 +41,50 @@ public class NativeViewBuild {
     }
 
     public View initAdView(Object ad) {
-        //step1: Your Ad layout
-        // if integrate Admob Ad , you need notice :
-        // Admob Ad layout  need  the root of the layout which provide by Admob Ad
-        // if isDownLoadApp is true(direct download app) , use Layout Resource :R.layout.admob_native_ad_layout_install
-       // L.d("adtype = " + ad.getAdTypeName());
-
-
+        /**
+         * 注意事项：
+         * 1、admob安装型广告必须已com.google.android.gms.ads.formats.NativeAppInstallAdView为广告元素的跟View。
+         * 2、admob内容型广告必须已com.google.android.gms.ads.formats.NativeContentAdView为广告元素的跟View。
+         * 3、facebook没有要求，但必须在广告中加入facebook广告的标识AdChoicesView。
+         * 4、设计的广告中必须要包含"AD","Advertise","广告"等能明确表示是广告的字样和元素。
+         */
         if (ad instanceof NativeAppInstallAd) {
+            /**
+             * admob安装型广告
+             */
             mNativeAdView = View.inflate(mContext, R.layout.admob_native_ad_layout_install, null);
             NativeAppInstallAd installAd = (NativeAppInstallAd)ad;
             populateAppInstallAdView(installAd,(NativeAppInstallAdView)mNativeAdView);
         } else if (ad instanceof NativeContentAd) {
-            // use Layout Resource : R.layout.admob_native_ad_layout_content
+            /**
+             * admob内容型广告
+             */
             mNativeAdView = View.inflate(mContext, R.layout.admob_native_ad_layout_content, null);
             mNativeAdView = mNativeAdView.findViewById(R.id.admob_native_content_adview);
             NativeContentAd contentAd = (NativeContentAd)ad;
             populateContentAdView(contentAd,(NativeContentAdView)mNativeAdView);
         } else if (ad instanceof  NativeAd) {
+            /**
+             * facebook广告
+             */
             mNativeAdView = View.inflate(mContext, R.layout.facebook_native_ad_layout, null);
             NativeAd nativeAd = (NativeAd)ad;
             setFacebookAdView(nativeAd);
-        }else if (ad instanceof HawkNativeAd) {//hawk native ad
+        }
+
+/*        else if (ad instanceof HawkNativeAd) {//hawk native ad
             mNativeAdView = View.inflate(mContext, R.layout.hawk_native_ad_layout, null);
             HawkNativeAd nativeAd = (HawkNativeAd)ad;
             setHawkAdView(nativeAd);
-        }
-        mNativeAd = ad;
+        }*/
         return mNativeAdView;
     }
 
 
     /**
-     * Populates a {@link NativeContentAdView} object with data from a given
-     * {@link NativeContentAd}.
      *
-     * @param nativeContentAd the object containing the ad's assets
-     * @param adView          the view to be   if (nativeAdManager != null) {
-            nativeAdManager.unregisterView();
-        }
-
-
-        mNativeAd = ad;
-        // step2: register view for ad
-        nativeAdManager.registerViewForInteraction(mNativeAdView);
+     * @param nativeContentAd
+     * @param adView
      */
     private void populateContentAdView(NativeContentAd nativeContentAd,
                                        NativeContentAdView adView) {
@@ -105,15 +95,22 @@ public class NativeViewBuild {
         adView.setLogoView(adView.findViewById(R.id.contentad_logo));
         adView.setAdvertiserView(adView.findViewById(R.id.contentad_advertiser));
 
-        // Some assets are guaranteed to be in every NativeContentAd.
-        ((TextView) adView.getHeadlineView()).setText(nativeContentAd.getHeadline());
-        ((TextView) adView.getBodyView()).setText(nativeContentAd.getBody());
-        ((TextView) adView.getCallToActionView()).setText(nativeContentAd.getCallToAction());
-        ((TextView) adView.getAdvertiserView()).setText(nativeContentAd.getAdvertiser());
+        if (nativeContentAd.getHeadline() != null) {
+            ((TextView) adView.getHeadlineView()).setText(nativeContentAd.getHeadline());
+        }
+        if (nativeContentAd.getBody() != null) {
+            ((TextView) adView.getBodyView()).setText(nativeContentAd.getBody());
+        }
+        if (nativeContentAd.getCallToAction() != null) {
+            ((TextView) adView.getCallToActionView()).setText(nativeContentAd.getCallToAction());
+        }
+        if (nativeContentAd.getAdvertiser() != null) {
+            ((TextView) adView.getAdvertiserView()).setText(nativeContentAd.getAdvertiser());
+        }
 
         List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeContentAd.getImages();
 
-        if (images.size() > 0) {
+        if (images != null && images.size() > 0) {
             ((ImageView) adView.getImageView()).setImageDrawable(images.get(0).getDrawable());
         }
 
@@ -126,18 +123,13 @@ public class NativeViewBuild {
             ((ImageView) adView.getLogoView()).setImageDrawable(logoImage.getDrawable());
             adView.getLogoView().setVisibility(View.VISIBLE);
         }
-
-        // Assign native ad object to the native view.
-     //   adView.setNativeAd(mNativeAd);
     }
 
 
     /**
-     * Populates a {@link NativeAppInstallAdView} object with data from a given
-     * {@link NativeAppInstallAd}.
      *
-     * @param nativeAppInstallAd the object containing the ad's assets
-     * @param adView             the view to be populated
+     * @param nativeAppInstallAd
+     * @param adView
      */
     private void populateAppInstallAdView(NativeAppInstallAd nativeAppInstallAd,
                                           NativeAppInstallAdView adView) {
@@ -150,12 +142,18 @@ public class NativeViewBuild {
         adView.setStarRatingView(adView.findViewById(R.id.appinstall_stars));
         adView.setStoreView(adView.findViewById(R.id.appinstall_store));
 
-        // Some assets are guaranteed to be in every NativeAppInstallAd.
-        ((TextView) adView.getHeadlineView()).setText(nativeAppInstallAd.getHeadline());
-        ((TextView) adView.getBodyView()).setText(nativeAppInstallAd.getBody());
-        ((Button) adView.getCallToActionView()).setText(nativeAppInstallAd.getCallToAction());
-        ((ImageView) adView.getIconView()).setImageDrawable(nativeAppInstallAd.getIcon()
-                .getDrawable());
+        if (nativeAppInstallAd.getHeadline() != null) {
+            ((TextView) adView.getHeadlineView()).setText(nativeAppInstallAd.getHeadline());
+        }
+        if (nativeAppInstallAd.getBody() != null) {
+            ((TextView) adView.getBodyView()).setText(nativeAppInstallAd.getBody());
+        }
+        if (nativeAppInstallAd.getCallToAction() != null) {
+            ((Button) adView.getCallToActionView()).setText(nativeAppInstallAd.getCallToAction());
+        }
+        if (nativeAppInstallAd.getIcon() != null) {
+            ((ImageView) adView.getIconView()).setImageDrawable(nativeAppInstallAd.getIcon().getDrawable());
+        }
 
         List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeAppInstallAd.getImages();
 
@@ -185,40 +183,51 @@ public class NativeViewBuild {
                     .setRating(nativeAppInstallAd.getStarRating().floatValue());
             adView.getStarRatingView().setVisibility(View.VISIBLE);
         }
-
-        // Assign native ad object to the native view.
-      //  adView.setNativeAd(nativeAppInstallAd);
     }
 
     private void setFacebookAdView (NativeAd nativeAd) {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
         TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
-        MediaView nativeAdMedia = (MediaView) mNativeAdView.findViewById(R.id.native_ad_media);
+        ImageView nativeAdImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_media);
         TextView nativeAdSocialContext = (TextView) mNativeAdView.findViewById(R.id.native_ad_social_context);
         TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
         Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
 
-        // Set the Text.
-        nativeAdTitle.setText(nativeAd.getAdTitle());
-        nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
-        nativeAdBody.setText(nativeAd.getAdBody());
-        nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
+        if (nativeAd.getAdTitle() != null) {
+            nativeAdTitle.setText(nativeAd.getAdTitle());
+        }
+        if (nativeAd.getAdSocialContext() != null) {
+            nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
+        }
+        if (nativeAd.getAdBody() != null) {
+            nativeAdBody.setText(nativeAd.getAdBody());
+        }
+        if (nativeAd.getAdCallToAction() != null) {
+            nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
+        }
 
         // Download and display the ad icon.
         NativeAd.Image adIcon = nativeAd.getAdIcon();
-        NativeAd.downloadAndDisplayImage(adIcon, nativeAdIcon);
+        if (adIcon != null) {
+            NativeAd.downloadAndDisplayImage(adIcon, nativeAdIcon);
+        }
 
         // Download and display the cover image.
-        nativeAdMedia.setNativeAd(nativeAd);
+        NativeAd.Image adImage = nativeAd.getAdCoverImage();
+        if (adImage != null) {
+            NativeAd.downloadAndDisplayImage(adImage, nativeAdImage);
+        }
 
-        // Add the AdChoices icon
+        /**
+         * facebook广告必须要加AdChoicesView
+         */
         LinearLayout adChoicesContainer = (LinearLayout) mNativeAdView.findViewById(R.id.ad_choices_container);
         AdChoicesView adChoicesView = new AdChoicesView(mContext, nativeAd, true);
         adChoicesContainer.addView(adChoicesView);
     }
 
-    private void setHawkAdView (HawkNativeAd nativeAd) {
+/*    private void setHawkAdView (HawkNativeAd nativeAd) {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
         TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
@@ -239,5 +248,5 @@ public class NativeViewBuild {
         if (nativeAd.getAdImages() != null && nativeAd.getAdImages().size() > 0) {
             HawkNativeAd.downloadAndDisplayImage(mContext,nativeAd.getAdImages().get(0), nativeAdImage);
         }
-    }
+    }*/
 }

@@ -55,9 +55,9 @@
             android:orientation="horizontal"/>
     </LinearLayout>
 
-    <com.facebook.ads.MediaView
+    <ImageView
         android:id="@+id/native_ad_media"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="180dp"
         android:gravity="center"/>
 

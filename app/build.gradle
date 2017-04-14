@@ -37,20 +37,22 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
 
+    //引入聚合广告SDK
+    compile (name:'hawk-adsdk-v1.0.1-release', ext:'aar')
+
     //引入admob sdk
-    compile 'com.google.firebase:firebase-ads:9.4.0'
+    compile 'com.google.firebase:firebase-ads:9.8.0'
     compile 'com.facebook.android:audience-network-sdk:4.+'
 
-    // For banners
+    // For banners,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
     compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
         transitive = true
     }
-    // For interstitials
+    // For interstitials,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
     compile('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
         transitive = true
     }
-    //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v1.1.0-release', ext:'aar')
+
 }
 
 

@@ -16,7 +16,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //service启动多进程，会导致初始化多次的问题，可以通过下面的代码解决
+        /**
+         * service启动多进程，会导致初始化多次的问题，可以通过下面的代码解决
+         */
         String curProcess = getProcessName(this, Process.myPid());
         if (!getPackageName().equals(curProcess)) {
             return;
@@ -25,8 +27,23 @@ public class MyApplication extends Application {
     }
 
     private void init() {
-        //init the ad sdk,must init before ad request
-        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid), getString(R.string.native_ad_unitid));
+        /**
+         * 可以通过这个方法打开和关闭日志
+         */
+        HkMobileAds.openLog();
+        /**
+         * sdk初始化方法，拉取并刷新后台配置的相关信息，拉取成功后会保存在本地，请确保在load广告之前调用。
+         * 参数：
+         *    1、context
+         *    2、appkey
+         *    3、聚合平台广告位ID，有多个就需要传多个
+         */
+        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),
+                getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid), getString(R.string.native_ad_unitid));
+        /**
+         * 这个方法可以判断本地是否有配置信息
+         */
+        HkMobileAds.isInitConfigSuccess(getApplicationContext());
     }
 
     public static String getProcessName(Context cxt, int pid) {

@@ -14,12 +14,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
-
+/**
+ * Created by tzh on 2016/11/3.
+ */
 public class InterstitialActivity extends AppCompatActivity {
     private Button mButtonLoadAd;
     private Button mButtonShowAd;
     private HkInterstitialAd ad;
-    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +76,6 @@ public class InterstitialActivity extends AppCompatActivity {
                 super.onAdClosed();
             }
         });
-        mWebView = (WebView) findViewById(R.id.web_content);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-       // mWebView.loadUrl("http://m.tcl.com/");
     }
 
     private void initActionBar() {

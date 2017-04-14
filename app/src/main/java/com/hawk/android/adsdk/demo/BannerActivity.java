@@ -14,13 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 public class BannerActivity extends AppCompatActivity {
     private HkAdView mAdView;
-    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +42,6 @@ public class BannerActivity extends AppCompatActivity {
         HkAdRequest request = new HkAdRequest.Builder().setLocation(getLocation(this)).build();
         mAdView.loadAd(request);
 
-        mWebView = (WebView) findViewById(R.id.banner_web_content);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-      //  mWebView.loadUrl("http://m.tcl.com/");
     }
 
     private void initActionBar() {
