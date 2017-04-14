@@ -56,7 +56,10 @@
               <br>解决方法：<br>
               1、检查是调用了 mHKNativeAd.registerViewForInteraction(mAdView); 方法。<br>
               2、是否为要注册的View(mAdView)又设置了监听，或者夺取了view的焦点，再或者将enable属性设置为了false等一切
-                 可以拦截到这个view的点击事件。
+                 可以拦截到这个view的点击事件。<br>
+              3、请检查确认Admob的Install类型广告一定使用com.google.android.gms.ads.formats.NativeAppInstallAdView作为布局根结点；
+                  Content类型广告一定使用com.google.android.gms.ads.formats.NativeContentAdView作为布局根结点；
+                  Facebook广告没有特殊要求，但是必须安装Facebook最新客户端并且近期登录一个用户。
               </span>
           </li>
       </ol>
