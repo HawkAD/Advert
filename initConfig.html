@@ -84,6 +84,7 @@
     <p>在proguard-rules.pro添加如下代码：</p>
     <pre><code>
         -keep class com.hawk.android.adsdk.ads.**{*;}
+        -keep class com.tcl.mediator.**{*;}
         -kepp class com.google.android.gms.ads.**{*;} // 如果没有添加集成admob平台可以不添加此句混淆语句
     </code></pre>
     <p>如果添加了mopub平台需要添加以下混淆代码：</p>
