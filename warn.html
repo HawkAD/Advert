@@ -59,7 +59,13 @@
                  可以拦截到这个view的点击事件。<br>
               3、请检查确认Admob的Install类型广告一定使用com.google.android.gms.ads.formats.NativeAppInstallAdView作为布局根结点；
                   Content类型广告一定使用com.google.android.gms.ads.formats.NativeContentAdView作为布局根结点；
-                  Facebook广告没有特殊要求，但是必须安装Facebook最新客户端并且近期登录一个用户。
+                  Facebook广告没有特殊要求，但是必须安装Facebook最新客户端并且近期登录一个用户。<br>
+              4、Admob广告不可点击，请检查确认是否调用：
+                    adView.setHeadlineView(adView.findViewById(R.id.tv_item_appname));
+                    adView.setBodyView(adView.findViewById(R.id.tv_item_pkgname));
+                    adView.setCallToActionView(adView.findViewById(R.id.tv_uninstall));
+                    adView.setIconView(adView.findViewById(R.id.iv_item_icon));
+                    adView.setStoreView(adView.findViewById(R.id.appinstall_store));
               </span>
           </li>
       </ol>
