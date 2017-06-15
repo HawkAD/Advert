@@ -7,8 +7,8 @@ android {
         applicationId "com.hawk.android.adsdk.demo"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 20
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -38,20 +38,24 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v1.0.7-release', ext:'aar')
+    compile (name:'hawk-adsdk-v2.1.4-release', ext:'aar')
 
     //引入admob sdk
     compile 'com.google.firebase:firebase-ads:10.2.1'
     compile 'com.facebook.android:audience-network-sdk:4.22.0'
 
-//    // For banners,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
-//    compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
-//        transitive = true
-//    }
-//    // For interstitials,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
-//    compile('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
-//        transitive = true
-//    }
+    // For banners,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
+    compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
+        transitive = true
+    }
+    // For interstitials,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
+    compile('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
+        transitive = true
+    }
+    //引入mopub 原生广告sdk
+    compile('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
+        transitive = true
+    }
 
 }
 

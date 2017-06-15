@@ -1,11 +1,16 @@
 <resources>
-    <string name="app_name">HawkSdkDemo</string>
+    <string name="app_name">hawksdkdemo</string>
 
     <!-- 测试广告位id-->
     <string name="app_key">670cb5671c9949a0bbc69d5404604965</string>
     <string name="banner_ad_unitid">5a756e33373142c99dcee61f70006873</string>
     <string name="intersitial_ad_unitid">ba3f58d2dc03456b8b6e5dc97f4f1241</string>
     <string name="native_ad_unitid">19386f9531c941cbbccd0b49ee193106</string>
+    <!-- 57环境测试广告位id-->
+    <!--<string name="app_key">9f70596295e34ddb87f255f8527f7667</string>
+    <string name="banner_ad_unitid">5bbe08e1d73e4e4f942a07674224f6d5</string>
+    <string name="intersitial_ad_unitid">1fb659ba4d014ddd8b9bf3bf28f52b3c</string>
+    <string name="native_ad_unitid">6339e143815b4791b482d9179e3e4c0f</string>-->
 </resources>
 
 

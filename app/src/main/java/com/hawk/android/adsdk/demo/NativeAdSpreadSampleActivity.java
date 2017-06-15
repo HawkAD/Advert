@@ -4,10 +4,10 @@ import com.google.android.gms.ads.AdRequest;
 
 import com.facebook.ads.AdSettings;
 import com.hawk.android.adsdk.ads.HKNativeAd;
+import com.hawk.android.adsdk.ads.mediator.HawkAdRequest;
+import com.hawk.android.adsdk.ads.mediator.HkNativeAdListener;
 import com.hawk.android.adsdk.demo.view.NativeViewBuild;
-import com.tcl.mediator.HawkAdRequest;
-import com.tcl.mediator.HkNativeAdListener;
-import com.tcl.mediator.iadapter.HawkNativeAdapter;
+import com.mopub.nativeads.ViewBinder;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -54,11 +54,11 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         /**
          * 添加facebook DeviceID
          */
-        AdSettings.addTestDevice("b44728c5cd57d2b2cf7ac117500497a5");
+        AdSettings.addTestDevice("8e7dc10cdcf65ea73ad283a5070d9c36");
         /**
          * 添加Admob DeviceID
          */
-        new AdRequest.Builder().addTestDevice("6167451E2EA511D5C40895AEFBD9615C");
+        new AdRequest.Builder().addTestDevice("789963D0B48FB29311FE58F9F1EA870F");
         mHKNativeAd = new HKNativeAd(this,testUnitId);
         //setp2 : set callback listener(HkNativeAdListener)
         mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
@@ -80,14 +80,21 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
             }
 
             @Override
-            public void onAdClick(HawkNativeAdapter hawkNativeAdapter) {
+            public void onAdClick() {
                 Toast.makeText(NativeAdSpreadSampleActivity.this, "ad click", Toast.LENGTH_LONG).show();
             }
         });
         /**
          * setImgUrlMode(false) 可以设置返回图片的模式,true为只返回图片的Url，false为返回图片资源，默认为false
          */
-        mHKNativeAd.loadAd(new HawkAdRequest().addTestDevice("92cf3642de2764ca21a126a78d60894a").setImgUrlMode(false));
+        mHKNativeAd.loadAd(new HawkAdRequest().setImgUrlMode(true)
+                .setMoPubViewBinder(new ViewBinder.Builder(R.layout.mopub_native_ad_layout)
+                .titleId(R.id.native_ad_title)
+                .textId(R.id.native_ad_text)
+                .mainImageId(R.id.native_ad_main_image)
+                .iconImageId(R.id.native_ad_icon_image)
+                .privacyInformationIconImageId(R.id.native_ad_daa_icon_image)
+                .build()));
     }
 
     @Override

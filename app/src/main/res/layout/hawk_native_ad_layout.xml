@@ -58,35 +58,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/native_ad_body"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical"
             android:layout_weight="3"
-            android:orientation="vertical"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:id="@+id/native_ad_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:lines="2"
-                android:textColor="@android:color/black"
-                android:textSize="10sp"/>
-        </LinearLayout>
+            android:lines="2"
+            android:textColor="@android:color/black"
+            android:textSize="10sp"/>
 
         <Button
             android:id="@+id/native_ad_call_to_action"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="#4286F4"
             android:gravity="center"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:textColor="@android:color/white"
             android:textSize="11sp"/>
     </LinearLayout>

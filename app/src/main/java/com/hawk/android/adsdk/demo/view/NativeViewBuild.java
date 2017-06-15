@@ -8,10 +8,12 @@ import com.google.android.gms.ads.formats.NativeContentAdView;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.NativeAd;
 import com.hawk.android.adsdk.ads.HKNativeAd;
+import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
 import com.hawk.android.adsdk.demo.R;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,13 +72,24 @@ public class NativeViewBuild {
             mNativeAdView = View.inflate(mContext, R.layout.facebook_native_ad_layout, null);
             NativeAd nativeAd = (NativeAd)ad;
             setFacebookAdView(nativeAd);
-        }
-
-/*        else if (ad instanceof HawkNativeAd) {//hawk native ad
+        }else if (ad instanceof HawkNativeAd) {
+            /**
+             * server-to-server广告
+             */
             mNativeAdView = View.inflate(mContext, R.layout.hawk_native_ad_layout, null);
             HawkNativeAd nativeAd = (HawkNativeAd)ad;
             setHawkAdView(nativeAd);
-        }*/
+        } else if (ad instanceof com.mopub.nativeads.NativeAd) {
+            /**
+             * Mopub 广告
+             */
+//            mNativeAdView = View.inflate(mContext, R.layout.mopub_native_ad_layout, null);
+            com.mopub.nativeads.NativeAd nativeAd = (com.mopub.nativeads.NativeAd) ad;
+            View convertView = nativeAd.createAdView(mContext,null);
+            nativeAd.prepare(convertView);
+            nativeAd.renderAdView(convertView);
+            mNativeAdView=convertView;
+        }
         return mNativeAdView;
     }
 
@@ -88,6 +101,9 @@ public class NativeViewBuild {
      */
     private void populateContentAdView(NativeContentAd nativeContentAd,
                                        NativeContentAdView adView) {
+        /**
+         * 注意：下面这些广告的元素必须设置，不然点击不生效
+         */
         adView.setHeadlineView(adView.findViewById(R.id.contentad_headline));
         adView.setImageView(adView.findViewById(R.id.contentad_image));
         adView.setBodyView(adView.findViewById(R.id.contentad_body));
@@ -133,6 +149,9 @@ public class NativeViewBuild {
      */
     private void populateAppInstallAdView(NativeAppInstallAd nativeAppInstallAd,
                                           NativeAppInstallAdView adView) {
+        /**
+         * 注意：下面这些广告的元素必须设置，不然点击不生效
+         */
         adView.setHeadlineView(adView.findViewById(R.id.appinstall_headline));
         adView.setImageView(adView.findViewById(R.id.appinstall_image));
         adView.setBodyView(adView.findViewById(R.id.appinstall_body));
@@ -227,7 +246,7 @@ public class NativeViewBuild {
         adChoicesContainer.addView(adChoicesView);
     }
 
-/*    private void setHawkAdView (HawkNativeAd nativeAd) {
+    private void setHawkAdView (HawkNativeAd nativeAd) {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
         TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
@@ -248,5 +267,5 @@ public class NativeViewBuild {
         if (nativeAd.getAdImages() != null && nativeAd.getAdImages().size() > 0) {
             HawkNativeAd.downloadAndDisplayImage(mContext,nativeAd.getAdImages().get(0), nativeAdImage);
         }
-    }*/
+    }
 }

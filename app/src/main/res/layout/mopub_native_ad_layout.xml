@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff">
+        <ImageView
+            android:id="@+id/native_ad_icon_image"
+            android:layout_alignParentRight="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            />
+        <ImageView
+            android:id="@+id/native_ad_daa_icon_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+             />
+        <TextView
+            android:id="@+id/native_ad_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/native_ad_daa_icon_image"
+            android:textColor="#f00"
+            android:textSize="12dp" />
+        <TextView
+            android:id="@+id/native_ad_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/native_ad_title"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/native_ad_daa_icon_image"
+            android:textColor="#000"
+            android:textSize="11dp" />
+        <ImageView
+            android:id="@+id/native_ad_main_image"
+            android:layout_below="@id/native_ad_text"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#fff"
+            />
+    </RelativeLayout>
+</LinearLayout>
