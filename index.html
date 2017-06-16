@@ -11,9 +11,9 @@
 
         console.log(true == "10")
         function callBack(){
-                _("banner").load("codeInvok/banner.html");
-                _("interstitial").load("codeInvok/interstitial.html");
-                _("native").load("codeInvok/native.html");
+            _("native").load("codeInvok/native.html");
+            _("banner").load("codeInvok/banner.html");
+            _("interstitial").load("codeInvok/interstitial.html");
         }
         window.onload = function(){
              _("initConfig").load("initConfig.html");
@@ -76,15 +76,15 @@
         <li >
             <span id="#codeInvok" name="lis">代码调用</span>
             <ul>
+                <li id ="#native" name="lis">
+                    原生广告
+                </li>
                 <li id="#banner" name="lis">
                     banner广告
                 </li>
                 <li id="#interstitial" name="lis">
                     插屏广告
                 </li >
-                <li id ="#native" name="lis">
-                    原生广告
-                </li>
             </ul>
         </li>
         <!--  测试与问题调试 -->

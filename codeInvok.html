@@ -1,5 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+<body>
+<h2>2.  接入代码</h2>
+
+<h3>2.1.1 配置appkey和广告位id</h3>
+<div>
+    <p>在添加string.xml文件添加appkey与广告位id<p/>
+ <pre><code>
+     &lt;resources&gt;
+     &lt;string name=&quot;app_name&quot;&gt;adsdkDemo&lt;/string&gt;
+
+     &lt;string name=&quot;app_key&quot;&gt;670cb5671c9949a0bbc69d5404604965&lt;/string&gt;
+     &lt;string name=&quot;banner_ad_unitid&quot;&gt;5a756e33373142c99dcee61f70006873&lt;/string&gt;
+     &lt;string name=&quot;intersitial_ad_unitid&quot;&gt;ba3f58d2dc03456b8b6e5dc97f4f1241&lt;/string&gt;
+     &lt;string name=&quot;native_ad_unitid&quot;&gt;19386f9531c941cbbccd0b49ee193106&lt;/string&gt;
+     &lt;/resources&gt;
+ </code></pre>
+
+    <p class="zhushi">※ &nbsp;&nbsp;
+        appkey与广告位id由运营提供。以上实例广告位为<a href="#testUnidId">测试广告位id</a>仅用于测试时使用</p>
+</div>
+<h3>2.1.2 调用初始化方法</h3>
+<div>
+    <p>在app的入口Application里调用sdk初始化代码(appkey和广告位ID从广告管理平台申请)</p>
+    <pre><code>        /**
+        * Initialize the Mobile Ads SDK. The SDK will configure itself.
+        * @param context the context running in
+        * @param applicationCode appkey
+        * @param unitIds mutil unit Id string
+        */
+        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid));
+    </code></pre>
+</div>
+<!-- native 广告接入文档 -->
+<div id="native"></div>
+<!-- banner 广告接入文档 -->
+<div id="banner"></div>
+<!-- interstitial 广告接入文档 -->
+<div id="interstitial"></div>
+
+</body>
 <head>
     <meta charset="UTF-8">
     <title>代码调用</title>
@@ -20,43 +60,4 @@
         })
     </script>
 </head>
-<body>
-<h2>2.  接入代码</h2>
-
-<h3>2.1.1 配置appkey和广告位id</h3>
-<div>
- <p>在添加string.xml文件添加appkey与广告位id<p/>
- <pre><code>
-     &lt;resources&gt;
-     &lt;string name=&quot;app_name&quot;&gt;adsdkDemo&lt;/string&gt;
-
-     &lt;string name=&quot;app_key&quot;&gt;670cb5671c9949a0bbc69d5404604965&lt;/string&gt;
-     &lt;string name=&quot;banner_ad_unitid&quot;&gt;5a756e33373142c99dcee61f70006873&lt;/string&gt;
-     &lt;string name=&quot;intersitial_ad_unitid&quot;&gt;ba3f58d2dc03456b8b6e5dc97f4f1241&lt;/string&gt;
-     &lt;string name=&quot;native_ad_unitid&quot;&gt;19386f9531c941cbbccd0b49ee193106&lt;/string&gt;
-     &lt;/resources&gt;
- </code></pre>
-
-    <p class="zhushi">※ &nbsp;&nbsp;
-        appkey与广告位id由运营提供。以上实例广告位为<a href="#testUnidId">测试广告位id</a>仅用于测试时使用</p>
-</div>
-<h3>2.1.2 调用初始化方法</h3>
-<div>
-<p>在app的入口Application里调用sdk初始化代码(appkey和广告位ID从广告管理平台申请)</p>
-    <pre><code>        /**
-        * Initialize the Mobile Ads SDK. The SDK will configure itself.
-        * @param context the context running in
-        * @param applicationCode appkey
-        * @param unitIds mutil unit Id string
-        */
-        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid));
-    </code></pre>
-</div>
-<!-- banner 广告接入文档 -->
-<div id="banner"></div>
-<!-- interstitial 广告接入文档 -->
-<div id="interstitial"></div>
-<!-- native 广告接入文档 -->
-<div id="native"></div>
-</body>
 </html>

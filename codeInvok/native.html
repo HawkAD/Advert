@@ -9,75 +9,80 @@
     </style>
 </head>
 <body>
-<h3>2.4.	原生广告</h3>
-<h4>2.4.1.	广告接入代码示例</h4>
+<h3>2.2.	原生广告</h3>
+<h4>2.2.1.	广告接入代码示例</h4>
 <p>原生广告代码较多，这里只截取片段，具体参考demo</p>
     <pre><code>    //初始化并加载广告
         private void loadNativeAd(final RefreshMode refreshMode) {
         // <span class="codezhushi"><span style="font-size: 20px">1、</span>创建HKNativeAd对象,并传入原生广告位id</span>
-        mHKNativeAd = new HKNativeAd(getActivity(),getString(R.string.native_ad_unitid));
-        // <span  class="codezhushi"><span style="font-size: 20px">2、</span>为mHkNativeAd设置监听器(HkNativeAdListener),已监听广告获取和广告展示的状态</span>
+        mHKNativeAd = new HKNativeAd(this,testUnitId);
+        //setp2 : set callback listener(HkNativeAdListener)
         mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
             @Override
             public void onNativeAdLoaded() {
-          // <span  class="codezhushi">原生广告成功时被回调</span>
+                //ad load  success ,you can do other something here;
+                showAd();
+                Toast.makeText(NativeAdSpreadSampleActivity.this, "ad load  success", Toast.LENGTH_LONG).show();
             }
-
-
             @Override
-            public void onNativeAdFailed(int error) {
-           // <span  class="codezhushi">当广告失败时被回调,参数error是返回的错误码(关于错误码详细情况可参考代码调试部分)</span>
+            public void onNativeAdFailed(int errorCode) {
+                /**
+                * errorCode 为聚合sdk内部统一转码后的code，具体的errorCode可以查看log
+                * 每种errorCode产生原因可以参考admob和facebook平台的错误码说明
+                */
+                Toast.makeText(NativeAdSpreadSampleActivity.this, "ad load  failed,error code is:" + errorCode, Toast.LENGTH_LONG).show();
             }
-
             @Override
-            public void onAdClick(HawkNativeAdapter hawkNativeAdapter) {
-            // <span  class="codezhushi">广告被点击时回调</span>
+            public void onAdClick() {
+                Toast.makeText(NativeAdSpreadSampleActivity.this, "ad click", Toast.LENGTH_LONG).show();
             }
-
-            @Override
-            public void onOpen(HawkNativeAdapter hawkNativeAdapter) {
-             // <span  class="codezhushi">广告被点击后打开详情页时被回调</span>
-            }
-            });
-
-        // <span  class="codezhushi"><span style="font-size: 20px">3、</span>调用loadAd方法,发起广告请求</span>
-            mHKNativeAd.loadAd();
-            }
-
-        或者：
-            HawkAdRequest hawkAdRequest = new HawkAdRequest()  // 关于HawkAdRequest()的使用参见下面的ApI讲解
-                                          .addTestDevice("441eef257ec3736e03c516a86844e1c4")
-                                          .setImgUrlMode(true)
-            mHKNativeAd.loadAd(hawkAdRequest);
+        });
+        /**
+        * setImgUrlMode(false) 可以设置返回图片的模式,true为只返回图片的Url，false为返回图片资源，默认为false
+        */
+        mHKNativeAd.loadAd(new HawkAdRequest().setImgUrlMode(true)
+        //设置mopub广告要显示的view,要接mopub平台的原生，必须设置这个
+        .setMoPubViewBinder(new ViewBinder.Builder(R.layout.mopub_native_ad_layout)
+        .titleId(R.id.native_ad_title)
+        .textId(R.id.native_ad_text)
+        .mainImageId(R.id.native_ad_main_image)
+        .iconImageId(R.id.native_ad_icon_image)
+        .privacyInformationIconImageId(R.id.native_ad_daa_icon_image)
+        .build()));
 
 
         /**
             * 原生广告请求成功后，在app需要展示广告时调用
             */
-            private void showAd(){
+        /**
+        * if load nativeAd success,you can get and show nativeAd;
+        */
+        private void showAd(){
             if(mHKNativeAd != null){
-            Object ad = mHKNativeAd.getAd();
-            if (ad == null) {
-            Toast.makeText(this, "no native ad loaded!", Toast.LENGTH_SHORT).show();
-            return;
-            }
-            if (mAdView != null) {
-            // remove old ad view
-            nativeAdContainer.removeAllViews();
-            }
-            //the mAdView is custom by publisher
-            mAdView = NativeViewBuild.createAdView(getApplicationContext(), ad);
-            if (mHKNativeAd != null) {
-            mHKNativeAd.unregisterView();
-            mHKNativeAd.registerViewForInteraction(mAdView);
+                if (!mHKNativeAd.isLoaded()) {
+                    Toast.makeText(NativeAdSpreadSampleActivity.this,
+                    "no native ad loaded!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (nativeAdContainer != null) {
+                    // remove old ad view
+                    nativeAdContainer.removeAllViews();
+                }
+                //the mAdView is custom by publisher
+                mAdView = NativeViewBuild.createAdView(getApplicationContext(), mHKNativeAd);
+                if (mHKNativeAd != null) {
+                mHKNativeAd.unregisterView();
+                nativeAdContainer.addView(mAdView);
+                /**
+                * 在广告显示后必须要调用registerViewForInteraction()方法，否则点击事件不生效
+                */
+                mHKNativeAd.registerViewForInteraction(mAdView);
             }
             //add the mAdView into the layout of view container.(the container should be prepared by youself)
-            nativeAdContainer.addView(mAdView);
-            }
-            }
+        }
     </code></pre>
 
-<h4>2.4.2	原生广告主要API</h4>
+<h4>2.2.2	原生广告主要API</h4>
 <ul>
     <li>
         <p><strong>com.hawk.android.adsdk.ads.HKNativeAd:</strong></p>
@@ -119,7 +124,7 @@
     </li>
 
     <li>
-        <p><strong>com.tcl.mediator.HkNativeAdListenerr:</strong></p>
+        <p><strong>com.hawk.android.adsdk.ads.mediator.HkNativeAdListener:</strong></p>
         <p>广告状态回调接口</p>
         <table>
             <thead>

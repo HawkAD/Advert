@@ -51,8 +51,7 @@
           <br>
           <li onclick='wufanyin.style.display=wufanyin.style.display=="block"?"none":"block"'>
               问题：<br>
-              原生广告可以展示，但是点击没有反应. &nbsp;&nbsp;<a  >(展开收起)</a> <br>
-              <span id="wufanyin" style="display: none">
+              原生广告可以展示，但是点击没有反应. &nbsp;&nbsp;
               <br>解决方法：<br>
               1、检查是调用了 mHKNativeAd.registerViewForInteraction(mAdView); 方法。<br>
               2、是否为要注册的View(mAdView)又设置了监听，或者夺取了view的焦点，再或者将enable属性设置为了false等一切
@@ -60,7 +59,7 @@
               3、请检查确认Admob的Install类型广告一定使用com.google.android.gms.ads.formats.NativeAppInstallAdView作为布局根结点；
                   Content类型广告一定使用com.google.android.gms.ads.formats.NativeContentAdView作为布局根结点；
                   Facebook广告没有特殊要求，但是必须安装Facebook最新客户端并且近期登录一个用户。<br>
-              4、Admob广告不可点击，请检查确认是否调用：
+              4、Admob广告不可点击，请检查确认是否调用：<br>
                     adView.setHeadlineView(adView.findViewById(R.id.tv_item_appname));
                     adView.setBodyView(adView.findViewById(R.id.tv_item_pkgname));
                     adView.setCallToActionView(adView.findViewById(R.id.tv_uninstall));
