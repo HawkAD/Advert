@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+
+    </style>
+</head>
+<body>
+<h3>2.5.	原生缓存池广告</h3>
+<h4>2.5.1.	广告接入代码示例</h4>
+<br>对于需要缓存原生广告的需求，聚合sdk开发了缓存池的接口，app只需要调用接口开启、暂停缓存池。而sdk会在广告到期、广告被展示、缓存池不满时自动去拉取广告。</br>
+开启缓存池代码如下，最好在显示广告之前开启缓存池，比如app启动时开启，在app进入后台时停止。
+</p>
+    <pre><code>    //启动缓存池，可以在要显示广告之前的任何位置启动缓存池,如app启动时
+    new HkAdPool(this).power(new HawkAdRequest()
+        .addTestDevice("5545e13a65e654f10f8e1fc4b7a35ca2")//添加facebook deviceID
+        .setMoPubViewBinder(new ViewBinder.Builder(R.layout.mopub_native_ad_layout)//设置mopub的viewbinder,接入了mopub sdk的话需设置这个，否则不需要
+        .titleId(R.id.native_ad_title)
+        .textId(R.id.native_ad_text)
+        .mainImageId(R.id.native_ad_main_image)
+        .iconImageId(R.id.native_ad_icon_image)
+        .privacyInformationIconImageId(R.id.native_ad_daa_icon_image)
+        .build()),
+        getString(R.string.native_ad_unitid),"[2]");//广告位ID，缓存条数
+    </code></pre>
+
+<br>
+    获取缓存池广告，通过HkPoolNativeAd类来获取缓存的广告，
+
+    <pre><code>    mHKNativeAd = HkNativeAdFactory.getAdPoolInstance(this,testUnitId);
+        mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
+            @Override
+            public void onNativeAdLoaded() {
+                Log.e("app测试"," app 请求时间="+(System.currentTimeMillis()-netTime));
+                //ad load  success ,you can do other something here;
+                showAd();
+                Log.e("监听测试","原生加载成功");
+                Toast.makeText(NativeAdPoolActiveity.this, "原生加载成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNativeAdFailed(int var1) {
+                Log.e("监听测试","原生加载失败");
+                Toast.makeText(NativeAdPoolActiveity.this, "原生加载失败,error code is:"+var1, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdClick() {
+                Log.e("监听测试","原生被点击");
+                Toast.makeText(NativeAdPoolActiveity.this, "原生被点击", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mHKNativeAd.loadAd();
+    </code></pre>
+<br>
+
+<h4>2.5.2	原生广告主要API</h4>
+<ul>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HkAdPool:</strong></p>
+        <p>原生广告缓存池接口类，可开启、暂停缓存池功能</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">HkAdPool(Context context)</td>
+                <td align="left">原生缓存池构造函数</td>
+            </tr>
+            <tr>
+                <td align="left">power(final HawkAdRequest hkAdRequest, final String[] strings, final int[] acouts)</td>
+                <td align="left">开启缓存池广告，hkAdRequest可设置请求参数，strings 广告位ID，可以有多个，acouts 位广告位缓存条数，默认为缓存1条</td>
+            </tr>
+            <tr>
+                <td align="left">append(final String... strings)</td>
+                <td align="left">当缓存池已经开启后，需要追加需要缓存的广告位，调用此方法</td>
+            </tr>
+            <tr>
+                <td align="left">pauseAll()</td>
+                <td align="left">暂停缓存池所有广告位</td>
+            </tr>
+            <tr>
+                <td align="left">pause(@Nullable final String ...strs)</td>
+                <td align="left">暂停具体的某些广告位</td>
+            </tr>
+            <tr>
+                <td align="left">recoverAll()</td>
+                <td align="left">恢复所有被暂停的广告位</td>
+            </tr>
+            <tr>
+                <td align="left">recover(final String ...strs)</td>
+                <td align="left">恢复具体某个被暂停的广告位</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+</ul>
+
+</body>
+</html>
