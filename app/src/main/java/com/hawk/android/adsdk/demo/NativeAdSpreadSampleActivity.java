@@ -87,7 +87,7 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         /**
          * setImgUrlMode(false) 可以设置返回图片的模式,true为只返回图片的Url，false为返回图片资源，默认为false
          */
-        mHKNativeAd.loadAd(new HawkAdRequest().setImgUrlMode(true)
+        mHKNativeAd.loadAd(new HawkAdRequest().setImgUrlMode(false)
                 .setMoPubViewBinder(new ViewBinder.Builder(R.layout.mopub_native_ad_layout)
                 .titleId(R.id.native_ad_title)
                 .textId(R.id.native_ad_text)

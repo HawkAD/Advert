@@ -38,4 +38,11 @@
         android:layout_below="@id/btn_interstitial"
         android:layout_marginTop="20dp"
         android:text="Native广告"/>
+    <Button
+            android:id="@+id/btn_native_pool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_native"
+            android:layout_marginTop="20dp"
+            android:text="Native缓存池广告"/>
 </RelativeLayout>

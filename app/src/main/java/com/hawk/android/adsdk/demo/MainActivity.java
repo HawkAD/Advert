@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBannerBtn;
     private Button mInterstitialBtn;
     private Button mNativeBtn;
+    private Button mNativePoolBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +25,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBannerBtn = (Button)this.findViewById(R.id.btn_banner);
         mInterstitialBtn = (Button)this.findViewById(R.id.btn_interstitial);
         mNativeBtn = (Button)this.findViewById(R.id.btn_native);
+        mNativePoolBtn = (Button)this.findViewById(R.id.btn_native_pool);
         mBannerBtn.setOnClickListener(this);
         mInterstitialBtn.setOnClickListener(this);
         mNativeBtn.setOnClickListener(this);
+        mNativePoolBtn.setOnClickListener(this);
     }
 
     @Override
@@ -44,7 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent2 = new Intent(this,NativeAdSpreadSampleActivity.class);
                 this.startActivity(intent2);
                 break;
-
+            case R.id.btn_native_pool:
+                Intent intent3 = new Intent(this,NativeAdPoolActiveity.class);
+                this.startActivity(intent3);
+                break;
 
         }
     }

@@ -30,7 +30,9 @@ public class MyApplication extends Application {
         /**
          * 可以通过这个方法打开和关闭日志
          */
-        HkMobileAds.openLog();
+        if (BuildConfig.DEBUG) {
+            HkMobileAds.openLog();
+        }
         /**
          * sdk初始化方法，拉取并刷新后台配置的相关信息，拉取成功后会保存在本地，请确保在load广告之前调用。
          * 参数：
