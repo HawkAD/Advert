@@ -25,6 +25,7 @@ public class NativeAdPoolActiveity extends Activity implements View.OnClickListe
     private HKNativeAd mHKNativeAd;
     private FrameLayout nativeAdContainer;//View Container
     private View mAdView = null;
+    private HkAdPool mHkAdPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,8 @@ public class NativeAdPoolActiveity extends Activity implements View.OnClickListe
         findViewById(R.id.btn_show).setOnClickListener(this);
         Log.e("ceshi","启动"+getString(R.string.native_ad_unitid)+"缓存池");
         //启动缓存池，可以在要显示广告之前的任何位置启动缓存池,如app启动时
-        new HkAdPool(this).power(new HawkAdRequest()
+        mHkAdPool = new HkAdPool(this);
+        mHkAdPool.power(new HawkAdRequest()
                         .addTestDevice("5545e13a65e654f10f8e1fc4b7a35ca2")
                         .setMoPubViewBinder(new ViewBinder.Builder(R.layout.mopub_native_ad_layout)//设置mopub的viewbinder
                                 .titleId(R.id.native_ad_title)
@@ -124,6 +126,14 @@ public class NativeAdPoolActiveity extends Activity implements View.OnClickListe
             //add the mAdView into the layout of view container.(the container should be prepared by youself)
             nativeAdContainer.addView(mAdView);
 
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mHkAdPool != null) {
+            mHkAdPool.pauseAll();
         }
     }
 }

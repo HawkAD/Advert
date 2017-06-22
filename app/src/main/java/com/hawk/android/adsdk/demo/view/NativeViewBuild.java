@@ -237,7 +237,6 @@ public class NativeViewBuild {
         if (adImage != null) {
             NativeAd.downloadAndDisplayImage(adImage, nativeAdImage);
         }
-
         /**
          * facebook广告必须要加AdChoicesView
          */
