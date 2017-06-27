@@ -38,7 +38,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v2.1.5-release', ext:'aar')
+    compile (name:'hawk-adsdk-v2.1.6-release', ext:'aar')
 
     //引入admob sdk
     compile 'com.google.firebase:firebase-ads:10.2.1'

@@ -28,7 +28,7 @@ public class MyApplication extends Application {
 
     private void init() {
         /**
-         * 可以通过这个方法打开和关闭日志
+         * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
          */
         if (BuildConfig.DEBUG) {
             HkMobileAds.openLog();

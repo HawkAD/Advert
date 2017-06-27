@@ -44,7 +44,8 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         String testUnitId=getString(R.string.native_ad_unitid);
         /**
          * 添加facebook的deviceID,从facebook的log中获取，可以用"facebook"关键字过滤。
-         * 注意：1、deviceID会每天变化;2、facebook的deviceID和admob的不一样
+         * 注意：1、deviceID会每天变化;
+         *       2、facebook的deviceID和admob的不一样
          *       3、开发debug阶段发现facebook报错误码为1001 时，请确认是否添加了deviceID
          *       4、AdSettings.addTestDevice("e200707a9622f3472b8d3ecc8c59cac2");和
          *       new HawkAdRequest().addTestDevice("e200707a9622f3472b8d3ecc8c59cac2")作用是一样的。
