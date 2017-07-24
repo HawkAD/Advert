@@ -33,7 +33,6 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         findViewById(R.id.btn_req).setOnClickListener(this);
         findViewById(R.id.btn_show).setOnClickListener(this);
         initNativeAd();
-
     }
 
 
