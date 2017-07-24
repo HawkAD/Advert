@@ -12,6 +12,24 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+        <!-- 百度广告SDK需要加入的配置 start-->
+        <meta-data
+            android:name="app_license"
+            android:value="563d02dcce655392c9d3ab74640e71c7" />
+        <provider
+            android:name="com.duapps.ad.stats.DuAdCacheProvider"
+            android:authorities="com.hawk.android.adsdk.sdkdemo.DuAdCacheProvider"
+            android:exported="false">
+        </provider>
+        <receiver android:name="com.duapps.ad.base.PackageAddReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- 百度广告SDK需要加入的配置 end-->
         <activity android:name="com.hawk.android.adsdk.demo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,7 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
 
         <activity
             android:name="com.hawk.android.adsdk.demo.BannerActivity"

@@ -17,7 +17,15 @@
 #}
 -keep class com.hawk.android.adsdk.ads.**{*;}
 -keep class com.tcl.mediator.**{*;}
--kepp class com.google.android.gms.ads.**{*;}
+#-kepp class com.google.android.gms.ads.**{*;}
+-keep class com.google.android.gms.ads.MobileAds{
+    <fields>;
+    <methods>;
+}
+-keep class com.duapps.ad.base.DuAdNetwork{
+    <fields>;
+    <methods>;
+}
 -keep class com.mopub.mobileads.MoPubActivity{
     <fields>;
     <methods>;

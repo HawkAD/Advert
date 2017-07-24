@@ -63,9 +63,9 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         //setp2 : set callback listener(HkNativeAdListener)
         mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
             @Override
-            public void onNativeAdLoaded() {
+            public void onNativeAdLoaded(Object Ad) {
                 //ad load  success ,you can do other something here;
-                showAd();
+                showAd(Ad);
                 Toast.makeText(NativeAdSpreadSampleActivity.this, "ad load  success", Toast.LENGTH_LONG).show();
             }
 
@@ -105,7 +105,7 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
                 mHKNativeAd.loadAd(new HawkAdRequest());
                 break;
             case R.id.btn_show:
-                showAd();
+//                showAd();
                 break;
             default:
                 break;
@@ -115,9 +115,10 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
     /**
      * if load nativeAd success,you can get and show nativeAd;
      */
-    private void showAd(){
+    private void showAd(Object Ad){
         if(mHKNativeAd != null){
-            if (!mHKNativeAd.isLoaded()) {
+
+            if(mHKNativeAd != null&&!mHKNativeAd.isLoaded()){
                 Toast.makeText(NativeAdSpreadSampleActivity.this,
                         "no native ad loaded!", Toast.LENGTH_SHORT).show();
                 return;
@@ -127,16 +128,14 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
                 nativeAdContainer.removeAllViews();
             }
             //the mAdView is custom by publisher
-            mAdView = NativeViewBuild.createAdView(getApplicationContext(), mHKNativeAd);
+            mAdView = NativeViewBuild.createAdView(getApplicationContext(),mHKNativeAd,Ad);
             if (mHKNativeAd != null) {
                 mHKNativeAd.unregisterView();
-                nativeAdContainer.addView(mAdView);
-                /**
-                 * 在广告显示后必须要调用registerViewForInteraction()方法，否则点击事件不生效
-                 */
+                //The app must call this method,or click event will unavailable
                 mHKNativeAd.registerViewForInteraction(mAdView);
             }
             //add the mAdView into the layout of view container.(the container should be prepared by youself)
+            nativeAdContainer.addView(mAdView);
         }
     }
 }
