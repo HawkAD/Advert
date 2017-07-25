@@ -108,7 +108,7 @@ public class InterstitialActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (ad !=  null) {
-            ad.close();
+            ad.destroy();
         }
     }
 

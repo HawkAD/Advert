@@ -60,7 +60,7 @@ public class NativeAdPoolActiveity extends Activity implements View.OnClickListe
         mHKNativeAd = HkNativeAdFactory.getAdPoolInstance(this,testUnitId);
         mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
             @Override
-            public void onNativeAdLoaded() {
+            public void onNativeAdLoaded(Object Ad) {
                 Log.e("app测试"," app 请求时间="+(System.currentTimeMillis()-netTime));
                 //ad load  success ,you can do other something here;
                 showAd();
