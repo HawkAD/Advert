@@ -19,7 +19,7 @@
             android:value="563d02dcce655392c9d3ab74640e71c7" />
         <provider
             android:name="com.duapps.ad.stats.DuAdCacheProvider"
-            android:authorities="com.hawk.android.adsdk.sdkdemo.DuAdCacheProvider"
+            android:authorities="com.hawk.android.adsdk.demo.DuAdCacheProvider"
             android:exported="false">
         </provider>
         <receiver android:name="com.duapps.ad.base.PackageAddReceiver" >

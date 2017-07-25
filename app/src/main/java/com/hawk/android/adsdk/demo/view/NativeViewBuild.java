@@ -102,11 +102,11 @@ public class NativeViewBuild {
             nativeAd.prepare(convertView);
             nativeAd.renderAdView(convertView);
             mNativeAdView = convertView;
-        } else if (ad instanceof DuNativeAd) {//hawk native ad
+        } else if (ad instanceof DuNativeAd) {//baidu native ad
             mNativeAdView = View.inflate(mContext, R.layout.baidu_native_ad_layout, null);
             DuNativeAd nativeAd = (DuNativeAd) ad;
             setBaiduAdView(nativeAd);
-        } else if (ad instanceof AdManager) {//oc native ad
+        } else if (ad instanceof AdManager) {//NGC native ad
             mNativeAdView = View.inflate(mContext, R.layout.oc_native_ad_layout, null);
             final ImageView or_img = (ImageView) mNativeAdView.findViewById(R.id.or_img);
             TextView or_title = (TextView) mNativeAdView.findViewById(R.id.or_title);
