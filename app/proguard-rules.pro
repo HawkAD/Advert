@@ -15,6 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontwarn com.hawk.android.adsdk.ads.mediator.**
 -keep class com.hawk.android.adsdk.ads.**{*;}
 -keep class com.tcl.mediator.**{*;}
 #-kepp class com.google.android.gms.ads.**{*;}
