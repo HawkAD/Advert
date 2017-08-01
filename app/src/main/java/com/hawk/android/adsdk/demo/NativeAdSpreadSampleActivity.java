@@ -55,6 +55,7 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
          * 添加facebook DeviceID
          */
         AdSettings.addTestDevice("8e7dc10cdcf65ea73ad283a5070d9c36");
+        AdSettings.setTestAdType(AdSettings.TestAdType.VIDEO_HD_16_9_46S_APP_INSTALL);
         /**
          * 添加Admob DeviceID
          */
@@ -87,7 +88,7 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         /**
          * setImgUrlMode(false) 可以设置返回图片的模式,true为只返回图片的Url，false为返回图片资源，默认为false
          */
-        mHKNativeAd.loadAd(new HawkAdRequest().setImgUrlMode(false)
+        mHKNativeAd.loadAd(new HawkAdRequest()
                 .setMoPubViewBinder(new ViewBinder.Builder(R.layout.mopub_native_ad_layout)
                 .titleId(R.id.native_ad_title)
                 .textId(R.id.native_ad_text)

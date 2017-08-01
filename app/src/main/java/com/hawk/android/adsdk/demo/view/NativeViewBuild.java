@@ -12,6 +12,8 @@ import com.duapps.ad.DuNativeAd;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.NativeAd;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAppInstallAd;
 import com.google.android.gms.ads.formats.NativeAppInstallAdView;
 import com.google.android.gms.ads.formats.NativeContentAd;
@@ -158,12 +160,10 @@ public class NativeViewBuild {
          * 注意：下面这些广告的元素必须设置，不然点击不生效
          */
         adView.setHeadlineView(adView.findViewById(R.id.contentad_headline));
-        adView.setImageView(adView.findViewById(R.id.contentad_image));
         adView.setBodyView(adView.findViewById(R.id.contentad_body));
         adView.setCallToActionView(adView.findViewById(R.id.contentad_call_to_action));
         adView.setLogoView(adView.findViewById(R.id.contentad_logo));
         adView.setAdvertiserView(adView.findViewById(R.id.contentad_advertiser));
-
         if (nativeContentAd.getHeadline() != null) {
             ((TextView) adView.getHeadlineView()).setText(nativeContentAd.getHeadline());
         }
@@ -177,15 +177,26 @@ public class NativeViewBuild {
             ((TextView) adView.getAdvertiserView()).setText(nativeContentAd.getAdvertiser());
         }
 
-        List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeContentAd.getImages();
-
-        if (images != null && images.size() > 0) {
-            ((ImageView) adView.getImageView()).setImageDrawable(images.get(0).getDrawable());
+        /**
+         * 判断广告有视频的时候显示视频广告
+         */
+        MediaView mediaView = (MediaView) adView.findViewById(R.id.contentad_media);
+        ImageView coverImage = (ImageView)adView.findViewById(R.id.contentad_image);
+        if (nativeContentAd.getVideoController().hasVideoContent()) {
+            mediaView.setVisibility(View.VISIBLE);
+            coverImage.setVisibility(View.GONE);
+            adView.setMediaView(mediaView);
+        } else {
+            adView.setImageView(coverImage);
+            coverImage.setVisibility(View.VISIBLE);
+            mediaView.setVisibility(View.GONE);
+            List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeContentAd.getImages();
+            if (images.size() > 0) {
+                ((ImageView) adView.getImageView()).setImageDrawable(images.get(0).getDrawable());
+            }
         }
 
-        // Some aren't guaranteed, however, and should be checked.
         com.google.android.gms.ads.formats.NativeAd.Image logoImage = nativeContentAd.getLogo();
-
         if (logoImage == null) {
             adView.getLogoView().setVisibility(View.INVISIBLE);
         } else {
@@ -205,7 +216,6 @@ public class NativeViewBuild {
          * 注意：下面这些广告的元素必须设置，不然点击不生效
          */
         adView.setHeadlineView(adView.findViewById(R.id.appinstall_headline));
-        adView.setImageView(adView.findViewById(R.id.appinstall_image));
         adView.setBodyView(adView.findViewById(R.id.appinstall_body));
         adView.setCallToActionView(adView.findViewById(R.id.appinstall_call_to_action));
         adView.setIconView(adView.findViewById(R.id.appinstall_app_icon));
@@ -226,10 +236,23 @@ public class NativeViewBuild {
             ((ImageView) adView.getIconView()).setImageDrawable(nativeAppInstallAd.getIcon().getDrawable());
         }
 
-        List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeAppInstallAd.getImages();
-
-        if (images.size() > 0) {
-            ((ImageView) adView.getImageView()).setImageDrawable(images.get(0).getDrawable());
+        /**
+         * 判断广告有视频的时候显示视频广告
+         */
+        MediaView mediaView = (MediaView) adView.findViewById(R.id.appinstall_media);
+        ImageView coverImage = (ImageView)adView.findViewById(R.id.appinstall_image);
+        if (nativeAppInstallAd.getVideoController().hasVideoContent()) {
+            mediaView.setVisibility(View.VISIBLE);
+            coverImage.setVisibility(View.GONE);
+            adView.setMediaView(mediaView);
+        } else {
+            adView.setImageView(coverImage);
+            coverImage.setVisibility(View.VISIBLE);
+            mediaView.setVisibility(View.GONE);
+            List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeAppInstallAd.getImages();
+            if (images.size() > 0) {
+                ((ImageView) adView.getImageView()).setImageDrawable(images.get(0).getDrawable());
+            }
         }
 
         // Some aren't guaranteed, however, and should be checked.
@@ -260,7 +283,8 @@ public class NativeViewBuild {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
         TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
-        ImageView nativeAdImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_media);
+//        ImageView nativeAdImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_media);
+        com.facebook.ads.MediaView nativeAdMedia = (com.facebook.ads.MediaView) mNativeAdView.findViewById(R.id.native_ad_media);
         TextView nativeAdSocialContext = (TextView) mNativeAdView.findViewById(R.id.native_ad_social_context);
         TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
         Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
@@ -283,12 +307,12 @@ public class NativeViewBuild {
         if (adIcon != null) {
             NativeAd.downloadAndDisplayImage(adIcon, nativeAdIcon);
         }
-
         // Download and display the cover image.
-        NativeAd.Image adImage = nativeAd.getAdCoverImage();
-        if (adImage != null) {
-            NativeAd.downloadAndDisplayImage(adImage, nativeAdImage);
-        }
+        nativeAdMedia.setNativeAd(nativeAd);
+//        NativeAd.Image adImage = nativeAd.getAdCoverImage();
+//        if (adImage != null) {
+//            NativeAd.downloadAndDisplayImage(adImage, nativeAdImage);
+//        }
         /**
          * facebook广告必须要加AdChoicesView
          */
