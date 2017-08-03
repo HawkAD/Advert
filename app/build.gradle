@@ -7,8 +7,8 @@ android {
         applicationId "com.hawk.android.adsdk.demo"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 21
-        versionName "2.1"
+        versionCode 22
+        versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -38,7 +38,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v2.2.1-release', ext:'aar')
+    compile (name:'hawk-adsdk-v2.2.2-release', ext:'aar')
     //引入baidu sdk
     compile(name: 'DuappsAd-CW-v1.0.9.7-release', ext: 'aar')
     //引入admob sdk
