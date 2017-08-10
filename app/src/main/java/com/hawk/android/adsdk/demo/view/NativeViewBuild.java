@@ -11,6 +11,10 @@ import android.widget.TextView;
 import com.duapps.ad.DuNativeAd;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.NativeAd;
+import com.hawk.ownadsdk.HkOwnNativeAd;
+import com.hawk.ownadsdk.nativeview.NativeAdView;
+import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
+import com.my.target.nativeads.banners.NativePromoBanner;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import com.google.android.gms.ads.formats.MediaView;
@@ -108,26 +112,25 @@ public class NativeViewBuild {
             mNativeAdView = View.inflate(mContext, R.layout.baidu_native_ad_layout, null);
             DuNativeAd nativeAd = (DuNativeAd) ad;
             setBaiduAdView(nativeAd);
-        } else if (ad instanceof AdManager) {//NGC native ad
+        } else if (ad instanceof NativePromoBanner) {//hawk native ad
+            mNativeAdView = View.inflate(mContext, R.layout.ruvk_native_ad_layout, null);
+            NativePromoBanner nativeAd = (NativePromoBanner)ad;
+            setRuVkAdView(nativeAd);
+        } else if (ad instanceof AdManager) {//oc native ad
             mNativeAdView = View.inflate(mContext, R.layout.oc_native_ad_layout, null);
-            final ImageView or_img = (ImageView) mNativeAdView.findViewById(R.id.or_img);
-            TextView or_title = (TextView) mNativeAdView.findViewById(R.id.or_title);
-            TextView or_content = (TextView) mNativeAdView.findViewById(R.id.or_content);
-            TextView or_btn = (TextView) mNativeAdView.findViewById(R.id.or_btn);
-            final ImageView or_icon = (ImageView) mNativeAdView.findViewById(R.id.or_icon);
-            or_title.setText(((AdManager) ad).getAdTitle());
-            or_content.setText(((AdManager) ad).getAdBody());
-            if (null != or_icon) {
-                HawkNativeAd.downloadAndDisplayImage(mContext, ((AdManager) ad).getAdIcon(), or_icon);
-            }
-            if (null != or_img) {
-                HawkNativeAd.downloadAndDisplayImage(mContext, ((AdManager) ad).getBigimage(), or_img);
-            }
-            or_btn.setText(((AdManager) ad).getAdCallToAction());
+            setNgcAdView((AdManager) ad);
+        } else if (ad instanceof List&&((List)ad).size()>0&&((List)ad).get(0) instanceof HkOwnNativeAd) {//hawk native ad
+            mNativeAdView=View.inflate(mContext, R.layout.native_ad_layout, null);
+            List<HkOwnNativeAd> nativeAds=(List<HkOwnNativeAd>)ad;
+            setMobpalmAdView(nativeAds.get(0));
         }
         return mNativeAdView;
     }
 
+    /**
+     * 百度广告
+     * @param nativeAd
+     */
     private void setBaiduAdView(DuNativeAd nativeAd) {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
@@ -151,6 +154,7 @@ public class NativeViewBuild {
     }
 
     /**
+     * admob 内容型广告
      * @param nativeContentAd
      * @param adView
      */
@@ -207,6 +211,7 @@ public class NativeViewBuild {
 
 
     /**
+     * admob 安装型广告
      * @param nativeAppInstallAd
      * @param adView
      */
@@ -279,6 +284,10 @@ public class NativeViewBuild {
         }
     }
 
+    /**
+     * facebook 广告
+     * @param nativeAd
+     */
     private void setFacebookAdView(NativeAd nativeAd) {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
@@ -321,6 +330,10 @@ public class NativeViewBuild {
         adChoicesContainer.addView(adChoicesView);
     }
 
+    /**
+     * 内推、server端广告
+     * @param nativeAd
+     */
     private void setHawkAdView(HawkNativeAd nativeAd) {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
@@ -341,6 +354,81 @@ public class NativeViewBuild {
 
         if (nativeAd.getAdImages() != null && nativeAd.getAdImages().size() > 0) {
             HawkNativeAd.downloadAndDisplayImage(mContext, nativeAd.getAdImages().get(0), nativeAdImage);
+        }
+    }
+
+
+    /**
+     * NGC渠道
+     * @param nativeAd
+     */
+    private void setNgcAdView(AdManager nativeAd){
+        if(null==nativeAd||null==mNativeAdView){
+            return;
+        }
+        final ImageView or_img = (ImageView) mNativeAdView.findViewById(R.id.or_img);
+        TextView or_title = (TextView) mNativeAdView.findViewById(R.id.or_title);
+        TextView or_content = (TextView) mNativeAdView.findViewById(R.id.or_content);
+        TextView or_btn = (TextView) mNativeAdView.findViewById(R.id.or_btn);
+        final ImageView or_icon = (ImageView) mNativeAdView.findViewById(R.id.or_icon);
+        or_title.setText(nativeAd.getAdTitle());
+        or_content.setText(nativeAd.getAdBody());
+        if (null!=or_icon) {
+            HawkNativeAd.downloadAndDisplayImage(mContext,nativeAd.getAdIcon(), or_icon);
+        }
+        if (null!=or_img) {
+            HawkNativeAd.downloadAndDisplayImage(mContext,nativeAd.getBigimage(), or_img);
+        }
+        or_btn.setText(nativeAd.getAdCallToAction());
+    }
+
+    /**
+     * 直客广告
+     * @param nativeAd
+     * @return
+     */
+    private View setMobpalmAdView(HkOwnNativeAd nativeAd){
+        if(null==nativeAd||null==mNativeAdView){
+            return null;
+        }
+        NativeAdView adView = nativeAd.getAdView(mContext, mNativeAdView);
+        adView.setTitleID(R.id.or_title).setDescriptionViewID(R.id.or_content);
+        adView.setIconViewID(R.id.or_icon).setImageViewID(R.id.or_img);
+        adView.setActionID(R.id.or_btn);
+        adView.setViewListenter(new NativeAdViewListenter() {
+            @Override
+            public void onImpression() {
+            }
+
+            @Override
+            public void onClick() {
+            }
+        });
+        return mNativeAdView;
+    }
+    /**
+     * 俄罗斯Vk渠道
+     * @param nativeAd
+     */
+    private void setRuVkAdView (NativePromoBanner nativeAd) {
+        // Create native UI using the ad metadata.
+        ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
+        TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
+        ImageView nativeAdImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_image);
+        TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
+        Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
+
+        // Set the Text.
+        nativeAdTitle.setText(nativeAd.getTitle());
+        nativeAdBody.setText(nativeAd.getDescription());
+        nativeAdCallToAction.setText(nativeAd.getCtaText());
+        // Download and display the ad icon.
+        if (nativeAd.getIcon() != null ) {
+            com.my.target.nativeads.NativeAd.loadImageToView(nativeAd.getIcon(),nativeAdIcon);
+        }
+
+        if (nativeAd.getImage() != null) {
+            com.my.target.nativeads.NativeAd.loadImageToView(nativeAd.getImage(),nativeAdImage);
         }
     }
 }

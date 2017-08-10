@@ -15,18 +15,18 @@
 
         <!-- 百度广告SDK需要加入的配置 start-->
         <meta-data
-            android:name="app_license"
-            android:value="563d02dcce655392c9d3ab74640e71c7" />
+                android:name="app_license"
+                android:value="563d02dcce655392c9d3ab74640e71c7"/>
         <provider
-            android:name="com.duapps.ad.stats.DuAdCacheProvider"
-            android:authorities="com.hawk.android.adsdk.demo.DuAdCacheProvider"
-            android:exported="false">
+                android:name="com.duapps.ad.stats.DuAdCacheProvider"
+                android:authorities="com.hawk.android.adsdk.demo.DuAdCacheProvider"
+                android:exported="false">
         </provider>
-        <receiver android:name="com.duapps.ad.base.PackageAddReceiver" >
+        <receiver android:name="com.duapps.ad.base.PackageAddReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
 
-                <data android:scheme="package" />
+                <data android:scheme="package"/>
             </intent-filter>
         </receiver>
         <!-- 百度广告SDK需要加入的配置 end-->
@@ -39,37 +39,46 @@
         </activity>
 
         <activity
-            android:name="com.hawk.android.adsdk.demo.BannerActivity"
-            android:theme="@style/SubTheme"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTask">
+                android:name="com.hawk.android.adsdk.demo.BannerActivity"
+                android:theme="@style/SubTheme"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                android:launchMode="singleTask">
         </activity>
         <activity
-            android:name="com.hawk.android.adsdk.demo.InterstitialActivity"
-            android:theme="@style/SubTheme"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTask"/>
+                android:name="com.hawk.android.adsdk.demo.InterstitialActivity"
+                android:theme="@style/SubTheme"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                android:launchMode="singleTask"/>
         <activity
-            android:name="com.hawk.android.adsdk.demo.NativeAdSpreadSampleActivity"
-            android:theme="@style/SubTheme"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTask"/>
+                android:name="com.hawk.android.adsdk.demo.NativeAdSpreadSampleActivity"
+                android:theme="@style/SubTheme"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                android:launchMode="singleTask"/>
         <activity
-            android:name="com.hawk.android.adsdk.demo.NativeAdPoolActiveity"
-            android:theme="@style/SubTheme"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:launchMode="singleTask"/>
-        <activity android:name="com.facebook.ads.InterstitialAdActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize" />
-
+                android:name="com.hawk.android.adsdk.demo.NativeAdPoolActiveity"
+                android:theme="@style/SubTheme"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                android:launchMode="singleTask"/>
+        <activity
+                android:name=".NativeAdDefaultActivity"
+                android:theme="@style/SubTheme"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                android:launchMode="singleTask"/>
         <meta-data
                 android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version" />
+                android:value="@integer/google_play_services_version"/>
 
-        <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-        <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-        <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity android:name="com.facebook.ads.InterstitialAdActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <activity android:name="com.mopub.mobileads.MoPubActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity android:name="com.mopub.mobileads.MraidActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity android:name="com.mopub.common.MoPubBrowser"
+                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
 
     </application>
 
