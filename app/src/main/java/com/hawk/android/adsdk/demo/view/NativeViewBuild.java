@@ -109,17 +109,29 @@ public class NativeViewBuild {
             nativeAd.renderAdView(convertView);
             mNativeAdView = convertView;
         } else if (ad instanceof DuNativeAd) {//baidu native ad
+            /**
+             * 百度广告
+             */
             mNativeAdView = View.inflate(mContext, R.layout.baidu_native_ad_layout, null);
             DuNativeAd nativeAd = (DuNativeAd) ad;
             setBaiduAdView(nativeAd);
-        } else if (ad instanceof NativePromoBanner) {//hawk native ad
+        } else if (ad instanceof NativePromoBanner) {//vk native adV
+            /**
+             * VK广告
+             */
             mNativeAdView = View.inflate(mContext, R.layout.ruvk_native_ad_layout, null);
             NativePromoBanner nativeAd = (NativePromoBanner)ad;
             setRuVkAdView(nativeAd);
         } else if (ad instanceof AdManager) {//oc native ad
+            /**
+             * NGC广告
+             */
             mNativeAdView = View.inflate(mContext, R.layout.oc_native_ad_layout, null);
             setNgcAdView((AdManager) ad);
-        } else if (ad instanceof List&&((List)ad).size()>0&&((List)ad).get(0) instanceof HkOwnNativeAd) {//hawk native ad
+        } else if (ad instanceof List&&((List)ad).size()>0&&((List)ad).get(0) instanceof HkOwnNativeAd) {//hawk native
+            /**
+             * Hawk 直客广告
+             */
             mNativeAdView=View.inflate(mContext, R.layout.native_ad_layout, null);
             List<HkOwnNativeAd> nativeAds=(List<HkOwnNativeAd>)ad;
             setMobpalmAdView(nativeAds.get(0));
