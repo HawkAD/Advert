@@ -35,7 +35,6 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         initNativeAd();
     }
 
-
     private void initNativeAd() {
         //setp1 : create mHKNativeAd
         //The first parameter：Context
