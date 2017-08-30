@@ -38,7 +38,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v2.2.6-release', ext:'aar')
+    compile (name:'hawk-adsdk-v2.2.8-release', ext:'aar')
     //引入baidu sdk
     compile(name: 'DuappsAd-CW-v1.0.9.7-release', ext: 'aar')
     //引入admob sdk
@@ -48,7 +48,7 @@ dependencies {
     //引入俄罗斯Vk sdk
     compile(name: 'mytarget-sdk-4.6.19', ext: 'aar')
     //引入直客 sdk
-    compile(name: 'hawk-mobpalm-v1.4.0-release', ext: 'aar')
+    compile(name: 'hawk-mobpalm-v1.5.1-release', ext: 'aar')
 
     // For banners,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
     compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
