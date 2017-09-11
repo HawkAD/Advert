@@ -18,6 +18,7 @@
 -dontwarn com.hawk.android.adsdk.ads.mediator.**
 -keep class com.hawk.android.adsdk.ads.**{*;}
 -keep class com.tcl.mediator.**{*;}
+-keep class com.hawk.ownadsdk.**{*;}
 
 -keep class com.my.target.** {*;}
 #-kepp class com.google.android.gms.ads.**{*;}
