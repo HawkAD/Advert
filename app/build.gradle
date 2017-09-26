@@ -62,6 +62,7 @@ dependencies {
     compile('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
         transitive = true
     }
-
+    //引入flurry 广告sdk
+    compile 'com.flurry.android:ads:6.2.0'
 }
 apply plugin: 'com.google.gms.google-services'

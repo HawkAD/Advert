@@ -2,6 +2,7 @@ package com.hawk.android.adsdk.demo.view;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.duapps.ad.DuNativeAd;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.NativeAd;
+import com.flurry.android.ads.FlurryAdNative;
+import com.flurry.android.ads.FlurryAdNativeAsset;
 import com.hawk.ownadsdk.HkOwnNativeAd;
 import com.hawk.ownadsdk.nativeview.NativeAdView;
 import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
@@ -135,6 +138,14 @@ public class NativeViewBuild {
             mNativeAdView=View.inflate(mContext, R.layout.native_ad_layout, null);
             List<HkOwnNativeAd> nativeAds=(List<HkOwnNativeAd>)ad;
             setMobpalmAdView(nativeAds.get(0));
+        } else if(ad instanceof FlurryAdNative){
+            /**
+             * flurry广告
+             */
+            FlurryAdNative mAdNative=(FlurryAdNative)ad;
+            mNativeAdView=View.inflate(mContext, R.layout.flurry_native_ad_layout, null);
+            mAdNative.setTrackingView(mNativeAdView);
+            setFlurryAdView(mAdNative);
         }
         return mNativeAdView;
     }
@@ -441,6 +452,42 @@ public class NativeViewBuild {
 
         if (nativeAd.getImage() != null) {
             com.my.target.nativeads.NativeAd.loadImageToView(nativeAd.getImage(),nativeAdImage);
+        }
+    }
+
+
+    /**
+     * flurry渠道
+     * @param nativeAd
+     */
+    private void setFlurryAdView (FlurryAdNative nativeAd) {
+        try {
+            if(null==mNativeAdView||null==imageLoader||null==nativeAd){
+                return;
+            }
+            loadAdAssetInView(nativeAd, "headline",(TextView) mNativeAdView.findViewById(R.id.ad_title));
+            loadAdAssetInView(nativeAd, "summary", (TextView) mNativeAdView.findViewById(R.id.ad_summary));
+            loadAdAssetInView(nativeAd, "source", (TextView) mNativeAdView.findViewById(R.id.ad_publisher));
+            imageLoader.displayImage(nativeAd.getAsset("secHqBrandingLogo").getValue(), (ImageView) mNativeAdView.findViewById(R.id.sponsored_image));
+            if (nativeAd.isVideoAd()) {
+                mNativeAdView.findViewById(R.id.ad_video).setVisibility(View.VISIBLE);
+                mNativeAdView.findViewById(R.id.ad_image).setVisibility(View.GONE);
+                loadAdAssetInView(nativeAd, "videoUrl",(ViewGroup) mNativeAdView.findViewById(R.id.ad_video));
+            } else {
+                mNativeAdView.findViewById(R.id.ad_video).setVisibility(View.GONE);
+                mNativeAdView.findViewById(R.id.ad_image).setVisibility(View.VISIBLE);
+                imageLoader.displayImage(nativeAd.getAsset("secHqImage").getValue(), (ImageView) mNativeAdView.findViewById(R.id.ad_image));
+            }
+
+        } catch (Exception e) {
+        }
+    }
+    private void loadAdAssetInView(FlurryAdNative adNative, String assetName, View view) {
+        FlurryAdNativeAsset adNativeAsset = adNative.getAsset(assetName);
+        if (adNativeAsset != null) {
+            adNativeAsset.loadAssetIntoView(view);
+        } else {
+            view.setVisibility(View.GONE);
         }
     }
 }
