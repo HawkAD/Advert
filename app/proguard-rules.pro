@@ -48,6 +48,15 @@
     <methods>;
 }
 
+-keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+ public static final *** NULL;
+}
+
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+   @com.google.android.gms.common.annotation.KeepName *;
+ }
+
 -keepattributes Signature  #过滤泛型
 -keepattributes *Annotation* # 过滤注解
 -keepattributes InnerClasses #
