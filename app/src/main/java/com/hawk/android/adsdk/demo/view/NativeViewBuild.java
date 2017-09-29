@@ -468,15 +468,19 @@ public class NativeViewBuild {
             loadAdAssetInView(nativeAd, "headline",(TextView) mNativeAdView.findViewById(R.id.ad_title));
             loadAdAssetInView(nativeAd, "summary", (TextView) mNativeAdView.findViewById(R.id.ad_summary));
             loadAdAssetInView(nativeAd, "source", (TextView) mNativeAdView.findViewById(R.id.ad_publisher));
-            imageLoader.displayImage(nativeAd.getAsset("secHqBrandingLogo").getValue(), (ImageView) mNativeAdView.findViewById(R.id.sponsored_image));
+            loadAdAssetInView(nativeAd, "secHqBrandingLogo",(ImageView) mNativeAdView.findViewById(R.id.sponsored_image));
+//            imageLoader.displayImage(nativeAd.getAsset("secHqBrandingLogo").getValue(), (ImageView) mNativeAdView.findViewById(R.id.sponsored_image));
             if (nativeAd.isVideoAd()) {
                 mNativeAdView.findViewById(R.id.ad_video).setVisibility(View.VISIBLE);
                 mNativeAdView.findViewById(R.id.ad_image).setVisibility(View.GONE);
                 loadAdAssetInView(nativeAd, "videoUrl",(ViewGroup) mNativeAdView.findViewById(R.id.ad_video));
+
             } else {
+
                 mNativeAdView.findViewById(R.id.ad_video).setVisibility(View.GONE);
                 mNativeAdView.findViewById(R.id.ad_image).setVisibility(View.VISIBLE);
-                imageLoader.displayImage(nativeAd.getAsset("secHqImage").getValue(), (ImageView) mNativeAdView.findViewById(R.id.ad_image));
+                loadAdAssetInView(nativeAd, "secHqImage",(ImageView) mNativeAdView.findViewById(R.id.ad_image));
+//                imageLoader.displayImage(nativeAd.getAsset("secHqImage").getValue(), (ImageView) mNativeAdView.findViewById(R.id.ad_image));
             }
 
         } catch (Exception e) {
