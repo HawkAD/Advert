@@ -15,8 +15,13 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontwarn com.hawk.android.adsdk.ads.mediator.**
 -keep class com.hawk.android.adsdk.ads.**{*;}
 -keep class com.tcl.mediator.**{*;}
+-keep class com.hawk.ownadsdk.**{*;}
+-keep class com.flurry.** { *; }
+
+-keep class com.my.target.** {*;}
 #-kepp class com.google.android.gms.ads.**{*;}
 -keep class com.google.android.gms.ads.MobileAds{
     <fields>;
@@ -42,6 +47,15 @@
     <fields>;
     <methods>;
 }
+
+-keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+ public static final *** NULL;
+}
+
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+   @com.google.android.gms.common.annotation.KeepName *;
+ }
 
 -keepattributes Signature  #过滤泛型
 -keepattributes *Annotation* # 过滤注解

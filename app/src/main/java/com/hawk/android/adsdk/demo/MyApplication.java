@@ -1,5 +1,6 @@
 package com.hawk.android.adsdk.demo;
 
+import com.flurry.android.FlurryAgent;
 import com.hawk.android.adsdk.ads.HkMobileAds;
 
 import android.app.ActivityManager;
@@ -27,6 +28,11 @@ public class MyApplication extends Application {
     }
 
     private void init() {
+        /**
+         * 初始化flurry
+         */
+        FlurryAgent.setLogEnabled(true);
+        FlurryAgent.init(this, "S2D44W5RVZ5QPSH42W5S");
         /**
          * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
          */

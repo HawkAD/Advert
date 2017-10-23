@@ -7,8 +7,8 @@ android {
         applicationId "com.hawk.android.adsdk.demo"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 20
-        versionName "2.0"
+        versionCode 24
+        versionName "2.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -38,12 +38,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v2.2.0-release-20170724', ext:'aar')
+    compile (name:'hawk-adsdk-v3.0.1-release', ext:'aar')
     //引入baidu sdk
-    compile(name: 'DuappsAd-CW-v1.0.9.7-release', ext: 'aar')
+    compile(name: 'DuappsAd-CW-v1.0.9.8.1-release', ext: 'aar')
     //引入admob sdk
     compile 'com.google.firebase:firebase-ads:10.2.1'
-    compile 'com.facebook.android:audience-network-sdk:4.+'
+    //引入facebook sdk
+    compile 'com.facebook.android:audience-network-sdk:4.23.0'
+    //引入俄罗斯Vk sdk
+    compile(name: 'mytarget-sdk-4.6.19', ext: 'aar')
+    //引入直客 sdk
+    compile(name: 'hawk-mobpalm-v1.5.4-release', ext: 'aar')
 
     // For banners,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
     compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
@@ -57,6 +62,7 @@ dependencies {
     compile('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
         transitive = true
     }
-
+    //引入flurry 广告sdk
+    compile 'com.flurry.android:ads:6.2.0'
 }
 apply plugin: 'com.google.gms.google-services'

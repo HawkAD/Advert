@@ -35,7 +35,6 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         initNativeAd();
     }
 
-
     private void initNativeAd() {
         //setp1 : create mHKNativeAd
         //The first parameter：Context
@@ -55,6 +54,7 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
          * 添加facebook DeviceID
          */
         AdSettings.addTestDevice("8e7dc10cdcf65ea73ad283a5070d9c36");
+        AdSettings.setTestAdType(AdSettings.TestAdType.VIDEO_HD_16_9_46S_APP_INSTALL);
         /**
          * 添加Admob DeviceID
          */
