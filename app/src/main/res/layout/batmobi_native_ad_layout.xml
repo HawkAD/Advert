@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/img_big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_big"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/btn_install"
+            android:layout_toRightOf="@+id/icon"
+            android:paddingRight="5dp"
+            android:lines="1"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/app_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/icon"
+            android:layout_alignLeft="@id/app_name"
+            android:layout_below="@+id/app_name"
+            android:layout_toLeftOf="@+id/btn_install"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp"
+             />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/text_camp_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_install"
+            android:layout_alignParentRight="true"
+            android:padding="2dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="10sp"
+             />
+
+        <TextView
+            android:id="@+id/btn_install"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:layout_alignBottom="@+id/icon"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/holo_green_light"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+             />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -19,7 +19,9 @@
 -keep class com.hawk.android.adsdk.ads.**{*;}
 -keep class com.tcl.mediator.**{*;}
 -keep class com.hawk.ownadsdk.**{*;}
+# Required to preserve the Flurry SDK
 -keep class com.flurry.** { *; }
+-dontwarn com.flurry.**
 
 -keep class com.my.target.** {*;}
 #-kepp class com.google.android.gms.ads.**{*;}
@@ -47,7 +49,7 @@
     <fields>;
     <methods>;
 }
-
+-keep class com.etap.** { *; }#batmobi平台
 -keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
  public static final *** NULL;
 }

@@ -10,6 +10,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.duapps.ad.DuNativeAd;
+import com.etap.Ad;
+import com.etap.EtapNative;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.NativeAd;
 import com.flurry.android.ads.FlurryAdNative;
@@ -146,8 +148,41 @@ public class NativeViewBuild {
             mNativeAdView=View.inflate(mContext, R.layout.flurry_native_ad_layout, null);
             mAdNative.setTrackingView(mNativeAdView);
             setFlurryAdView(mAdNative);
+        }else if (ad instanceof EtapNative) {//batmobi平台
+            mNativeAdView = View.inflate(mContext, R.layout.batmobi_native_ad_layout, null);
+            setBatmobiAdView((EtapNative) ad);
         }
         return mNativeAdView;
+    }
+
+    private void setBatmobiAdView(EtapNative etapNatives) {
+        if (null == mNativeAdView || null == etapNatives || null == etapNatives.getAds() || 1 > etapNatives.getAds().size()) {
+            return;
+        }
+        TextView appName = (TextView) mNativeAdView.findViewById(R.id.app_name);
+        TextView appDes = (TextView) mNativeAdView.findViewById(R.id.app_des);
+        ImageView icon = (ImageView) mNativeAdView.findViewById(R.id.icon);
+        ImageView img = (ImageView) mNativeAdView.findViewById(R.id.img_big);
+        TextView install = (TextView) mNativeAdView.findViewById(R.id.btn_install);
+        TextView campId = (TextView) mNativeAdView.findViewById(R.id.text_camp_id);
+        Ad item = etapNatives.getAds().get(0);
+        if (null != item) {
+            imageLoader.displayImage(item.getIcon(), icon);
+            List<String> creatives = item.getCreatives(Ad.AD_CREATIVE_SIZE_1200x627);//聚合SDk里面请求了两种尺寸的广告（Ad.AD_CREATIVE_SIZE_1200
+            // x627和Ad.AD_CREATIVE_SIZE_320X200)请根据广告使用的场景大小去取对应合适的图片.
+            if (null == creatives || creatives.size() == 0) {//如果没有这个尺寸的图片，正常情况下应该不会出现，各app根据情况自己选择是否加上这个处理逻辑
+                creatives = item.getCreatives(Ad.AD_CREATIVE_SIZE_320X200);
+            }
+            if (null != creatives && creatives.size() > 0 && null != creatives.get(0)) {
+                imageLoader.displayImage(creatives.get(0), img);
+            }
+
+            appName.setText(item.getName());
+            appDes.setText(item.getDescription());
+            install.setText(item.getAdCallToAction());
+            campId.setText(new StringBuilder("CampId:").append(item.getCampId()).toString());
+        }
+        etapNatives.registerView(mNativeAdView, item);
     }
 
     /**
