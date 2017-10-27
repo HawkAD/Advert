@@ -83,7 +83,18 @@
                   android:configChanges="keyboardHidden|orientation|screenSize"></activity>
         <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
                   android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity
+            android:name="com.etap.EtapActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
 
+        <receiver android:name="com.etap.EtapBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
