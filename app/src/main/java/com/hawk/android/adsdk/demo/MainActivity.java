@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mNativeBtn;
     private Button mNativePoolBtn;
     private Button mNativeDefaultBtn;
+    private Button mRewardVedioBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNativeBtn = (Button)this.findViewById(R.id.btn_native);
         mNativePoolBtn = (Button)this.findViewById(R.id.btn_native_pool);
         mNativeDefaultBtn = (Button)this.findViewById(R.id.btn_default_native);
+        mRewardVedioBtn = (Button)this.findViewById(R.id.btn_reward_vedio);
         mBannerBtn.setOnClickListener(this);
         mInterstitialBtn.setOnClickListener(this);
         mNativeBtn.setOnClickListener(this);
         mNativePoolBtn.setOnClickListener(this);
         mNativeDefaultBtn.setOnClickListener(this);
+        mRewardVedioBtn.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 this.startActivity(intent3);
             case R.id.btn_default_native:
                 this.startActivity(new Intent(this,NativeAdDefaultActivity.class));
+            case R.id.btn_reward_vedio:
+                this.startActivity(new Intent(this,RewardVedioActivity.class));
                 break;
 
         }

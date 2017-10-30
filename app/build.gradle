@@ -38,7 +38,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v3.0.3-release', ext:'aar')
+    compile (name:'hawk-adsdk-v4.0.0-release', ext:'aar')
     //引入baidu sdk
     compile(name: 'DuappsAd-CW-v1.0.9.8.1-release', ext: 'aar')
     //引入admob sdk

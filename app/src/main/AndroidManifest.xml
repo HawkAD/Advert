@@ -45,6 +45,11 @@
                 android:launchMode="singleTask">
         </activity>
         <activity
+                android:name="com.hawk.android.adsdk.demo.RewardVedioActivity"
+                android:theme="@style/SubTheme"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                android:launchMode="singleTask"/>
+        <activity
                 android:name="com.hawk.android.adsdk.demo.InterstitialActivity"
                 android:theme="@style/SubTheme"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
