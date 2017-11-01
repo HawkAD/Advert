@@ -56,8 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_native_pool:
                 Intent intent3 = new Intent(this,NativeAdPoolActiveity.class);
                 this.startActivity(intent3);
+                break;
             case R.id.btn_default_native:
                 this.startActivity(new Intent(this,NativeAdDefaultActivity.class));
+                break;
             case R.id.btn_reward_vedio:
                 this.startActivity(new Intent(this,RewardVedioActivity.class));
                 break;
