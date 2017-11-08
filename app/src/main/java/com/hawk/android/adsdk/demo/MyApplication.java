@@ -49,7 +49,8 @@ public class MyApplication extends Application {
          *    3、聚合平台广告位ID，有多个就需要传多个
          */
         HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),
-                getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid), getString(R.string.native_ad_unitid));
+                getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid),
+                getString(R.string.native_ad_unitid),getString(R.string.reward_ad_unitid));
         /**
          * 这个方法可以判断本地是否有配置信息
          */

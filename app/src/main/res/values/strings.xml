@@ -2,10 +2,16 @@
     <string name="app_name">HawkDemo</string>
 
     <!-- 测试广告位id-->
+<!--    <string name="app_key">0baaec54efaa47f5bb1026ef62826f70</string>
+    <string name="banner_ad_unitid">c7c9d1e38da64b66bc14f6bb45ba6fea</string>
+    <string name="intersitial_ad_unitid">153c4f79be3b477d90895ca34347f036</string>
+    <string name="native_ad_unitid">487cf347b01b4accbc6648e4fd61c4ee</string>-->
+
     <string name="app_key">d3703f9b0c1247f7a1b371bec1cc77e6</string>
     <string name="banner_ad_unitid">c7c9d1e38da64b66bc14f6bb45ba6fea</string>
     <string name="intersitial_ad_unitid">153c4f79be3b477d90895ca34347f036</string>
     <string name="native_ad_unitid">b272a67451d74d69908730584214b192</string>
+    <string name="reward_ad_unitid">87aad4237b674f53bccc9f4d140e50e5</string>
 </resources>
 
 
