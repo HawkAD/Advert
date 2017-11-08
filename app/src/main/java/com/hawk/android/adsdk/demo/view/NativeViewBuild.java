@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.avocarrot.sdk.nativeassets.model.AdChoice;
 import com.duapps.ad.DuNativeAd;
 import com.etap.Ad;
 import com.etap.EtapNative;
@@ -16,6 +17,7 @@ import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.NativeAd;
 import com.flurry.android.ads.FlurryAdNative;
 import com.flurry.android.ads.FlurryAdNativeAsset;
+import com.hawk.android.adsdk.ads.mediator.implAdapter.glispa.GlispaNativeAssetsAd;
 import com.hawk.ownadsdk.HkOwnNativeAd;
 import com.hawk.ownadsdk.nativeview.NativeAdView;
 import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
@@ -31,6 +33,7 @@ import com.hawk.android.adsdk.ads.HKNativeAd;
 import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
 import com.hawk.android.adsdk.demo.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ads.com.adsdk.admanagers.adutils.AdManager;
@@ -151,6 +154,9 @@ public class NativeViewBuild {
         }else if (ad instanceof EtapNative) {//batmobi平台
             mNativeAdView = View.inflate(mContext, R.layout.batmobi_native_ad_layout, null);
             setBatmobiAdView((EtapNative) ad);
+        }else if (ad instanceof GlispaNativeAssetsAd) {//Glispa平台
+            mNativeAdView = View.inflate(mContext, R.layout.glispa_native_ad_layout, null);
+            setGlispaAdView((GlispaNativeAssetsAd)ad);
         }
         return mNativeAdView;
     }
@@ -525,6 +531,87 @@ public class NativeViewBuild {
         FlurryAdNativeAsset adNativeAsset = adNative.getAsset(assetName);
         if (adNativeAsset != null) {
             adNativeAsset.loadAssetIntoView(view);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    private void setGlispaAdView(GlispaNativeAssetsAd nativeAd) {
+        if (null == mNativeAdView || null == nativeAd) {
+            return;
+        }
+        final List<View> clickableViews = new ArrayList<>();
+        TextView title=(TextView) mNativeAdView.findViewById(R.id.native_assets_ad_title);
+        TextView body=(TextView) mNativeAdView.findViewById(R.id.native_assets_ad_body);
+        TextView adChoiceText=(TextView) mNativeAdView.findViewById(R.id.native_assets_ad_choices_caption);
+        TextView cta=(TextView) mNativeAdView.findViewById(R.id.native_assets_ad_call_to_action);
+        ImageView icon=(ImageView) mNativeAdView.findViewById(R.id.native_assets_ad_icon);
+        ImageView image=(ImageView) mNativeAdView.findViewById(R.id.native_assets_ad_image);
+        ImageView adChoiceIcon=(ImageView) mNativeAdView.findViewById(R.id.native_assets_ad_choices_icon);
+        RatingBar rating=(RatingBar) mNativeAdView.findViewById(R.id.native_assets_ad_star_rating);
+
+
+        if (title != null) {
+            title.setText(nativeAd.getNativeAssets().getTitle());
+            clickableViews.add(title);
+        }
+        if (body != null) {
+            body.setText(nativeAd.getNativeAssets().getText());
+        }
+        if (icon != null) {
+            renderImageView(icon, nativeAd.getNativeAssets().getIcon());
+            clickableViews.add(icon);
+        }
+        if (image != null) {
+            renderImageView(image, nativeAd.getNativeAssets().getImage());
+            clickableViews.add(image);
+        }
+        if (cta != null) {
+            cta.setText(nativeAd.getNativeAssets().getCallToAction());
+            clickableViews.add(cta);
+        }
+        final AdChoice adChoice = nativeAd.getNativeAssets().getAdChoice();
+        if (adChoice != null) {
+            if (adChoiceIcon != null) {
+                adChoiceIcon.setImageDrawable(adChoice.getIcon().getDrawable());
+                nativeAd.getNativeAssetsAd().registerAdChoiceViewForClick(adChoiceIcon);
+            }
+            if (adChoiceText != null) {
+                adChoiceText.setText(adChoice.getIconCaption());
+                nativeAd.getNativeAssetsAd().registerAdChoiceViewForClick(adChoiceText);
+            }
+        }
+        if (rating != null) {
+            renderRatingBarView(rating, nativeAd.getNativeAssets().getRating());
+        }
+        nativeAd.getNativeAssetsAd().registerViewsForClick(clickableViews);
+
+    }
+
+    private void renderImageView(final ImageView view, final com.avocarrot.sdk.nativeassets.model.Image image) {
+        if (image != null) {
+            view.setVisibility(View.VISIBLE);
+            view.setAdjustViewBounds(true);
+            final int width = image.getWidth();
+            final int height = image.getHeight();
+            if ((width > 0) && (height > 0)) {
+                view.setMaxWidth(width);
+                view.setMaxHeight(height);
+            }
+            view.setImageDrawable(image.getDrawable());
+        } else {
+            view.setImageDrawable(null);
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    private void renderRatingBarView(final RatingBar view, final com.avocarrot.sdk.nativeassets.model.Rating starRating) {
+        view.setStepSize(0.1F);
+        view.setIsIndicator(true);
+        if (starRating != null) {
+            view.setNumStars((int) starRating.getScale());
+            view.setRating((float) starRating.getValue());
+            view.setVisibility(View.VISIBLE);
         } else {
             view.setVisibility(View.GONE);
         }

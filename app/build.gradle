@@ -10,6 +10,7 @@ android {
         versionCode 24
         versionName "2.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -64,6 +65,12 @@ dependencies {
     }
     //引入flurry 广告sdk
     compile 'com.flurry.android:ads:6.2.0'
+
+    //Glispa
+    compile(name: 'core',version: '4.6.2', ext: 'aar')
+    compile(name: 'insights',version: '4.6.2', ext: 'aar')
+    compile(name: 'mediation-sdk',version: '4.6.2', ext: 'aar')
+    compile(name: 'mediation-sdk-native-assets',version: '4.6.2', ext: 'aar')
 
 }
 apply plugin: 'com.google.gms.google-services'

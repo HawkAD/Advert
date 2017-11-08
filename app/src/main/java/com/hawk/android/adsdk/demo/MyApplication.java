@@ -1,5 +1,6 @@
 package com.hawk.android.adsdk.demo;
 
+import com.avocarrot.sdk.Avocarrot;
 import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
 import com.hawk.android.adsdk.ads.HkMobileAds;
@@ -35,6 +36,7 @@ public class MyApplication extends Application {
         FlurryAgent.setLogEnabled(true);
         FlurryAgent.init(this, "S2D44W5RVZ5QPSH42W5S");
         EtapLib.init(this, "GFRX634FKMLQ10OXN2VJ789P");//batmobi平台初始化，app需要替换各自batmobi平台的appkey
+        Avocarrot.setTestMode(true);//测试Glispa广告的时候打开，发版时请关闭
         /**
          * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
          */
