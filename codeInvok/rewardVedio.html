@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>2.5. 激励视频广告</h3>
+<h4>2.5.1 广告接入代码示例</h4>
+    <pre><code>(详细内容请参考压缩包中的代码示例)
+
+        public class RewardVedioActivity extends AppCompatActivity {
+        private final String TAG = "adSdk";
+        private Button mButtonLoadAd;
+        private Button mButtonShowAd;
+        private HKRewardVedioAd ad;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_interstitial);
+        ad = new HKRewardVedioAd(this,getString(R.string.reward_ad_unitid));
+        initView();
+        }
+
+        private void initView() {
+        initActionBar();
+        mButtonLoadAd = (Button)findViewById(R.id.btn_load_interstitial);
+        mButtonShowAd = (Button)findViewById(R.id.btn_show_interstitial);
+
+        mButtonLoadAd.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        loadAd();
+        }
+        });
+
+        mButtonShowAd.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+        show();
+        }
+        });
+        /**
+        * log中出现 1001 errorcode时，添加facebook的deviceID,从facebook的log中获取，可以用"AdSettings"关键字过滤。
+        * 注意：1、deviceID会每天变化;
+        * 2、facebook的deviceID和admob的不一样
+        * 3、开发debug阶段发现facebook报错误码为1001 时，请确认是否添加了deviceID
+        * 4、AdSettings.addTestDevice("e200707a9622f3472b8d3ecc8c59cac2");和
+        * new HawkAdRequest().addTestDevice("e200707a9622f3472b8d3ecc8c59cac2")作用是一样的。
+        * 5、deviceID可以添加多个
+        */
+
+        /**
+        * 添加facebook DeviceID
+        */
+        AdSettings.addTestDevice("5545e13a65e654f10f8e1fc4b7a35ca2");
+
+        /**
+        * Configure AdColony in your launching Activity's onCreate() method so that cached ads can
+        * be available as soon as possible.
+        * 必须在activity里调用此方法，传入appid、和zoneid(如果有多个就传入多个)，调用此方法后才能拉取到广告，不然会失败。
+        * 调用此方法默认会开始缓存广告。
+        */
+        AdColony.configure( this, "app9a9ce3f173ef40539d", "vz568b78984af8487e95" );
+        ad.setAdListener(new RewardVedioAdListener() {
+
+        @Override
+        public void onAdLoaded() {
+        Log.e(TAG,"激励视频加载成功");
+        Toast.makeText(RewardVedioActivity.this,"激励视频加载成功", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onAdFailedLoad(int errcode) {
+        Log.e(TAG,"激励视频加载失败");
+        Toast.makeText(RewardVedioActivity.this,"激励视频加载失败", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onAdShow() {
+        Log.e(TAG,"激励视频开始展示");
+        Toast.makeText(RewardVedioActivity.this,"激励视频开始展示", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onRewardedVideoCompleted() {
+        Log.e(TAG,"激励视频播放完成");
+        Toast.makeText(RewardVedioActivity.this,"激励视频播放完成", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onAdClicked() {
+        Log.e("adSdk","激励视频点击");
+        Toast.makeText(RewardVedioActivity.this,"激励视频点击", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onAdClosed() {
+        Log.e(TAG,"激励视频关闭");
+        Toast.makeText(RewardVedioActivity.this,"激励视频关闭", Toast.LENGTH_SHORT).show();
+        }
+        });
+        }
+
+        private void initActionBar() {
+        Toolbar toolbar = (Toolbar)findViewById(R.id.activity_main_toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+        // toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+        finish();
+        }
+        });
+        }
+
+        private void loadAd() {
+        if (!ad.isAdLoaded()) {
+        ad.loadAd();
+        }
+        }
+
+        private void show(){
+        Log.e(TAG, "ad.isLoaded()" + ad.isAdLoaded());
+        if (ad.isAdLoaded()) {
+        ad.show();
+        }
+        }
+
+        @Override
+        protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG,"onDestroy");
+        if (ad != null) {
+        ad.destory();
+        }
+        }
+        }
+    </code></pre>
+
+
+<h4>2.5.2 激励视频广告主要API</h4>
+<ul>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HKRewardVedioAd:</strong></p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">HKRewardVedioAd(Context context,String unitId)</td>
+                <td align="left">构造函数</td>
+            </tr>
+            <tr>
+                <td align="left">setAdListener(RewardVedioAdListener listener)</td>
+                <td align="left">设置激励视频状态回调</td>
+            </tr>
+            <tr>
+                <td align="left">loadAd()</td>
+                <td align="left">加载广告</td>
+            </tr>
+            <tr>
+                <td align="left">isAdLoaded()</td>
+                <td align="left">是否加载完成</td>
+            </tr>
+            <tr>
+                <td align="left">show()</td>
+                <td align="left">展示激励视频广告，有遮罩</td>
+            </tr>
+            <tr>
+                <td align="left">destory()</td>
+                <td align="left">释放激励视频广告</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+    <li>
+        <p><strong>com.hawk.android.adsdk.ads.HkAdListener:</strong></p>
+
+        <p>Banner广告回调接口，对于大部分开发者只需要关注其中少量的方法。</p>
+        <table>
+            <thead>
+            <tr>
+                <th align="left">方法名</th>
+                <th align="left">方法介绍</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td align="left">onAdLoaded()</td>
+                <td align="left">广告加载成功回调，表示广告相关的资源已经加载完毕，Ready To Show</td>
+            </tr>
+            <tr>
+                <td align="left">onAdFailedLoad()</td>
+                <td align="left">广告加载失败</td>
+            </tr>
+            <tr>
+                <td align="left">onAdShowed()</td>
+                <td align="left">当广告曝光时发起的回调</td>
+            </tr>
+            <tr>
+                <td align="left">onAdClicked()</td>
+                <td align="left">当广告点击时发起的回调，由于点击去重等原因可能和联盟平台最终的统计数据有差异</td>
+            </tr>
+            <tr>
+                <td align="left">onAdOpen()</td>
+                <td align="left">当广告打开浮层时调用，如打开内置浏览器、内容展示浮层，一般发生在点击之后</td>
+            </tr>
+            <tr>
+                <td align="left">onAdClosed()</td>
+                <td align="left">浮层关闭时调用</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+</ul>
+</body>
+</html>
