@@ -50,6 +50,10 @@
     <methods>;
 }
 -keep class com.etap.** { *; }#batmobi平台
+
+# Required to preserve the Avocarrot SDK(Glispa)
+-keep class com.avocarrot.** { *; }
+-dontwarn com.avocarrot.**
 -keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
  public static final *** NULL;
 }
