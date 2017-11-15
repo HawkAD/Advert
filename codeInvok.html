@@ -8,12 +8,13 @@
     <p>在添加string.xml文件添加appkey与广告位id<p/>
  <pre><code>
      &lt;resources&gt;
-     &lt;string name=&quot;app_name&quot;&gt;adsdkDemo&lt;/string&gt;
+         &lt;string name=&quot;app_name&quot;&gt;HawkDemo&lt;/string&gt;
 
-     &lt;string name=&quot;app_key&quot;&gt;670cb5671c9949a0bbc69d5404604965&lt;/string&gt;
-     &lt;string name=&quot;banner_ad_unitid&quot;&gt;5a756e33373142c99dcee61f70006873&lt;/string&gt;
-     &lt;string name=&quot;intersitial_ad_unitid&quot;&gt;ba3f58d2dc03456b8b6e5dc97f4f1241&lt;/string&gt;
-     &lt;string name=&quot;native_ad_unitid&quot;&gt;19386f9531c941cbbccd0b49ee193106&lt;/string&gt;
+         &lt;string name=&quot;app_key&quot;&gt;d3703f9b0c1247f7a1b371bec1cc77e6&lt;/string&gt;
+         &lt;string name=&quot;banner_ad_unitid&quot;&gt;c7c9d1e38da64b66bc14f6bb45ba6fea&lt;/string&gt;
+         &lt;string name=&quot;intersitial_ad_unitid&quot;&gt;153c4f79be3b477d90895ca34347f036&lt;/string&gt;
+         &lt;string name=&quot;native_ad_unitid&quot;&gt;b272a67451d74d69908730584214b192&lt;/string&gt;
+         &lt;string name=&quot;reward_ad_unitid&quot;&gt;87aad4237b674f53bccc9f4d140e50e5&lt;/string&gt;
      &lt;/resources&gt;
  </code></pre>
 
@@ -23,13 +24,17 @@
 <h3>2.1.2 调用初始化方法</h3>
 <div>
     <p>在app的入口Application里调用sdk初始化代码(appkey和广告位ID从广告管理平台申请)</p>
-    <pre><code>        /**
-        * Initialize the Mobile Ads SDK. The SDK will configure itself.
-        * @param context the context running in
-        * @param applicationCode appkey
-        * @param unitIds mutil unit Id string
+    <pre><code>
+        /**
+        * sdk初始化方法，拉取并刷新后台配置的相关信息，拉取成功后会保存在本地，请确保在load广告之前调用。
+        * 参数：
+        *    1、context
+        *    2、appkey
+        *    3、聚合平台广告位ID，有多个就需要传多个
         */
-        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid));
+        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),
+            getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid),
+                getString(R.string.native_ad_unitid),getString(R.string.reward_ad_unitid));
     </code></pre>
 </div>
 <!-- native 广告接入文档 -->

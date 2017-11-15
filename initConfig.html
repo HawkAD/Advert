@@ -7,26 +7,47 @@
 </head>
 <body>
 <div id="mainContent" class="mainContent">
-    <h1 id="1"> <span>1</span>.  SDK嵌入</h1>
+    <h1 id="1"> <span>1</span>.  接入步骤（细节参考Demo）</h1>
     <h3>1.1.	步骤1：添加SDK到工程中</h3>
-    <p>请在工程文件根目录下创建一个名为 libs 的子目录，并将广告 SDK 的 aar（adsdk.aar） 包拷贝到 libs 目录下。</p>
+    <p>请在工程文件根目录下创建一个名为 libs 的子目录，并将聚合广告 SDK 的 aar（adsdk.aar） 包拷贝到 libs 目录下。其中hawk-adsdk-v4.0.1-release为聚合sdk必须要引入，
+        其它的sdk包根据需要是否接入该渠道，自行决定是否引入。</p>
     <p>
         <img src="res/libs-dir.jpg" />
     </p>
     <h3>1.2.	步骤2: 修改build.gradle文件</h3>
     <p>在dependencies节点添加如下代码：</p>
-    <pre><code>        //引入聚合广告SDK
-        compile (name:'hawk-adsdk-v2.1.4-release', ext:'aar')
+    <pre><code>
+        //引入聚合广告SDK
+        compile (name:'hawk-adsdk-v4.0.1-release', ext:'aar')
+        /**
+        * 以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
+        */
 
         //引入admob sdk
-        compile 'com.google.firebase:firebase-ads:10.2.1'
-        compile 'com.facebook.android:audience-network-sdk:4.22.0'
+        compile 'com.google.firebase:firebase-ads:11.0.1'
 
-        // For banners,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
+        //引入facebook sdk
+        compile 'com.facebook.android:audience-network-sdk:4.23.0'
+
+        //引入baidu sdk
+        compile(name: 'DuappsAd-CW-v1.0.9.8.1-release', ext: 'aar')
+        //百度视频需要引入
+        implementation(name: 'DuVideoSdk-v1.0.1-release', ext: 'aar')
+        implementation('com.android.support:palette-v7:23.4.0'){
+            transitive = false
+        }
+
+        //引入俄罗斯Vk sdk
+        compile(name: 'mytarget-sdk-4.6.19', ext: 'aar')
+
+        //引入直客 sdk
+        compile(name: 'hawk-mobpalm-v1.5.4-release', ext: 'aar')
+
+        //引入mopub Banner广告sdk
         compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
             transitive = true
         }
-        // For interstitials,运营后台如果没有配置mopub的广告位，可以不引入mopub的aar
+        //引入mopub 插屏广告sdk
         compile('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
             transitive = true
         }
@@ -34,6 +55,20 @@
         compile('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
             transitive = true
         }
+
+        //引入flurry 广告sdk
+        compile 'com.flurry.android:ads:6.2.0'
+
+        //引入 adcolony 激励视频Sdk
+        implementation 'com.adcolony:sdk:3.2.1'
+        //引入 vungle 激励视频Sdk
+        implementation 'com.github.vungle:vungle-android-sdk:5.3.0'
+
+        //Glispa 需要引入的包
+        compile(name: 'core',version: '4.6.2', ext: 'aar')
+        compile(name: 'insights',version: '4.6.2', ext: 'aar')
+        compile(name: 'mediation-sdk',version: '4.6.2', ext: 'aar')
+        compile(name: 'mediation-sdk-native-assets',version: '4.6.2', ext: 'aar')
     </code></pre>
 
     <pre><code>
@@ -46,10 +81,6 @@
     <p>
         <img src="res/arr-depn.png" />
     </p>
-    <!-- 提醒部分 -->
-     <p  class="zhushi">
-        <span>※ 如果没有集成其他广告平台获取收入,可以依赖其arr。比如：如果不打算集成Mopub，可以删去 "[compile('com.mopub:mopub-sdk-native-static:4.10.0@aar') ]"此句依赖。</span>
-     </p>
 
     <h3>1.3.	步骤3: 修改AndroidManifest.xml文件</h3>
     <p>添加权限声明：</p>
@@ -70,14 +101,12 @@
     </div>
 
     <p>接入任意平台广告都需要在XML中的application节点添加以下声明：</p>
-    <pre><code>        //facebook ad need add this
-        &lt;activity android:name="com.facebook.ads.InterstitialAdActivity"
-        android:configChanges="keyboardHidden|orientation|screenSize" //&gt;
+    <pre><code>
         //admob ad need add this
         &lt;meta-data android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" //&gt;
         //mopub ad need add this
-        &lt;activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        &lt;activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/&gt;
         &lt;activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/&gt;
         &lt;activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/&gt;
         &lt;activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize"/&gt;
@@ -91,27 +120,67 @@
     <h3>1.4.	步骤4: 修改混淆文件</h3>
     <p>在proguard-rules.pro添加如下代码：</p>
     <pre><code>
+        -dontwarn com.hawk.android.adsdk.ads.mediator.**
         -keep class com.hawk.android.adsdk.ads.**{*;}
         -keep class com.tcl.mediator.**{*;}
-        -kepp class com.google.android.gms.ads.**{*;} // 如果没有添加集成admob平台可以不添加此句混淆语句
-    </code></pre>
-    <p>如果添加了mopub平台需要添加以下混淆代码：</p>
-    <pre><code>    -keep class com.mopub.mobileads.MoPubActivity{
-        &lt;fields&gt;;
-        &lt;methods&gt;;
+        -keep class com.hawk.ownadsdk.**{*;}
+        # Required to preserve the Flurry SDK
+        -keep class com.flurry.** { *; }
+        -dontwarn com.flurry.**
+
+        -keep class com.adcolony.** { *; }
+
+        -keep class com.vungle.** { *; }
+
+        -keep class com.duapps.ad.**{*;}
+        -dontwarn com.duapps.ad.**
+
+        -keep class com.my.target.** {*;}
+        #-kepp class com.google.android.gms.ads.**{*;}
+        -keep class com.google.android.gms.ads.MobileAds{
+            &lt;fields>;
+            &lt;methods>;
+        }
+        -keep class com.duapps.ad.base.DuAdNetwork{
+            &lt;fields>;
+            &lt;methods>;
+        }
+        -keep class com.mopub.mobileads.MoPubActivity{
+            &lt;fields>;
+            &lt;methods>;
         }
         -keep class com.mopub.mobileads.MraidActivity{
-        &lt;fields&gt;;
-        &lt;methods&gt;;
+            &lt;fields>;
+            &lt;methods>;
         }
         -keep class com.mopub.common.MoPubBrowser{
-        &lt;fields&gt;;
-        &lt;methods&gt;;
+            &lt;fields>;
+            &lt;methods>;
         }
         -keep class com.mopub.mobileads.MraidVideoPlayerActivity{
-        &lt;fields&gt;;
-        &lt;methods&gt;;
+            &lt;fields>;
+            &lt;methods>;
         }
+        -keep class com.etap.** { *; }#batmobi平台
+
+        # Required to preserve the Avocarrot SDK(Glispa)
+        -keep class com.avocarrot.** { *; }
+        -dontwarn com.avocarrot.**
+        -keep public class
+        com.google.android.gms.common.internal.safeparcel.SafeParcelable
+        {
+            public static final *** NULL;
+        }
+
+        -keepnames @com.google.android.gms.common.annotation.KeepName class *
+        -keepclassmembernames class * {
+            @com.google.android.gms.common.annotation.KeepName *;
+        }
+
+        -keepattributes Signature #过滤泛型
+        -keepattributes *Annotation* # 过滤注解
+        -keepattributes InnerClasses #
+        -dontoptimize
     </code></pre>
     </div>
 </body>

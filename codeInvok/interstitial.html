@@ -10,77 +10,105 @@
 <h4>2.3.1	广告接入代码示例</h4>
     <pre><code>(详细内容请参考压缩包中的代码示例)
 
-        public class InterstitialActivity extends Activity {
-        private Button mButtonShowAd;
-        private HkInterstitialAd ad;
+        public class InterstitialActivity extends AppCompatActivity {
+            private Button mButtonLoadAd;
+            private Button mButtonShowAd;
+            private HkInterstitialAd ad;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interstitial);
-        ad = new HkInterstitialAd(this);
-        //设置广告位ID
-        ad.setAdUnitId(getString(R.string.intersitial_ad_unitid));
-        initView();
-        }
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_interstitial);
+                ad = new HkInterstitialAd(this);
+                ad.setAdUnitId(getString(R.string.intersitial_ad_unitid));
+                initView();
+            }
 
-        private void initView() {
-        mButtonShowAd = (Button)findViewById(R.id.btn_show_interstitial);
-        loadAd();
-        mButtonShowAd.setOnClickListener(new View.OnClickListener(){
-        @Override
-        public void onClick(View view) {
-        show();
-        }
-        });
-        ad.setAdListner(new HkAdListener() {
-        @Override
-        public void onAdLoaded() {
-        super.onAdLoaded();
-        Toast.makeText(InterstitialActivity.this,"插屏加载成功",Toast.LENGTH_LONG).show();
-        }
+            private void initView() {
+            initActionBar();
+            mButtonLoadAd = (Button)findViewById(R.id.btn_load_interstitial);
+            mButtonShowAd = (Button)findViewById(R.id.btn_show_interstitial);
 
-        @Override
-        public void onAdFailedLoad() {
-        super.onAdFailedLoad();
-        }
+            mButtonLoadAd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadAd();
+                }
+            });
 
-        @Override
-        public void onAdShowed() {
-        super.onAdShowed();
-        }
+            mButtonShowAd.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    show();
+                }
+            });
+            AdSettings.addTestDevice("5545e13a65e654f10f8e1fc4b7a35ca2");
+            ad.setAdListner(new HkAdListener() {
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    Toast.makeText(InterstitialActivity.this,"插屏加载成功", Toast.LENGTH_LONG).show();
+                }
 
-        @Override
-        public void onAdClicked() {
-        super.onAdClicked();
-        }
+                @Override
+                public void onAdFailedLoad(int errcode) {
+                    super.onAdFailedLoad(errcode);
+                }
 
-        @Override
-        public void onAdClosed() {
-        super.onAdClosed();
-        }
-        });
-        }
+                @Override
+                public void onAdShowed() {
+                    super.onAdShowed();
+                }
 
-        private void loadAd() {
-        if (!ad.isLoaded()) {
-        ad.loadAd(null);
-        }
-        }
+                @Override
+                public void onAdClicked() {
+                    super.onAdClicked();
+                }
 
-        private void show(){
-        if (ad.isLoaded()) {
-        ad.show();
-        }
-        }
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    }
+                });
+            }
 
-        @Override
-        protected void onDestroy() {
-        super.onDestroy();
-        if (ad !=  null) {
-        ad.close();
-        }
-        }
+            private void initActionBar() {
+                Toolbar toolbar = (Toolbar)findViewById(R.id.activity_main_toolbar);
+                toolbar.setTitleTextColor(Color.WHITE);
+                setSupportActionBar(toolbar);
+                toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                    }
+                });
+            }
+
+            private void loadAd() {
+                if (!ad.isLoaded()) {
+                    ad.loadAd(null);
+                }
+            }
+
+            private void show(){
+                Log.e("InterstitialActivity","测试广告点击没反应   是否加载了"+ad.isLoaded());
+                if (ad.isLoaded()) {
+                    ad.show();
+                }
+            }
+
+            @Override
+            protected void onDestroy() {
+                super.onDestroy();
+                if (ad !=  null) {
+                    ad.destroy();
+                }
+            }
+
+            public void showInterstitial(View view){
+                show();
+            }
         }
     </code></pre>
 
@@ -144,7 +172,7 @@
                 <td align="left">广告加载成功回调，表示广告相关的资源已经加载完毕，Ready To Show</td>
             </tr>
             <tr>
-                <td align="left">onAdFailedLoad()</td>
+                <td align="left">onAdFailedLoad(int errcode)</td>
                 <td align="left">广告加载失败</td>
             </tr>
             <tr>
@@ -156,12 +184,8 @@
                 <td align="left">当广告点击时发起的回调，由于点击去重等原因可能和联盟平台最终的统计数据有差异</td>
             </tr>
             <tr>
-                <td align="left">onAdOpen()</td>
-                <td align="left">当广告打开浮层时调用，如打开内置浏览器、内容展示浮层，一般发生在点击之后</td>
-            </tr>
-            <tr>
                 <td align="left">onAdClosed()</td>
-                <td align="left">浮层关闭时调用</td>
+                <td align="left">插屏关闭时调用</td>
             </tr>
             </tbody>
         </table>
