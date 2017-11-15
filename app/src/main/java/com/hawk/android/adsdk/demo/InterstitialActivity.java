@@ -1,5 +1,6 @@
 package com.hawk.android.adsdk.demo;
 
+import com.facebook.ads.AdSettings;
 import com.hawk.android.adsdk.ads.HkAdListener;
 import com.hawk.android.adsdk.ads.HkInterstitialAd;
 
@@ -49,6 +50,7 @@ public class InterstitialActivity extends AppCompatActivity {
                 show();
             }
         });
+        AdSettings.addTestDevice("5545e13a65e654f10f8e1fc4b7a35ca2");
         ad.setAdListner(new HkAdListener() {
             @Override
             public void onAdLoaded() {

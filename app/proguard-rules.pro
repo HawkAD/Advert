@@ -23,6 +23,13 @@
 -keep class com.flurry.** { *; }
 -dontwarn com.flurry.**
 
+-keep class com.adcolony.** { *; }
+
+-keep class com.vungle.** { *; }
+
+-keep class com.duapps.ad.**{*;}
+-dontwarn com.duapps.ad.**
+
 -keep class com.my.target.** {*;}
 #-kepp class com.google.android.gms.ads.**{*;}
 -keep class com.google.android.gms.ads.MobileAds{
@@ -49,7 +56,7 @@
     <fields>;
     <methods>;
 }
--keep class com.etap.** { *; }#batmobi平台
+    -keep class com.etap.** { *; }#batmobi平台
 
 # Required to preserve the Avocarrot SDK(Glispa)
 -keep class com.avocarrot.** { *; }

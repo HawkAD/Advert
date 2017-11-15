@@ -4,11 +4,14 @@ import com.avocarrot.sdk.Avocarrot;
 import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
 import com.hawk.android.adsdk.ads.HkMobileAds;
+import com.vungle.publisher.VungleInitListener;
+import com.vungle.publisher.VunglePub;
 
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.Process;
+import android.util.Log;
 
 import java.util.List;
 
@@ -37,6 +40,22 @@ public class MyApplication extends Application {
         FlurryAgent.init(this, "S2D44W5RVZ5QPSH42W5S");
         EtapLib.init(this, "GFRX634FKMLQ10OXN2VJ789P");//batmobi平台初始化，app需要替换各自batmobi平台的appkey
         Avocarrot.setTestMode(true);//测试Glispa广告的时候打开，发版时请关闭
+
+        /**
+         * 接入Vungle激励视频，需要调用初始化方法、出入Vungle的appid、广告位id（可以有多个），Vungle会预加载激励视频
+         */
+        VunglePub.getInstance().init(this, "5916309cb46f6b5a3e00009c", new String[]{"DEFAULT32590"}, new VungleInitListener() {
+            @Override
+            public void onSuccess() {
+                Log.i("adSdk","Vungle init success");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.i("adSdk","Vungle init failure");
+            }
+        });
+
         /**
          * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
          */
