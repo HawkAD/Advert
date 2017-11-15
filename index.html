@@ -17,6 +17,7 @@
             _("native_pool").load("codeInvok/native_pool.html");
         }
         window.onload = function(){
+            _("platform").load("platfrom.html");
              _("initConfig").load("initConfig.html");
              _("codeInvok").load("codeInvok.html",callBack);
              _("testAndDebug").load("testAndDebug.html");
@@ -69,8 +70,12 @@
 <div class="list">
     <ul id="nav" style="position: relative" >
         <!--  配置重要信息 -->
+        <li id="#platform" name="lis">
+            支持平台
+        </li>
+        <!--  配置重要信息 -->
         <li id="#initConfig" name="lis">
-            配置重要信息
+            接入步骤
         </li>
 
         <!--  代码调用 -->
@@ -102,6 +107,8 @@
     </ul>
 </div>
 <div  class="content">
+    <!-- 支持的渠道（准备阶段）-->
+    <div id="platform"></div>
    <!-- 初始化配置（准备阶段）-->
    <div id="initConfig"></div>
    <!-- 代码调用 （拉取广告阶段） -->
