@@ -7,8 +7,8 @@ android {
         applicationId "com.hawk.android.adsdk.demo"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 25
-        versionName "2.5"
+        versionCode 26
+        versionName "2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -40,7 +40,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v4.0.2-release', ext:'aar')
+    compile (name:'hawk-adsdk-v4.0.5-release', ext:'aar')
     /**
      * 以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
      */
@@ -63,7 +63,7 @@ dependencies {
     compile(name: 'mytarget-sdk-4.6.19', ext: 'aar')
 
     //引入直客 sdk
-    compile(name: 'hawk-mobpalm-v1.5.4-release', ext: 'aar')
+    compile(name: 'hawk-mobpalm-v1.5.6-release', ext: 'aar')
 
     //引入mopub Banner广告sdk
     compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
@@ -79,7 +79,11 @@ dependencies {
     }
 
     //引入flurry 广告sdk
-    compile 'com.flurry.android:ads:6.2.0'
+    compile 'com.flurry.android:ads:7.2.0'
+
+    //引入yandex 广告sdk
+    implementation 'com.yandex.android:mobileads:2.62'
+    implementation 'com.yandex.android:mobmetricalib:2.73'
 
     //引入 adcolony 激励视频Sdk
     implementation 'com.adcolony:sdk:3.2.1'
@@ -91,6 +95,14 @@ dependencies {
     compile(name: 'insights',version: '4.6.2', ext: 'aar')
     compile(name: 'mediation-sdk',version: '4.6.2', ext: 'aar')
     compile(name: 'mediation-sdk-native-assets',version: '4.6.2', ext: 'aar')
+
+    //mobvista 需要引入的包
+    implementation(name: 'mobvista_alphab', ext: 'aar')
+    implementation(name: 'mobvista_common', ext: 'aar')
+    implementation(name: 'mobvista_mvnative', ext: 'aar')
+    implementation(name: 'mobvista_nativeex', ext: 'aar')
+    implementation(name: 'mobvista_playercommon', ext: 'aar')
+    implementation(name: 'mobvista_videocommon', ext: 'aar')
 
 }
 apply plugin: 'com.google.gms.google-services'

@@ -21,6 +21,8 @@ import com.hawk.android.adsdk.ads.mediator.implAdapter.glispa.GlispaNativeAssets
 import com.hawk.ownadsdk.HkOwnNativeAd;
 import com.hawk.ownadsdk.nativeview.NativeAdView;
 import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
+import com.mobvista.msdk.nativex.view.MVMediaView;
+import com.mobvista.msdk.out.Campaign;
 import com.my.target.nativeads.banners.NativePromoBanner;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -32,6 +34,9 @@ import com.google.android.gms.ads.formats.NativeContentAdView;
 import com.hawk.android.adsdk.ads.HKNativeAd;
 import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
 import com.hawk.android.adsdk.demo.R;
+import com.yandex.mobile.ads.nativeads.NativeAdAssets;
+import com.yandex.mobile.ads.nativeads.NativeAdException;
+import com.yandex.mobile.ads.nativeads.NativeAdImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,6 +162,24 @@ public class NativeViewBuild {
         }else if (ad instanceof GlispaNativeAssetsAd) {//Glispa平台
             mNativeAdView = View.inflate(mContext, R.layout.glispa_native_ad_layout, null);
             setGlispaAdView((GlispaNativeAssetsAd)ad);
+        } else if (ad instanceof com.yandex.mobile.ads.nativeads.NativeAppInstallAd) {//yandex native install ad
+            /**
+             * yandex native install广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.yandex_native_install_ad_layout, null);
+            setYandexInstallAdView((com.yandex.mobile.ads.nativeads.NativeAppInstallAd)ad);
+        }else if(ad instanceof com.yandex.mobile.ads.nativeads.NativeContentAd){//yandex native content ad
+            /**
+             * yandex native content 广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.yandex_native_content_ad_layout, null);
+            setYandexContentAdView((com.yandex.mobile.ads.nativeads.NativeContentAd)ad);
+        } else if (ad instanceof Campaign) {
+            /**
+             * mobvista广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.mobvista_native_ad_layout, null);
+            setMobvistaAdView((Campaign) ad);
         }
         return mNativeAdView;
     }
@@ -415,7 +438,7 @@ public class NativeViewBuild {
         if (nativeAd.getAdIcons() != null && nativeAd.getAdIcons().size() > 0) {
             HawkNativeAd.downloadAndDisplayImage(mContext, nativeAd.getAdIcons().get(0), nativeAdIcon);
         }
-
+        nativeAdImage.setVisibility(View.GONE);
         if (nativeAd.getAdImages() != null && nativeAd.getAdImages().size() > 0) {
             HawkNativeAd.downloadAndDisplayImage(mContext, nativeAd.getAdImages().get(0), nativeAdImage);
         }
@@ -615,5 +638,111 @@ public class NativeViewBuild {
         } else {
             view.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Yandex content ad
+     * @param nativeContentAd
+     */
+    private void setYandexContentAdView(com.yandex.mobile.ads.nativeads.NativeContentAd nativeContentAd) {
+        if (null == mNativeAdView&&!(mNativeAdView instanceof com.yandex.mobile.ads.nativeads.NativeContentAdView)){
+            return;
+        }
+        com.yandex.mobile.ads.nativeads.NativeContentAdView nativeContentAdView=(com.yandex.mobile.ads.nativeads.NativeContentAdView)mNativeAdView;
+        nativeContentAdView.setAgeView((TextView) nativeContentAdView.findViewById(R.id.content_age));
+        nativeContentAdView.setBodyView((TextView) nativeContentAdView.findViewById(R.id.content_body));
+        nativeContentAdView.setCallToActionView((Button) nativeContentAdView.findViewById(R.id.content_call_to_action));
+        nativeContentAdView.setDomainView((TextView) nativeContentAdView.findViewById(R.id.content_domain));
+        nativeContentAdView.setIconView((ImageView) nativeContentAdView.findViewById(R.id.content_favicon));
+        nativeContentAdView.setSponsoredView((TextView) nativeContentAdView.findViewById(R.id.content_sponsored));
+        nativeContentAdView.setTitleView((TextView) nativeContentAdView.findViewById(R.id.content_title));
+        nativeContentAdView.setWarningView((TextView) nativeContentAdView.findViewById(R.id.content_warning));
+        configureContentAdImages(nativeContentAdView,nativeContentAd);
+        try {
+            nativeContentAd.bindContentAd(nativeContentAdView);
+        } catch (NativeAdException exception) {
+        }
+    }
+    /**
+     * Yandex install ad
+     * @param nativeAppInstallAd
+     */
+    private void setYandexInstallAdView(com.yandex.mobile.ads.nativeads.NativeAppInstallAd nativeAppInstallAd) {
+        if (null == mNativeAdView&&!(mNativeAdView instanceof com.yandex.mobile.ads.nativeads.NativeAppInstallAdView)){
+            return;
+        }
+        com.yandex.mobile.ads.nativeads.NativeAppInstallAdView mAppInstallAdView=(com.yandex.mobile.ads.nativeads.NativeAppInstallAdView)mNativeAdView;
+        mAppInstallAdView.setAgeView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_age));
+        mAppInstallAdView.setBodyView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_body));
+        mAppInstallAdView.setCallToActionView((Button) mAppInstallAdView.findViewById(R.id.appinstall_call_to_action));
+        mAppInstallAdView.setDomainView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_domain));
+        mAppInstallAdView.setIconView((ImageView) mAppInstallAdView.findViewById(R.id.appinstall_icon));
+        mAppInstallAdView.setImageView((ImageView) mAppInstallAdView.findViewById(R.id.appinstall_image));
+        mAppInstallAdView.setPriceView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_price));
+        mAppInstallAdView.setRatingView((YandexRatingView) mAppInstallAdView.findViewById(R.id.appinstall_rating));
+        mAppInstallAdView.setReviewCountView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_review_count));
+        mAppInstallAdView.setSponsoredView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_sponsored));
+        mAppInstallAdView.setTitleView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_title));
+        mAppInstallAdView.setWarningView((TextView) mAppInstallAdView.findViewById(R.id.appinstall_warning));
+        try {
+            nativeAppInstallAd.bindAppInstallAd(mAppInstallAdView);
+        } catch (NativeAdException e) {
+        }
+    }
+
+    private void configureContentAdImages(final com.yandex.mobile.ads.nativeads.NativeContentAdView nativeContentAdView,final com.yandex.mobile.ads.nativeads.NativeContentAd nativeContentAd) {
+        final ImageView image = (ImageView) nativeContentAdView.findViewById(R.id.content_image);
+        final ImageView largeImage = (ImageView) nativeContentAdView.findViewById(R.id.content_large_image);
+
+        final NativeAdAssets nativeAdAssets = nativeContentAd.getAdAssets();
+        final NativeAdImage nativeAdImage = nativeAdAssets.getImage();
+        if (nativeAdImage != null) {
+            final int imageWidth = nativeAdImage.getWidth();
+            if (imageWidth >= 450) {
+                nativeContentAdView.setImageView(largeImage);
+                image.setVisibility(View.GONE);
+            } else {
+                nativeContentAdView.setImageView(image);
+                largeImage.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * mobvista native layout
+     * @param nativeAd
+     */
+    private void setMobvistaAdView(Campaign nativeAd) {
+        // Create native UI using the ad metadata.
+        ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
+        TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
+        MVMediaView nativeMediaView = (MVMediaView) mNativeAdView.findViewById(R.id.native_ad_media);
+        TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
+        Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
+
+        // Set the Text.
+        nativeAdTitle.setText(nativeAd.getAppName());
+        nativeAdBody.setText(nativeAd.getAppDesc());
+        nativeAdCallToAction.setText(nativeAd.getAdCall());
+        // Download and display the ad icon.
+        if (nativeAd.getIconUrl() != null) {
+            imageLoader.displayImage(nativeAd.getIconUrl(), nativeAdIcon);
+        }
+
+        nativeMediaView.setNativeAd(nativeAd);
+        //如果你设置了这个TRUE，用户可以在观看视频时，点击屏幕进行全屏切换。
+        nativeMediaView.setIsAllowFullScreen(true);
+//        设置当Native Video广告位的视频达到可播放状态之后，是否可以由图片刷新成视频
+//        true表示允许刷新，false表示不允许刷新，默认是true
+        nativeMediaView.setAllowVideoRefresh(true);
+//        设置播放完成之后是否允许循环播放
+//        true表示允许，false表示不允许，默认是true
+        nativeMediaView.setAllowLoopPlay(true);
+//        设置是否允许屏幕 横竖屏切换
+//        true表示允许，false表示不允许，默认是true
+        nativeMediaView.setAllowScreenChange(true);
+//        if (nativeAd.getImageUrl() != null) {
+//            imageLoader.displayImage(nativeAd.getImageUrl(), nativeAdImage);
+//        }
     }
 }

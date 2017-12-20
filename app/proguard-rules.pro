@@ -30,6 +30,14 @@
 -keep class com.duapps.ad.**{*;}
 -dontwarn com.duapps.ad.**
 
+-keep class com.mobvista.** {*; }
+-keep interface com.mobvista.** {*; }
+-keep class android.support.v4.** { *; }
+-dontwarn com.mobvista.**
+-keep class **.R$* { public static final int mobvista*; }
+-keep class com.alphab.** {*; }
+-keep interface com.alphab.** {*; }
+
 -keep class com.my.target.** {*;}
 #-kepp class com.google.android.gms.ads.**{*;}
 -keep class com.google.android.gms.ads.MobileAds{
@@ -56,7 +64,7 @@
     <fields>;
     <methods>;
 }
-    -keep class com.etap.** { *; }#batmobi平台
+-keep class com.etap.** { *; }#batmobi平台
 
 # Required to preserve the Avocarrot SDK(Glispa)
 -keep class com.avocarrot.** { *; }

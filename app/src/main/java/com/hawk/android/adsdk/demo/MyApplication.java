@@ -3,9 +3,13 @@ package com.hawk.android.adsdk.demo;
 import com.avocarrot.sdk.Avocarrot;
 import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
+import com.flurry.android.FlurryAgentListener;
 import com.hawk.android.adsdk.ads.HkMobileAds;
+import com.mobvista.msdk.MobVistaSDK;
+import com.mobvista.msdk.out.MobVistaSDKFactory;
 import com.vungle.publisher.VungleInitListener;
 import com.vungle.publisher.VunglePub;
+import com.yandex.metrica.YandexMetrica;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -14,6 +18,7 @@ import android.os.Process;
 import android.util.Log;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tzh on 2016/11/3.
@@ -36,8 +41,21 @@ public class MyApplication extends Application {
         /**
          * 初始化flurry
          */
-        FlurryAgent.setLogEnabled(true);
-        FlurryAgent.init(this, "S2D44W5RVZ5QPSH42W5S");
+//        FlurryAgent.setLogEnabled(true);
+//        FlurryAgent.init(this, "S2D44W5RVZ5QPSH42W5S");
+        new FlurryAgent.Builder()
+//                .withCaptureUncaughtExceptions(true)
+                .withListener(new FlurryAgentListener() {
+                    @Override
+                    public void onSessionStarted() {
+                        Log.i("Flurry","Flurry onSessionStarted");
+                    }
+                })
+                .withContinueSessionMillis(5)
+                .withLogEnabled(true)
+                .withLogLevel(Log.VERBOSE)
+                .build(this, "S2D44W5RVZ5QPSH42W5S");
+
         EtapLib.init(this, "GFRX634FKMLQ10OXN2VJ789P");//batmobi平台初始化，app需要替换各自batmobi平台的appkey
         Avocarrot.setTestMode(true);//测试Glispa广告的时候打开，发版时请关闭
 
@@ -55,7 +73,16 @@ public class MyApplication extends Application {
                 Log.i("adSdk","Vungle init failure");
             }
         });
-
+        /**
+         * Yandex init
+         */
+        YandexMetrica.activate(getApplicationContext(), "43614695-4bad-431c-9e14-fa588179b756");
+        /**
+         * Mobvista init
+         */
+        MobVistaSDK sdk = MobVistaSDKFactory.getMobVistaSDK();
+        Map<String,String> map = sdk.getMVConfigurationMap("90089","dec6fe8fd0fca1791ee12bde327d40b3");
+        sdk.init(map, this);
         /**
          * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
          */
