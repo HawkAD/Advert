@@ -7,8 +7,8 @@ android {
         applicationId "com.hawk.android.adsdk.demo"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 26
-        versionName "2.6"
+        versionCode 28
+        versionName "2.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -40,7 +40,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v4.0.5-release', ext:'aar')
+    compile (name:'hawk-adsdk-v4.0.8-release', ext:'aar')
     /**
      * 以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
      */
@@ -63,7 +63,7 @@ dependencies {
     compile(name: 'mytarget-sdk-4.6.19', ext: 'aar')
 
     //引入直客 sdk
-    compile(name: 'hawk-mobpalm-v1.5.6-release', ext: 'aar')
+    compile(name: 'hawk-mobpalm-v1.5.8-release', ext: 'aar')
 
     //引入mopub Banner广告sdk
     compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
