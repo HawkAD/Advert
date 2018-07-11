@@ -11,6 +11,7 @@ import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
 import com.flurry.android.FlurryAgentListener;
 import com.hawk.android.adsdk.ads.HkMobileAds;
+import com.mobi.sdk.ADSDK;
 import com.mobvista.msdk.MobVistaSDK;
 import com.mobvista.msdk.out.MobVistaSDKFactory;
 import com.smartadserver.android.library.ui.SASAdView;
@@ -39,6 +40,10 @@ public class MyApplication extends Application {
     }
 
     private void init() {
+
+        //Altamob
+        ADSDK.getInstance(this).init();
+
         /**
          * 初始化flurry
          */

@@ -104,6 +104,10 @@
             </intent-filter>
         </receiver>
         <!-- Batmobi广告SDK需要加入的配置 end-->
+
+        <!-- Altamob -->
+        <meta-data android:name="appKey"
+            android:value="b706df23-0e5e-0488-35bb-0f46ddfa619a"/>
     </application>
 
 </manifest>

@@ -18,7 +18,16 @@ import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.NativeAd;
 import com.flurry.android.ads.FlurryAdNative;
 import com.flurry.android.ads.FlurryAdNativeAsset;
+import com.google.android.gms.ads.formats.MediaView;
+import com.google.android.gms.ads.formats.NativeAppInstallAd;
+import com.google.android.gms.ads.formats.NativeAppInstallAdView;
+import com.google.android.gms.ads.formats.NativeContentAd;
+import com.google.android.gms.ads.formats.NativeContentAdView;
+import com.hawk.android.adsdk.ads.HKNativeAd;
+import com.hawk.android.adsdk.ads.mediator.implAdapter.altamob.AltamobAd;
 import com.hawk.android.adsdk.ads.mediator.implAdapter.glispa.GlispaNativeAssetsAd;
+import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
+import com.hawk.android.adsdk.demo.R;
 import com.hawk.ownadsdk.HkOwnNativeAd;
 import com.hawk.ownadsdk.nativeview.NativeAdView;
 import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
@@ -26,15 +35,6 @@ import com.mobvista.msdk.nativex.view.MVMediaView;
 import com.mobvista.msdk.out.Campaign;
 import com.my.target.nativeads.banners.NativePromoBanner;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import com.google.android.gms.ads.formats.MediaView;
-import com.google.android.gms.ads.formats.NativeAppInstallAd;
-import com.google.android.gms.ads.formats.NativeAppInstallAdView;
-import com.google.android.gms.ads.formats.NativeContentAd;
-import com.google.android.gms.ads.formats.NativeContentAdView;
-import com.hawk.android.adsdk.ads.HKNativeAd;
-import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
-import com.hawk.android.adsdk.demo.R;
 import com.smartadserver.android.library.model.SASNativeAdElement;
 import com.yandex.mobile.ads.nativeads.NativeAdAssets;
 import com.yandex.mobile.ads.nativeads.NativeAdException;
@@ -189,6 +189,12 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.smart_native_ad_layout, null);
             setSmartNativeAdView((SASNativeAdElement) ad);
+        }else if (ad instanceof AltamobAd) {
+            /**
+             * AltamobAd广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.hawk_native_ad_layout, null);
+            setAltamobNativeAdView((AltamobAd) ad);
         }
         return mNativeAdView;
     }
@@ -802,5 +808,31 @@ public class NativeViewBuild {
         View[] clickViews = new View[]{nativeAdIcon, nativeAdTitle, nativeAdCallToAction};
 
         nativeAd.registerView(mNativeAdView, clickViews);
+    }
+
+    /**
+     * Altamob
+     * @param ad
+     */
+    private void setAltamobNativeAdView(AltamobAd ad) {
+        ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
+        TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
+        ImageView nativeAdImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_image);
+        TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
+        Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
+
+        // Set the Text.
+        nativeAdTitle.setText(ad.getAd().getTitle());
+        nativeAdBody.setText(ad.getAd().getDesc());
+        nativeAdCallToAction.setText(ad.getAd().getAdAction());
+        if (ad.getAd().getIcon_url() != null)
+            imageLoader.displayImage(ad.getAd().getIcon_url(), nativeAdIcon);
+        if (ad.getAd().getCover_url() != null)
+            imageLoader.displayImage(ad.getAd().getCover_url(), nativeAdImage);
+        List<View> clickViews = new ArrayList<>();
+        clickViews.add(nativeAdIcon);
+        clickViews.add(nativeAdImage);
+        clickViews.add(nativeAdCallToAction);
+        ad.getAdNatived().registerViewForInteraction(ad.getAd(), clickViews);
     }
 }

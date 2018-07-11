@@ -40,7 +40,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v4.0.8-release', ext:'aar')
+    compile (name:'hawk-adsdk-v4.1.3-release-20180702', ext:'aar')
     /**
      * 以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
      */
@@ -106,6 +106,9 @@ dependencies {
 
     //引入Smart sdk
     implementation(name: 'SmartAdServer-Android-SDK-6.7.2', ext: 'aar')
+
+    //altamob sdk
+    implementation('com.altamob:sdk:5.2.0.3')
 
 }
 apply plugin: 'com.google.gms.google-services'
