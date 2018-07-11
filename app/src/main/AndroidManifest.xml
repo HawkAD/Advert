@@ -1,93 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hawk.android.adsdk.demo">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hawk.android.adsdk.demo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
-            android:allowBackup="true"
-            android:name="com.hawk.android.adsdk.demo.MyApplication"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+        android:name="com.hawk.android.adsdk.demo.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
 
         <!-- 百度广告SDK需要加入的配置 start-->
         <meta-data
-                android:name="app_license"
-                android:value="563d02dcce655392c9d3ab74640e71c7"/>
+            android:name="app_license"
+            android:value="563d02dcce655392c9d3ab74640e71c7" />
         <provider
-                android:name="com.duapps.ad.stats.DuAdCacheProvider"
-                android:authorities="com.hawk.android.adsdk.demo.DuAdCacheProvider"
-                android:exported="false">
-        </provider>
+            android:name="com.duapps.ad.stats.DuAdCacheProvider"
+            android:authorities="com.hawk.android.adsdk.demo.DuAdCacheProvider"
+            android:exported="false"></provider>
         <receiver android:name="com.duapps.ad.base.PackageAddReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
 
-                <data android:scheme="package"/>
+                <data android:scheme="package" />
             </intent-filter>
         </receiver>
         <!-- 百度广告SDK需要加入的配置 end-->
         <activity android:name="com.hawk.android.adsdk.demo.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-                android:name="com.hawk.android.adsdk.demo.BannerActivity"
-                android:theme="@style/SubTheme"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                android:launchMode="singleTask">
-        </activity>
+            android:name="com.hawk.android.adsdk.demo.BannerActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/SubTheme"></activity>
         <activity
-                android:name="com.hawk.android.adsdk.demo.RewardVedioActivity"
-                android:theme="@style/SubTheme"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                android:launchMode="singleTask"/>
+            android:name="com.hawk.android.adsdk.demo.RewardVedioActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/SubTheme" />
         <activity
-                android:name="com.hawk.android.adsdk.demo.InterstitialActivity"
-                android:theme="@style/SubTheme"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                android:launchMode="singleTask"/>
+            android:name="com.hawk.android.adsdk.demo.InterstitialActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/SubTheme" />
         <activity
-                android:name="com.hawk.android.adsdk.demo.NativeAdSpreadSampleActivity"
-                android:theme="@style/SubTheme"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                android:launchMode="singleTask"/>
+            android:name="com.hawk.android.adsdk.demo.NativeAdSpreadSampleActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/SubTheme" />
         <activity
-                android:name="com.hawk.android.adsdk.demo.NativeAdPoolActiveity"
-                android:theme="@style/SubTheme"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                android:launchMode="singleTask"/>
+            android:name="com.hawk.android.adsdk.demo.NativeAdPoolActiveity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/SubTheme" />
 
         <activity
-                android:name=".NativeAdDefaultActivity"
-                android:theme="@style/SubTheme"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                android:launchMode="singleTask"/>
+            android:name=".NativeAdDefaultActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/SubTheme" />
+
         <meta-data
-                android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version"/>
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <!-- Flurry广告SDK需要加入的配置 start-->
         <activity
-                android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+            android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
         <!-- Flurry广告SDK需要加入的配置 end-->
 
         <!-- mopub广告SDK需要加入的配置 start-->
-        <activity android:name="com.mopub.mobileads.MoPubActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-        <activity android:name="com.mopub.mobileads.MraidActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-        <activity android:name="com.mopub.common.MoPubBrowser"
-                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity
+            android:name="com.mopub.mobileads.MoPubActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity
+            android:name="com.mopub.mobileads.MraidActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity
+            android:name="com.mopub.common.MoPubBrowser"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity
+            android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
         <!-- mopub广告SDK需要加入的配置 end-->
 
         <!-- Batmobi广告SDK需要加入的配置 start-->
@@ -106,8 +112,30 @@
         <!-- Batmobi广告SDK需要加入的配置 end-->
 
         <!-- Altamob -->
-        <meta-data android:name="appKey"
-            android:value="b706df23-0e5e-0488-35bb-0f46ddfa619a"/>
+        <meta-data
+            android:name="appKey"
+            android:value="b706df23-0e5e-0488-35bb-0f46ddfa619a" />
+
+        <!-- inmobi -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <activity
+            android:name="com.inmobi.rendering.InMobiAdActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:resizeableActivity="false"
+            android:theme="@android:style/Theme.NoTitleBar"
+            tools:ignore="UnusedAttribute" />
+        <receiver
+            android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.inmobi.share.id" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

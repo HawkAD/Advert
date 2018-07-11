@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import com.inmobi.sdk.InMobiSdk;
+
 /**
  * Created by tzh on 2016/11/3.
  */
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        InMobiSdk.init(this, "96058237dd0f40509b2c99b3a08f4867");
+        InMobiSdk.setLogLevel(InMobiSdk.LogLevel.DEBUG);
         setContentView(R.layout.activity_main);
         initView();
     }

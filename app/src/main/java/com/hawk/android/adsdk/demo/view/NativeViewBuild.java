@@ -31,6 +31,7 @@ import com.hawk.android.adsdk.demo.R;
 import com.hawk.ownadsdk.HkOwnNativeAd;
 import com.hawk.ownadsdk.nativeview.NativeAdView;
 import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
+import com.inmobi.ads.InMobiNative;
 import com.mobvista.msdk.nativex.view.MVMediaView;
 import com.mobvista.msdk.out.Campaign;
 import com.my.target.nativeads.banners.NativePromoBanner;
@@ -195,6 +196,12 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.hawk_native_ad_layout, null);
             setAltamobNativeAdView((AltamobAd) ad);
+        }else if(ad instanceof InMobiNative){
+            /**
+             * InMobi广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.inmobi_native_ad, null);
+            setInmobiNativeAdView((InMobiNative) ad);
         }
         return mNativeAdView;
     }
@@ -834,5 +841,38 @@ public class NativeViewBuild {
         clickViews.add(nativeAdImage);
         clickViews.add(nativeAdCallToAction);
         ad.getAdNatived().registerViewForInteraction(ad.getAd(), clickViews);
+    }
+
+    /**
+     * inmobi
+     * @param ad
+     */
+    private void setInmobiNativeAdView(final InMobiNative ad) {
+        ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
+        TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
+        LinearLayout view = (LinearLayout) mNativeAdView.findViewById(R.id.view);
+        TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
+        Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
+
+        nativeAdTitle.setText(ad.getAdTitle());
+        nativeAdBody.setText(ad.getAdDescription());
+        nativeAdCallToAction.setText(ad.getAdCtaText());
+        if (ad.getAdIconUrl() != null)
+            imageLoader.displayImage(ad.getAdIconUrl(), nativeAdIcon);
+
+        view.removeAllViews();
+        view.addView(ad.getPrimaryViewOfWidth(mContext,view,view,view.getWidth()));
+        nativeAdIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.reportAdClickAndOpenLandingPage();
+            }
+        });
+        nativeAdCallToAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.reportAdClickAndOpenLandingPage();
+            }
+        });
     }
 }

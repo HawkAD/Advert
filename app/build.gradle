@@ -110,5 +110,10 @@ dependencies {
     //altamob sdk
     implementation('com.altamob:sdk:5.2.0.3')
 
+    // inmobi
+    compile files('libs/InMobi-7.1.0.jar')
+    implementation 'com.google.android.gms:play-services:11.0.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 }
 apply plugin: 'com.google.gms.google-services'
