@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.hawk.android.adsdk.demo"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 28
         versionName "2.8"
@@ -103,6 +103,9 @@ dependencies {
     implementation(name: 'mobvista_nativeex', ext: 'aar')
     implementation(name: 'mobvista_playercommon', ext: 'aar')
     implementation(name: 'mobvista_videocommon', ext: 'aar')
+
+    //引入Smart sdk
+    implementation(name: 'SmartAdServer-Android-SDK-6.7.2', ext: 'aar')
 
 }
 apply plugin: 'com.google.gms.google-services'

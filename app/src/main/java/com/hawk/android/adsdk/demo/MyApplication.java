@@ -1,5 +1,11 @@
 package com.hawk.android.adsdk.demo;
 
+import android.app.ActivityManager;
+import android.app.Application;
+import android.content.Context;
+import android.os.Process;
+import android.util.Log;
+
 import com.avocarrot.sdk.Avocarrot;
 import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
@@ -7,15 +13,10 @@ import com.flurry.android.FlurryAgentListener;
 import com.hawk.android.adsdk.ads.HkMobileAds;
 import com.mobvista.msdk.MobVistaSDK;
 import com.mobvista.msdk.out.MobVistaSDKFactory;
+import com.smartadserver.android.library.ui.SASAdView;
 import com.vungle.publisher.VungleInitListener;
 import com.vungle.publisher.VunglePub;
 import com.yandex.metrica.YandexMetrica;
-
-import android.app.ActivityManager;
-import android.app.Application;
-import android.content.Context;
-import android.os.Process;
-import android.util.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,7 @@ public class MyApplication extends Application {
          */
         if (BuildConfig.DEBUG) {
             HkMobileAds.openLog();
+            SASAdView.enableLogging();
         }
         /**
          * sdk初始化方法，拉取并刷新后台配置的相关信息，拉取成功后会保存在本地，请确保在load广告之前调用。
