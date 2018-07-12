@@ -7,6 +7,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!-- display -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name="com.hawk.android.adsdk.demo.MyApplication"
         android:allowBackup="true"
@@ -136,6 +142,16 @@
                 <action android:name="com.inmobi.share.id" />
             </intent-filter>
         </receiver>
+
+        <!-- display -->
+        <activity
+            android:name="io.display.sdk.DioActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name="io.display.sdk.DioTranslucentActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="io.display.sdk.device.PermissionsHandler" />
     </application>
 
 </manifest>

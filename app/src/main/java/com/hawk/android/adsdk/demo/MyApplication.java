@@ -22,6 +22,8 @@ import com.yandex.metrica.YandexMetrica;
 import java.util.List;
 import java.util.Map;
 
+import io.display.sdk.Controller;
+
 /**
  * Created by tzh on 2016/11/3.
  */
@@ -40,6 +42,9 @@ public class MyApplication extends Application {
     }
 
     private void init() {
+
+        //display
+        Controller.getInstance().init(this, "6456", false);
 
         //Altamob
         ADSDK.getInstance(this).init();

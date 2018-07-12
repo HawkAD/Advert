@@ -115,5 +115,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services:11.0.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
+    //display
+    compile files('libs/io.display.sdk-1.6.3.jar')
+    compile 'com.android.support:appcompat-v7:25.0.1' //and higher
+    compile 'com.android.support:support-v4:25.0.1' //and higher
+
 }
 apply plugin: 'com.google.gms.google-services'
