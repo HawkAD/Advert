@@ -16,11 +16,10 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
-        <ImageView
+        <com.facebook.ads.AdIconView
             android:id="@+id/native_ad_icon"
             android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_height="35dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,7 +36,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp"/>
             <TextView
-                android:id="@+id/sponsored_label"
+                android:id="@+id/native_ad_sponsored_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -56,10 +55,11 @@
     </LinearLayout>
 
     <com.facebook.ads.MediaView
-            android:id="@+id/native_ad_media"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="center"/>
+        android:id="@+id/native_ad_media"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:gravity="center"/>
+
     <!--<ImageView
         android:id="@+id/native_ad_media"
         android:layout_width="match_parent"

@@ -1,19 +1,19 @@
 package com.hawk.android.adsdk.demo;
 
-import com.google.android.gms.ads.AdRequest;
-
-import com.facebook.ads.AdSettings;
-import com.hawk.android.adsdk.ads.HKNativeAd;
-import com.hawk.android.adsdk.ads.mediator.HawkAdRequest;
-import com.hawk.android.adsdk.ads.mediator.HkNativeAdListener;
-import com.hawk.android.adsdk.demo.view.NativeViewBuild;
-import com.mopub.nativeads.ViewBinder;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.NativeAd;
+import com.google.android.gms.ads.AdRequest;
+import com.hawk.android.adsdk.ads.HKNativeAd;
+import com.hawk.android.adsdk.ads.mediator.HawkAdRequest;
+import com.hawk.android.adsdk.ads.mediator.HkNativeAdListener;
+import com.hawk.android.adsdk.demo.view.NativeViewBuild;
+import com.mopub.nativeads.ViewBinder;
 
 
 /**
@@ -39,7 +39,7 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         //setp1 : create mHKNativeAd
         //The first parameter：Context
         //The second parameter: posid
-        String testUnitId=getString(R.string.native_ad_unitid);
+        String testUnitId = getString(R.string.native_ad_unitid);
         /**
          * 添加facebook的deviceID,从facebook的log中获取，可以用"AdSettings"关键字过滤。
          * 注意：1、deviceID会每天变化;
@@ -59,7 +59,7 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
          * 添加Admob DeviceID
          */
         new AdRequest.Builder().addTestDevice("789963D0B48FB29311FE58F9F1EA870F");
-        mHKNativeAd = new HKNativeAd(this,testUnitId);
+        mHKNativeAd = new HKNativeAd(this, testUnitId);
         //setp2 : set callback listener(HkNativeAdListener)
         mHKNativeAd.setNativeAdListener(new HkNativeAdListener() {
             @Override
@@ -89,12 +89,12 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
          */
         mHKNativeAd.loadAd(new HawkAdRequest().setImgUrlMode(false)
                 .setMoPubViewBinder(new ViewBinder.Builder(R.layout.mopub_native_ad_layout)
-                .titleId(R.id.native_ad_title)
-                .textId(R.id.native_ad_text)
-                .mainImageId(R.id.native_ad_main_image)
-                .iconImageId(R.id.native_ad_icon_image)
-                .privacyInformationIconImageId(R.id.native_ad_daa_icon_image)
-                .build()));
+                        .titleId(R.id.native_ad_title)
+                        .textId(R.id.native_ad_text)
+                        .mainImageId(R.id.native_ad_main_image)
+                        .iconImageId(R.id.native_ad_icon_image)
+                        .privacyInformationIconImageId(R.id.native_ad_daa_icon_image)
+                        .build()));
     }
 
     @Override
@@ -115,10 +115,10 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
     /**
      * if load nativeAd success,you can get and show nativeAd;
      */
-    private void showAd(Object Ad){
-        if(mHKNativeAd != null){
+    private void showAd(Object Ad) {
+        if (mHKNativeAd != null) {
 
-            if(mHKNativeAd != null&&!mHKNativeAd.isLoaded()){
+            if (mHKNativeAd != null && !mHKNativeAd.isLoaded()) {
                 Toast.makeText(NativeAdSpreadSampleActivity.this,
                         "no native ad loaded!", Toast.LENGTH_SHORT).show();
                 return;
@@ -128,8 +128,8 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
                 nativeAdContainer.removeAllViews();
             }
             //the mAdView is custom by publisher
-            mAdView = NativeViewBuild.createAdView(getApplicationContext(),mHKNativeAd,Ad);
-            if (mHKNativeAd != null) {
+            mAdView = NativeViewBuild.createAdView(getApplicationContext(), mHKNativeAd, Ad);
+            if (mHKNativeAd != null && !(Ad instanceof NativeAd)) {
                 mHKNativeAd.unregisterView();
                 //The app must call this method,or click event will unavailable
                 mHKNativeAd.registerViewForInteraction(mAdView);

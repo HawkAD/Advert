@@ -59,7 +59,7 @@ public class MyApplication extends Application {
                 .withListener(new FlurryAgentListener() {
                     @Override
                     public void onSessionStarted() {
-                        Log.i("Flurry","Flurry onSessionStarted");
+                        Log.i("Flurry", "Flurry onSessionStarted");
                     }
                 })
                 .withContinueSessionMillis(5)
@@ -76,12 +76,12 @@ public class MyApplication extends Application {
         VunglePub.getInstance().init(this, "5916309cb46f6b5a3e00009c", new String[]{"DEFAULT32590"}, new VungleInitListener() {
             @Override
             public void onSuccess() {
-                Log.i("adSdk","Vungle init success");
+                Log.i("adSdk", "Vungle init success");
             }
 
             @Override
             public void onFailure(Throwable throwable) {
-                Log.i("adSdk","Vungle init failure");
+                Log.i("adSdk", "Vungle init failure");
             }
         });
         /**
@@ -92,7 +92,7 @@ public class MyApplication extends Application {
          * Mobvista init
          */
         MobVistaSDK sdk = MobVistaSDKFactory.getMobVistaSDK();
-        Map<String,String> map = sdk.getMVConfigurationMap("90089","dec6fe8fd0fca1791ee12bde327d40b3");
+        Map<String, String> map = sdk.getMVConfigurationMap("90089", "dec6fe8fd0fca1791ee12bde327d40b3");
         sdk.init(map, this);
         /**
          * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
@@ -108,9 +108,10 @@ public class MyApplication extends Application {
          *    2、appkey
          *    3、聚合平台广告位ID，有多个就需要传多个
          */
-        HkMobileAds.initialize(getApplicationContext(),getString(R.string.app_key),
-                getString(R.string.banner_ad_unitid),getString(R.string.intersitial_ad_unitid),
-                getString(R.string.native_ad_unitid),getString(R.string.reward_ad_unitid));
+        HkMobileAds.initialize(getApplicationContext(), getString(R.string.app_key),
+                getString(R.string.banner_ad_unitid), getString(R.string.intersitial_ad_unitid),
+                getString(R.string.native_ad_unitid), getString(R.string.reward_ad_unitid),
+                getString(R.string.native_banner_ad_unitid));
         /**
          * 这个方法可以判断本地是否有配置信息
          */

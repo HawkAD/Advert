@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNativePoolBtn = (Button)this.findViewById(R.id.btn_native_pool);
         mNativeDefaultBtn = (Button)this.findViewById(R.id.btn_default_native);
         mRewardVedioBtn = (Button)this.findViewById(R.id.btn_reward_vedio);
+        findViewById(R.id.btn_native_banner).setOnClickListener(this);
         mBannerBtn.setOnClickListener(this);
         mInterstitialBtn.setOnClickListener(this);
         mNativeBtn.setOnClickListener(this);
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_reward_vedio:
                 this.startActivity(new Intent(this,RewardVedioActivity.class));
+                break;
+            case R.id.btn_native_banner:
+                this.startActivity(new Intent(this, NativeBannerActivity.class));
                 break;
 
         }
