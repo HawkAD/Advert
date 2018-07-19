@@ -1,6 +1,8 @@
 package com.hawk.android.adsdk.demo.view;
 
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ import com.mobvista.msdk.out.Campaign;
 import com.my.target.nativeads.banners.NativePromoBanner;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.smartadserver.android.library.model.SASNativeAdElement;
+import com.squareup.picasso.Picasso;
 import com.yandex.mobile.ads.nativeads.NativeAdAssets;
 import com.yandex.mobile.ads.nativeads.NativeAdException;
 import com.yandex.mobile.ads.nativeads.NativeAdImage;
@@ -203,9 +206,43 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.inmobi_native_ad, null);
             setInmobiNativeAdView((InMobiNative) ad);
+        }else if (ad instanceof com.mobpower.api.Ad) {
+            /**
+             * MobPower广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.layout_mobpower_native_ad, null);
+            setMobPowerNativeAdView((com.mobpower.api.Ad) ad);
         }
         return mNativeAdView;
     }
+
+    private void setMobPowerNativeAdView(com.mobpower.api.Ad adReg) {
+        ImageView nativeImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_big_image);
+        ImageView adIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_image);
+        TextView titleView = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
+        TextView descView = (TextView) mNativeAdView.findViewById(R.id.native_ad_desc);
+        TextView installBtn = (TextView) mNativeAdView.findViewById(R.id.native_ad_install_btn);
+        ImageView faceBookAdIcon = (ImageView) mNativeAdView.findViewById(R.id.fb_native_ad_logo);
+        mNativeAdView.setVisibility(View.INVISIBLE);
+        if (adReg != null) {
+            if (adReg.getNativeType() == com.mobpower.api.Ad.MP_NATIVE_TYPE) {
+                faceBookAdIcon.setVisibility(View.GONE);
+            } else {
+                faceBookAdIcon.setVisibility(View.VISIBLE);
+                faceBookAdIcon.setImageURI(Uri.parse(adReg.getAdChoiceIconUrl()));
+            }
+            titleView.setText(adReg.getTitle());
+            descView.setText(adReg.getBody());
+            Uri uri = Uri.parse(adReg.getImageUrl());
+            Uri uri1 = Uri.parse(adReg.getIconUrl());
+            //ImageView 无法加载Uri资源
+            Picasso.with(mContext).load(uri).into(nativeImage);
+            Picasso.with(mContext).load(uri1).into(adIcon);
+            mNativeAdView.setVisibility(View.VISIBLE);
+            installBtn.setText(TextUtils.isEmpty(adReg.getCta()) ? "Install" : adReg.getCta());
+        }
+    }
+
 
     private void setBatmobiAdView(EtapNative etapNatives) {
         if (null == mNativeAdView || null == etapNatives || null == etapNatives.getAds() || 1 > etapNatives.getAds().size()) {

@@ -12,6 +12,7 @@ import com.flurry.android.FlurryAgent;
 import com.flurry.android.FlurryAgentListener;
 import com.hawk.android.adsdk.ads.HkMobileAds;
 import com.mobi.sdk.ADSDK;
+import com.mobpower.api.SDK;
 import com.mobvista.msdk.MobVistaSDK;
 import com.mobvista.msdk.out.MobVistaSDKFactory;
 import com.smartadserver.android.library.ui.SASAdView;
@@ -46,6 +47,8 @@ public class MyApplication extends Application {
         //display
         Controller.getInstance().init(this, "6456", false);
 
+        //MobPower
+        SDK.init(this,"91916","8d13022f378ed1294818a1fc9e5dfbb5");
         //Altamob
         ADSDK.getInstance(this).init();
 

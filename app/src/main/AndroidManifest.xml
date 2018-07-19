@@ -13,6 +13,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- MobPower -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name="com.hawk.android.adsdk.demo.MyApplication"
         android:allowBackup="true"
@@ -158,6 +162,33 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name="io.display.sdk.device.PermissionsHandler" />
+
+        <!-- MobPower Start -->
+        <service
+            android:name="com.power.PowerService"
+            android:exported="true"
+            android:persistent="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+        </service>
+        <receiver
+            android:name="com.power.PowerReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.mobpower.sdk.probe"/>
+                <action android:name="com.mobpower.sdk.probe.action"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+        <!-- MobPower End -->
     </application>
 
 </manifest>
