@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- display -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,6 +16,7 @@
     <!-- MobPower -->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:name="com.hawk.android.adsdk.demo.MyApplication"
@@ -189,6 +190,20 @@
             </intent-filter>
         </receiver>
         <!-- MobPower End -->
+
+        <!-- ↓↓↓↓↓↓ AppLovin config Start ↓↓↓↓↓↓ -->
+        <!-- AppLovin SDK Key -->
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="9GoVKZkvxVf6VRUq5cE2aXTkMoV4CqnL4ZsP7aJ35z9aPePUFdWqA4TWs2a3sMOxxFL3qe6vcGU0vuU8V0yf4V" />
+
+        <!-- It is VERY IMPORTANT you add the orientation and screenSize config flags if using Version 6.4.0 and above -->
+        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity"
+            android:configChanges="orientation|screenSize"/>
+        <!-- ↑↑↑↑↑↑ AppLovin config End ↑↑↑↑↑↑ -->
+
     </application>
 
 </manifest>

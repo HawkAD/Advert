@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Process;
 import android.util.Log;
 
+import com.applovin.sdk.AppLovinSdk;
 import com.avocarrot.sdk.Avocarrot;
 import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
@@ -51,6 +52,9 @@ public class MyApplication extends Application {
         SDK.init(this,"91916","8d13022f378ed1294818a1fc9e5dfbb5");
         //Altamob
         ADSDK.getInstance(this).init();
+
+        //AppLovin
+        AppLovinSdk.initializeSdk(this);
 
         /**
          * 初始化flurry

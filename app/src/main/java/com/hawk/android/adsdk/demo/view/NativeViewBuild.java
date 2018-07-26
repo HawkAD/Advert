@@ -1,17 +1,24 @@
 package com.hawk.android.adsdk.demo.view;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.applovin.nativeAds.AppLovinNativeAd;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkUtils;
 import com.avocarrot.sdk.nativeassets.model.AdChoice;
 import com.duapps.ad.DuNativeAd;
 import com.etap.Ad;
@@ -31,6 +38,9 @@ import com.hawk.android.adsdk.ads.mediator.implAdapter.altamob.AltamobAd;
 import com.hawk.android.adsdk.ads.mediator.implAdapter.glispa.GlispaNativeAssetsAd;
 import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
 import com.hawk.android.adsdk.demo.R;
+import com.hawk.android.adsdk.demo.applovin.AppLovinCarouselViewSettings;
+import com.hawk.android.adsdk.demo.applovin.InlineCarouselCardMediaView;
+import com.hawk.android.adsdk.demo.applovin.InlineCarouselCardState;
 import com.hawk.ownadsdk.HkOwnNativeAd;
 import com.hawk.ownadsdk.nativeview.NativeAdView;
 import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
@@ -206,14 +216,54 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.inmobi_native_ad, null);
             setInmobiNativeAdView((InMobiNative) ad);
-        }else if (ad instanceof com.mobpower.api.Ad) {
+        } else if (ad instanceof com.mobpower.api.Ad) {
             /**
              * MobPower广告
              */
             mNativeAdView = View.inflate(mContext, R.layout.layout_mobpower_native_ad, null);
             setMobPowerNativeAdView((com.mobpower.api.Ad) ad);
+        } else if (ad instanceof AppLovinNativeAd) {
+            /**
+             * AppLovin广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.layout_applovin_native_ad, null);
+            setAppLovinNativeAdView((AppLovinNativeAd)ad);
         }
         return mNativeAdView;
+    }
+
+    private void setAppLovinNativeAdView(final AppLovinNativeAd ad) {
+        ImageView appRating = (ImageView) mNativeAdView.findViewById(R.id.appRating);
+        TextView appTitleTextView = (TextView) mNativeAdView.findViewById(R.id.appTitleTextView);
+        TextView appDescriptionTextView = (TextView) mNativeAdView.findViewById(R.id.appDescriptionTextView);
+        FrameLayout mediaViewPlaceholder = (FrameLayout) mNativeAdView.findViewById(R.id.mediaViewPlaceholder);
+        ImageView appIcon = (ImageView) mNativeAdView.findViewById(R.id.appIcon);
+        Button appDownloadButton = (Button) mNativeAdView.findViewById(R.id.appDownloadButton);
+        appDownloadButton.setText( ad.getCtaText() );
+        appRating.setImageDrawable( getStarRatingDrawable( ad.getStarRating() ) );
+
+        appTitleTextView.setText( ad.getTitle() );
+        appDescriptionTextView.setText( ad.getDescriptionText() );
+        AppLovinSdkUtils.safePopulateImageView( appIcon, Uri.parse( ad.getIconUrl() ), AppLovinSdkUtils.dpToPx( mContext, AppLovinCarouselViewSettings.ICON_IMAGE_MAX_SCALE_SIZE ) );
+        InlineCarouselCardMediaView mediaView = new InlineCarouselCardMediaView(mContext);
+        mediaView.setAd(ad);
+        mediaView.setCardState( new InlineCarouselCardState() );
+        mediaView.setSdk( AppLovinSdk.getInstance(mContext) );
+        mediaView.setUiHandler( new Handler( Looper.getMainLooper() ) );
+        mediaView.setUpView();
+        mediaView.autoplayVideo();
+
+        mediaViewPlaceholder.removeAllViews();
+        mediaViewPlaceholder.addView(mediaView);
+    }
+
+    private Drawable getStarRatingDrawable(final float starRating)
+    {
+        final String sanitizedRating = Float.toString( starRating ).replace( ".", "_" );
+        final String resourceName = "applovin_star_sprite_" + sanitizedRating;
+        final int drawableId = mContext.getResources().getIdentifier( resourceName, "mipmap", mContext.getPackageName() );
+
+        return mContext.getResources().getDrawable( drawableId );
     }
 
     private void setMobPowerNativeAdView(com.mobpower.api.Ad adReg) {

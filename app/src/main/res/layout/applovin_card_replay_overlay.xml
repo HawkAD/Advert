@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@android:color/black">
+
+    <LinearLayout
+        android:id="@+id/applovin_card_overlay_replay_layout"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:gravity="left|center_vertical">
+
+        <ImageView
+            android:id="@+id/applovin_card_overlay_replay_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/applovin_card_replay"/>
+
+        <TextView
+            android:id="@+id/applovin_card_overlay_replay_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Replay"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/applovin_card_overlay_learn_more_layout"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/applovin_card_overlay_learn_more_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/applovin_card_learn_more"/>
+
+        <TextView
+            android:id="@+id/applovin_card_overlay_learn_more_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Learn More"/>
+
+    </LinearLayout>
+
+</LinearLayout>
