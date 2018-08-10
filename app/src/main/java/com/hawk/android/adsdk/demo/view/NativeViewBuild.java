@@ -49,6 +49,7 @@ import com.mobvista.msdk.nativex.view.MVMediaView;
 import com.mobvista.msdk.out.Campaign;
 import com.my.target.nativeads.banners.NativePromoBanner;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.pingstart.adsdk.model.BaseNativeAd;
 import com.smartadserver.android.library.model.SASNativeAdElement;
 import com.squareup.picasso.Picasso;
 import com.yandex.mobile.ads.nativeads.NativeAdAssets;
@@ -228,9 +229,56 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.layout_applovin_native_ad, null);
             setAppLovinNativeAdView((AppLovinNativeAd)ad);
+        }else if (ad instanceof BaseNativeAd) {
+            /**
+             * SOLO 广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.layout_solo_native_ad, null);
+            setSoloNativeAdView((BaseNativeAd)ad);
         }
         return mNativeAdView;
     }
+
+    private void setSoloNativeAdView(BaseNativeAd ad) {
+        com.pingstart.adsdk.view.MediaView mPsMediaView = (com.pingstart.adsdk.view.MediaView) mNativeAdView.findViewById(R.id.ad_media_view);
+        TextView mTitleTextView = (TextView) mNativeAdView.findViewById(R.id.title);
+        TextView mContentTextView = (TextView) mNativeAdView.findViewById(R.id.content);
+        Button mActionButton = (Button) mNativeAdView.findViewById(R.id.ad_btn);
+        ViewGroup lytNative = (ViewGroup) mNativeAdView.findViewById(R.id.test);
+        lytNative.setVisibility(View.GONE);
+        NativeContentAdView lytAdMobContent = (NativeContentAdView) lytNative.findViewById(R.id.lyt_admob_content);
+        lytAdMobContent.setVisibility(View.GONE);
+        NativeAppInstallAdView lytAdMobInstall = (NativeAppInstallAdView) lytNative.findViewById(R.id.lyt_admob_install);
+        lytAdMobInstall.setVisibility(View.GONE);
+        ViewGroup lytPsNative = (ViewGroup) lytNative.findViewById(R.id.ps_native);
+        lytPsNative.setVisibility(View.GONE);
+
+        com.pingstart.adsdk.view.MediaView mFbNative = new com.pingstart.adsdk.view.MediaView(mContext);
+        ViewGroup main = (ViewGroup) mNativeAdView.findViewById(R.id.lyt_main);
+        mFbNative.setVisibility(View.GONE);
+        main.addView(mFbNative);
+
+        if (ad != null) {
+            String workName = ad.getNetworkName();
+            Log.d("MY_TEST", "setSoloNativeAdView: === "+ workName);
+            if (workName != null && workName.equalsIgnoreCase("facebook")) {
+
+            } else if (workName != null && workName.equalsIgnoreCase("admob")) {
+
+            } else {
+                mFbNative.setVisibility(View.GONE);
+                lytNative.setVisibility(View.VISIBLE);
+                lytAdMobContent.setVisibility(View.GONE);
+                lytAdMobInstall.setVisibility(View.GONE);
+                lytPsNative.setVisibility(View.VISIBLE);
+                mTitleTextView.setText(ad.getTitle());
+                mContentTextView.setText(ad.getDescription());
+                mActionButton.setText(ad.getAdCallToAction());
+                mPsMediaView.setMediaInfo(ad);
+            }
+        }
+    }
+
 
     private void setAppLovinNativeAdView(final AppLovinNativeAd ad) {
         ImageView appRating = (ImageView) mNativeAdView.findViewById(R.id.appRating);

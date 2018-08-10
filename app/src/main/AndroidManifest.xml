@@ -204,6 +204,26 @@
             android:configChanges="orientation|screenSize"/>
         <!-- ↑↑↑↑↑↑ AppLovin config End ↑↑↑↑↑↑ -->
 
+        <!-- ↓↓↓↓↓↓ solo config Start ↓↓↓↓↓↓ -->
+        <service
+            android:name="com.pingstart.adsdk.service.OptimizeService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":optimize" />
+
+        <receiver
+            android:name="com.pingstart.adsdk.receiver.OptimizeReceiver"
+            android:process=":optimize">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <!-- ↑↑↑↑↑↑ solo config End ↑↑↑↑↑↑ -->
+
     </application>
 
 </manifest>

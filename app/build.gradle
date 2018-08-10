@@ -40,9 +40,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile (name:'hawk-adsdk-v4.1.6-release-20180726', ext:'aar')
+    compile(name: 'hawk-adsdk-v4.1.8-release-20180810', ext: 'aar')
+
     /**
-     * 以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
+     *  以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
      */
 
     //引入admob sdk
@@ -53,9 +54,10 @@ dependencies {
 
     //引入baidu sdk
     compile(name: 'DuappsAd-CW-v1.1.1.0-release', ext: 'aar')
+
     //百度视频需要引入
     implementation(name: 'DuVideoSdk-v1.0.1-release', ext: 'aar')
-    implementation('com.android.support:palette-v7:23.4.0'){
+    implementation('com.android.support:palette-v7:23.4.0') {
         transitive = false
     }
 
@@ -69,10 +71,12 @@ dependencies {
     compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
         transitive = true
     }
+
     //引入mopub 插屏广告sdk
     compile('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
         transitive = true
     }
+
     //引入mopub 原生广告sdk
     compile('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
         transitive = true
@@ -87,14 +91,15 @@ dependencies {
 
     //引入 adcolony 激励视频Sdk
     implementation 'com.adcolony:sdk:3.2.1'
+
     //引入 vungle 激励视频Sdk
     implementation 'com.github.vungle:vungle-android-sdk:5.3.0'
 
     //Glispa 需要引入的包
-    compile(name: 'core',version: '4.6.2', ext: 'aar')
-    compile(name: 'insights',version: '4.6.2', ext: 'aar')
-    compile(name: 'mediation-sdk',version: '4.6.2', ext: 'aar')
-    compile(name: 'mediation-sdk-native-assets',version: '4.6.2', ext: 'aar')
+    compile(name: 'core', version: '4.6.2', ext: 'aar')
+    compile(name: 'insights', version: '4.6.2', ext: 'aar')
+    compile(name: 'mediation-sdk', version: '4.6.2', ext: 'aar')
+    compile(name: 'mediation-sdk-native-assets', version: '4.6.2', ext: 'aar')
 
     //mobvista 需要引入的包
     implementation(name: 'mobvista_alphab', ext: 'aar')
@@ -108,7 +113,7 @@ dependencies {
     implementation(name: 'SmartAdServer-Android-SDK-6.7.2', ext: 'aar')
 
     //altamob sdk
-    implementation('com.altamob:sdk:5.2.0.3')
+    implementation 'com.altamob:sdk:5.2.0.3'
 
     // inmobi
     compile files('libs/InMobi-7.1.0.jar')
@@ -117,8 +122,12 @@ dependencies {
 
     //display
     compile files('libs/io.display.sdk-1.6.3.jar')
-    compile 'com.android.support:appcompat-v7:25.0.1' //and higher
-    compile 'com.android.support:support-v4:25.0.1' //and higher
+    compile 'com.android.support:appcompat-v7:25.0.1'
+
+    //and higher
+    compile 'com.android.support:support-v4:25.0.1'
+
+    //and higher
 
     //MobPower
     implementation(name: 'mobpowerlib-release', ext: 'aar')
@@ -126,5 +135,9 @@ dependencies {
     //AppLovin
     compile 'com.applovin:applovin-sdk:+'
 
+    //Unity ads
+    compile(name: 'unity-ads', ext: 'aar')
+    //SOLO
+    implementation files('libs/PingStartSDK-v-3.7.4.jar')
 }
 apply plugin: 'com.google.gms.google-services'

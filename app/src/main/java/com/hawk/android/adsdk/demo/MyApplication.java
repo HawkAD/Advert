@@ -16,6 +16,7 @@ import com.mobi.sdk.ADSDK;
 import com.mobpower.api.SDK;
 import com.mobvista.msdk.MobVistaSDK;
 import com.mobvista.msdk.out.MobVistaSDKFactory;
+import com.pingstart.adsdk.PingStartSDK;
 import com.smartadserver.android.library.ui.SASAdView;
 import com.vungle.publisher.VungleInitListener;
 import com.vungle.publisher.VunglePub;
@@ -55,6 +56,9 @@ public class MyApplication extends Application {
 
         //AppLovin
         AppLovinSdk.initializeSdk(this);
+
+        // SOLO
+        PingStartSDK.initializeSdk(this, "5625" );
 
         /**
          * 初始化flurry

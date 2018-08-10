@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lyt_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/test"
+        android:layout_width="280dp"
+        android:layout_height="380dp"
+        android:layout_centerInParent="true"
+        android:background="#fafafa"
+        android:visibility="visible">
+
+        <include
+            android:id="@+id/lyt_admob_content"
+            layout="@layout/admob_content_native"/>
+
+        <include
+            android:id="@+id/lyt_admob_install"
+            layout="@layout/admob_install_native"/>
+
+        <include
+            android:id="@+id/ps_native"
+            layout="@layout/pingstart_native"/>
+    </FrameLayout>
+
+</RelativeLayout>
