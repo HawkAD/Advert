@@ -40,7 +40,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile(name: 'hawk-adsdk-v4.1.8-release-20180810', ext: 'aar')
+    compile(name: 'hawk-adsdk-v4.1.9-release-20180820', ext: 'aar')
 
     /**
      *  以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
@@ -139,5 +139,7 @@ dependencies {
     compile(name: 'unity-ads', ext: 'aar')
     //SOLO
     implementation files('libs/PingStartSDK-v-3.7.4.jar')
+    //Criteo
+    implementation(name: 'criteopublishersdk-1.2.0', ext: 'aar')
 }
 apply plugin: 'com.google.gms.google-services'

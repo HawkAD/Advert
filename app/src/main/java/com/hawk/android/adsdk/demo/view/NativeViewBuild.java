@@ -20,6 +20,8 @@ import com.applovin.nativeAds.AppLovinNativeAd;
 import com.applovin.sdk.AppLovinSdk;
 import com.applovin.sdk.AppLovinSdkUtils;
 import com.avocarrot.sdk.nativeassets.model.AdChoice;
+import com.criteo.render.ViewBinder;
+import com.criteo.view.CriteoNativeAd;
 import com.duapps.ad.DuNativeAd;
 import com.etap.Ad;
 import com.etap.EtapNative;
@@ -235,8 +237,25 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.layout_solo_native_ad, null);
             setSoloNativeAdView((BaseNativeAd)ad);
+        } else if (ad instanceof CriteoNativeAd) {
+            /**
+             * Criteo 广告
+             */
+            setCriteoNativeAdView((CriteoNativeAd) ad);
         }
         return mNativeAdView;
+    }
+
+    private void setCriteoNativeAdView(CriteoNativeAd ad) {
+        ViewBinder viewBinder = new ViewBinder.Builder(R.layout.layout_criteo_native_ad)
+                .mainImageId(R.id.native_image)
+                .titleId(R.id.native_title)
+                .descriptionId(R.id.native_text)
+                .priceId(R.id.native_price)
+                .callToActionId(R.id.native_cta)
+                .privacyIconImageId(R.id.native_privacy_icon_image)
+                .build();
+        mNativeAdView = ad.getNativeAd(viewBinder);
     }
 
     private void setSoloNativeAdView(BaseNativeAd ad) {

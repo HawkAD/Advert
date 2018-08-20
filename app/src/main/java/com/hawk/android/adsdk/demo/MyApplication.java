@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.applovin.sdk.AppLovinSdk;
 import com.avocarrot.sdk.Avocarrot;
+import com.criteo.Criteo;
 import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
 import com.flurry.android.FlurryAgentListener;
@@ -59,6 +60,9 @@ public class MyApplication extends Application {
 
         // SOLO
         PingStartSDK.initializeSdk(this, "5625" );
+
+        //init Criteo
+        Criteo.initialize(this);
 
         /**
          * 初始化flurry
