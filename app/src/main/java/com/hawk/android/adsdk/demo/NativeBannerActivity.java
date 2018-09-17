@@ -8,14 +8,14 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.ads.AdSettings;
-//import com.hawk.android.adsdk.ads.HKNativeBannerAd;
-//import com.hawk.android.adsdk.ads.NativeBannerAdListener;
+import com.hawk.android.adsdk.ads.HkNativeBannerAd;
+import com.hawk.android.adsdk.ads.NativeBannerAdListener;
 import com.hawk.android.adsdk.demo.view.NativeBannerViewBuild;
 
 
 public class NativeBannerActivity extends Activity {
 
-//    private HKNativeBannerAd hkNativeBannerAd;
+    private HkNativeBannerAd hkNativeBannerAd;
     private RelativeLayout nativeBannerAdContainer;
 
     @Override
@@ -31,9 +31,10 @@ public class NativeBannerActivity extends Activity {
     private void loadAd() {
         AdSettings.addTestDevice("c6a5cf8e-e8ae-4403-8cf0-297eb15692a0");
 //        AdSettings.addTestDevice("e52ef714-59bb-49e7-a801-08e722ef97b0");
+        AdSettings.addTestDevice("3acac5a2-1932-4906-9893-07000c24b399");
         String unitId = getString(R.string.native_banner_ad_unitid);
-        /*hkNativeBannerAd = new HKNativeBannerAd(this, unitId);
-        hkNativeBannerAd.setAdListener(new NativeBannerAdListener() {
+        hkNativeBannerAd = new HkNativeBannerAd(this, unitId);
+        hkNativeBannerAd.setNativeBannerAdListener(new NativeBannerAdListener() {
             @Override
             public void onAdLoaded(Object ad) {
                 Log.e("app测试", " app 请求时间=" + (System.currentTimeMillis() - netTime));
@@ -55,11 +56,11 @@ public class NativeBannerActivity extends Activity {
                 Toast.makeText(NativeBannerActivity.this, "Native Banner 被点击", Toast.LENGTH_SHORT).show();
             }
         });
-        hkNativeBannerAd.loadAd();
-        netTime = System.currentTimeMillis();*/
+        hkNativeBannerAd.load();
+        netTime = System.currentTimeMillis();
     }
 
-    /*private void showAd(Object Ad) {
+    private void showAd(Object Ad) {
         if (hkNativeBannerAd != null) {
             if (!hkNativeBannerAd.isLoaded()) {
                 Toast.makeText(NativeBannerActivity.this, "no native banner ad loaded!", Toast.LENGTH_SHORT).show();
@@ -70,5 +71,5 @@ public class NativeBannerActivity extends Activity {
             View mAdView = NativeBannerViewBuild.createAdView(this, nativeBannerAdContainer, Ad);
             nativeBannerAdContainer.addView(mAdView);
         }
-    }*/
+    }
 }
