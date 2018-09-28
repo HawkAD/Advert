@@ -242,8 +242,43 @@ public class NativeViewBuild {
              * Criteo 广告
              */
             setCriteoNativeAdView((CriteoNativeAd) ad);
+        }else if (ad instanceof com.u3k.app.external.NativeAd) {
+            /**
+             * U3K 广告
+             */
+            mNativeAdView = View.inflate(mContext, R.layout.layout_adflash_native_ad, null);
+            setU3KNativeAdView((com.u3k.app.external.NativeAd)ad);
         }
         return mNativeAdView;
+    }
+
+    private void setU3KNativeAdView(com.u3k.app.external.NativeAd ad) {
+        View container = mNativeAdView.findViewById(R.id.ad_container);
+        TextView titleView = (TextView) mNativeAdView.findViewById(R.id.ad_headline);
+        TextView subtitleView = (TextView) mNativeAdView.findViewById(R.id.sub_title);
+        TextView bodyView = (TextView) mNativeAdView.findViewById(R.id.ad_body);
+        com.u3k.app.external.AdIconView adIcon = (com.u3k.app.external.AdIconView) mNativeAdView.findViewById(R.id.ad_icon);
+        com.u3k.app.external.MediaView mediaView = (com.u3k.app.external.MediaView) mNativeAdView.findViewById(R.id.ad_media);
+        //设置广告标题等
+        String title = ad.getAdTitle();
+        String spon = ad.getAdSubtitle();
+        String body = ad.getAdBody();
+        titleView.setText(title);
+        subtitleView.setText(spon);
+        bodyView.setText(body);
+        //adchoice
+        com.u3k.app.external.AdChoicesView adChoicesView = new com.u3k.app.external.AdChoicesView(mContext,ad, true);
+        LinearLayout adChoiceContainer = (LinearLayout) mNativeAdView.findViewById(R.id.adchoice_frame);
+        adChoiceContainer.addView(adChoicesView);
+        //添加可点击的 view
+        List<View> list = new ArrayList<View>();
+        list.add(adIcon);
+        list.add(mediaView);
+        list.add(titleView);
+        list.add(bodyView);
+        list.add(adChoicesView);
+        //调用该方法进行绑定，绑定后，广告将会展示出来
+        ad.registerViewForInteraction(container, mediaView, adIcon, list);
     }
 
     private void setCriteoNativeAdView(CriteoNativeAd ad) {

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
+    <LinearLayout android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.u3k.app.external.AdIconView android:id="@+id/ad_icon"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_gravity="center_vertical"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView android:id="@+id/ad_headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:text="head line"
+                    android:lines="1"/>
+
+                <TextView android:id="@+id/sub_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="sub title"
+                    android:textColor="#ff555555"
+                    android:lines="1"/>
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="30dip"
+                android:layout_height="30dip">
+                <LinearLayout android:id="@+id/adchoice_frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </FrameLayout>
+        </LinearLayout>
+        <!-- cover image-->
+        <com.u3k.app.external.MediaView android:id="@+id/ad_media"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <!-- body text -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView android:id="@+id/ad_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="body text"
+                android:textSize="17sp"
+                android:lines="2"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -8,14 +8,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.ads.AdSettings;
-import com.hawk.android.adsdk.ads.HkNativeBannerAd;
-import com.hawk.android.adsdk.ads.NativeBannerAdListener;
 import com.hawk.android.adsdk.demo.view.NativeBannerViewBuild;
 
 
 public class NativeBannerActivity extends Activity {
 
-    private HkNativeBannerAd hkNativeBannerAd;
     private RelativeLayout nativeBannerAdContainer;
 
     @Override
@@ -33,43 +30,6 @@ public class NativeBannerActivity extends Activity {
 //        AdSettings.addTestDevice("e52ef714-59bb-49e7-a801-08e722ef97b0");
         AdSettings.addTestDevice("3acac5a2-1932-4906-9893-07000c24b399");
         String unitId = getString(R.string.native_banner_ad_unitid);
-        hkNativeBannerAd = new HkNativeBannerAd(this, unitId);
-        hkNativeBannerAd.setNativeBannerAdListener(new NativeBannerAdListener() {
-            @Override
-            public void onAdLoaded(Object ad) {
-                Log.e("app测试", " app 请求时间=" + (System.currentTimeMillis() - netTime));
-                //ad load  success ,you can do other something here;
-                showAd(ad);
-                Log.e("监听测试", "Native Banner 加载成功");
-                Toast.makeText(NativeBannerActivity.this, "Native Banner 加载成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailed(int errorCode) {
-                Log.e("监听测试", "Native Banner 加载失败");
-                Toast.makeText(NativeBannerActivity.this, "Native Banner 加载失败,error code is:" + errorCode, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdClick() {
-                Log.e("监听测试", "Native Banner 被点击");
-                Toast.makeText(NativeBannerActivity.this, "Native Banner 被点击", Toast.LENGTH_SHORT).show();
-            }
-        });
-        hkNativeBannerAd.load();
-        netTime = System.currentTimeMillis();
     }
 
-    private void showAd(Object Ad) {
-        if (hkNativeBannerAd != null) {
-            if (!hkNativeBannerAd.isLoaded()) {
-                Toast.makeText(NativeBannerActivity.this, "no native banner ad loaded!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            nativeBannerAdContainer.removeAllViews();
-            View mAdView = NativeBannerViewBuild.createAdView(this, nativeBannerAdContainer, Ad);
-            nativeBannerAdContainer.addView(mAdView);
-        }
-    }
 }

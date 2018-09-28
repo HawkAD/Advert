@@ -1,4 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'u3kbuild'
+u3k {
+    addApiRefferer 'com.hawk.android.adsdk.ads.mediator.implAdapter.adflash.U3KNativeAdAdapter'
+    addApiRefferer 'com.hawk.android.adsdk.ads.mediator.implAdapter.adflash.U3KAdAdapter'
+}
 
 android {
     compileSdkVersion 25
@@ -40,10 +45,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile(name: 'hawk-adsdk-v4.2.0-release-20180917', ext: 'aar')
+    compile(name: 'hawk-adsdk-v4.2.1-release-20180928', ext: 'aar')
 
     /**
-     *  以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
+     *   以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
      */
 
     //引入admob sdk
@@ -137,9 +142,13 @@ dependencies {
 
     //Unity ads
     compile(name: 'unity-ads', ext: 'aar')
+
     //SOLO
     implementation files('libs/PingStartSDK-v-3.7.4.jar')
+
     //Criteo
     implementation(name: 'criteopublishersdk-1.4.0', ext: 'aar')
+    //U3K
+    implementation files('libs/u3ksdk.jar')
 }
 apply plugin: 'com.google.gms.google-services'

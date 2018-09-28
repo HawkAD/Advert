@@ -13,6 +13,7 @@ import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
 import com.flurry.android.FlurryAgentListener;
 import com.hawk.android.adsdk.ads.HkMobileAds;
+import com.hawk.android.adsdk.ads.U3KSdk;
 import com.mobi.sdk.ADSDK;
 import com.mobpower.api.SDK;
 import com.mobvista.msdk.MobVistaSDK;
@@ -63,6 +64,9 @@ public class MyApplication extends Application {
 
         //init Criteo
         Criteo.initialize(this);
+
+        //init U3K
+        U3KSdk.init(this,"180912000105173243","11879956-abcd");
 
         /**
          * 初始化flurry
