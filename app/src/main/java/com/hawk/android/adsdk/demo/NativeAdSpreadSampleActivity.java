@@ -40,6 +40,8 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
         //The first parameter：Context
         //The second parameter: posid
         String testUnitId = getString(R.string.native_ad_unitid);
+        //AdMob SDK升级新建测试ID
+//        testUnitId = getString(R.string.admob_native_ad_unitid);
         /**
          * 添加facebook的deviceID,从facebook的log中获取，可以用"AdSettings"关键字过滤。
          * 注意：1、deviceID会每天变化;

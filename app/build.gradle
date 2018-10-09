@@ -45,14 +45,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile(name: 'hawk-adsdk-v4.2.1-release-20180928', ext: 'aar')
+    compile(name: 'hawk-adsdk-v4.2.2-release-20181009', ext: 'aar')
 
     /**
      *   以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
      */
 
     //引入admob sdk
-    compile 'com.google.firebase:firebase-ads:11.0.1'
+//    compile 'com.google.firebase:firebase-ads:11.0.1'
+    implementation 'com.google.firebase:firebase-ads:15.0.1'
 
     //引入facebook sdk
     implementation 'com.facebook.android:audience-network-sdk:4.99.0'
@@ -151,4 +152,4 @@ dependencies {
     //U3K
     implementation files('libs/u3ksdk.jar')
 }
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'

@@ -13,6 +13,10 @@
     <string name="native_ad_unitid">b272a67451d74d69908730584214b192</string>
     <string name="reward_ad_unitid">87aad4237b674f53bccc9f4d140e50e5</string>
     <string name="native_banner_ad_unitid">e88989f260d345a09bc96b95964cac68</string>
+
+    <!-- 测试AdMob新建 -->
+    <string name="admob_app_key">dc71452ee9fc494aa296babe420a7129</string>
+    <string name="admob_native_ad_unitid">097e1e6a2edc427e9b0e40ad6576a0b8</string>
 </resources>
 
 

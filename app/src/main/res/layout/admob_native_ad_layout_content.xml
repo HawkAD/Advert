@@ -52,12 +52,6 @@
         </LinearLayout>
 
         <com.google.android.gms.ads.formats.MediaView
-                android:id="@+id/contentad_media"
-                android:layout_width="wrap_content"
-                android:layout_height="180dp"
-                android:visibility="gone"
-                android:gravity="center"/>
-        <ImageView
                 android:id="@+id/contentad_image"
                 android:layout_width="wrap_content"
                 android:layout_height="180dp"

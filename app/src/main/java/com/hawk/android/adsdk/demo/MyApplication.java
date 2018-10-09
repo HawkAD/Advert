@@ -12,6 +12,7 @@ import com.criteo.Criteo;
 import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
 import com.flurry.android.FlurryAgentListener;
+import com.google.android.gms.ads.MobileAds;
 import com.hawk.android.adsdk.ads.HkMobileAds;
 import com.hawk.android.adsdk.ads.U3KSdk;
 import com.mobi.sdk.ADSDK;
@@ -67,6 +68,9 @@ public class MyApplication extends Application {
 
         //init U3K
         U3KSdk.init(this,"180912000105173243","11879956-abcd");
+
+        //AdMob
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
         /**
          * 初始化flurry
@@ -131,6 +135,9 @@ public class MyApplication extends Application {
                 getString(R.string.banner_ad_unitid), getString(R.string.intersitial_ad_unitid),
                 getString(R.string.native_ad_unitid), getString(R.string.reward_ad_unitid),
                 getString(R.string.native_banner_ad_unitid));
+        //AdMob SDK 升级测试
+        /*HkMobileAds.initialize(getApplicationContext(),getString(R.string.admob_app_key),
+                getString(R.string.admob_native_ad_unitid));*/
         /**
          * 这个方法可以判断本地是否有配置信息
          */

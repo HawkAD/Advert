@@ -30,11 +30,14 @@ import com.facebook.ads.AdIconView;
 import com.facebook.ads.NativeAd;
 import com.flurry.android.ads.FlurryAdNative;
 import com.flurry.android.ads.FlurryAdNativeAsset;
+import com.google.android.gms.ads.VideoController;
 import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAppInstallAd;
 import com.google.android.gms.ads.formats.NativeAppInstallAdView;
 import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.hawk.android.adsdk.ads.HKNativeAd;
 import com.hawk.android.adsdk.ads.mediator.implAdapter.altamob.AltamobAd;
 import com.hawk.android.adsdk.ads.mediator.implAdapter.glispa.GlispaNativeAssetsAd;
@@ -102,23 +105,29 @@ public class NativeViewBuild {
          * 2、admob内容型广告必须已com.google.android.gms.ads.formats.NativeContentAdView为广告元素的跟View。
          * 3、facebook没有要求，但必须在广告中加入facebook广告的标识AdChoicesView。
          * 4、设计的广告中必须要包含"AD","Advertise","广告"等能明确表示是广告的字样和元素。
+         *
+         * 5、admob SDK 升级之后不再区分安装型广告和内容型广告，使用com.google.android.gms.ads.formats.UnifiedNativeAdView为广告元素的根View
          */
-        if (ad instanceof NativeAppInstallAd) {
-            /**
+
+        if (ad instanceof UnifiedNativeAd) {
+            mNativeAdView = View.inflate(mContext, R.layout.admob_native_ad, null);
+            setAdMobNativeAdView((UnifiedNativeAd)ad,(UnifiedNativeAdView)mNativeAdView);
+        }/*else if (ad instanceof NativeAppInstallAd) {
+            *//**
              * admob安装型广告
-             */
+             *//*
             mNativeAdView = View.inflate(mContext, R.layout.admob_native_ad_layout_install, null);
             NativeAppInstallAd installAd = (NativeAppInstallAd) ad;
             populateAppInstallAdView(installAd, (NativeAppInstallAdView) mNativeAdView);
         } else if (ad instanceof NativeContentAd) {
-            /**
+            *//**
              * admob内容型广告
-             */
+             *//*
             mNativeAdView = View.inflate(mContext, R.layout.admob_native_ad_layout_content, null);
             mNativeAdView = mNativeAdView.findViewById(R.id.admob_native_content_adview);
             NativeContentAd contentAd = (NativeContentAd) ad;
             populateContentAdView(contentAd, (NativeContentAdView) mNativeAdView);
-        } else if (ad instanceof NativeAd) {
+        }*/ else if (ad instanceof NativeAd) {
             /**
              * facebook广告
              */
@@ -250,6 +259,107 @@ public class NativeViewBuild {
             setU3KNativeAdView((com.u3k.app.external.NativeAd)ad);
         }
         return mNativeAdView;
+    }
+
+    private void setAdMobNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
+        // Set the media view. Media content will be automatically populated in the media view once
+        // adView.setNativeAd() is called.
+        com.google.android.gms.ads.formats.MediaView mediaView = (MediaView) adView.findViewById(R.id.ad_media);
+        adView.setMediaView(mediaView);
+
+        // Set other ad assets.
+        adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
+        adView.setBodyView(adView.findViewById(R.id.ad_body));
+        adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+        adView.setIconView(adView.findViewById(R.id.ad_app_icon));
+        adView.setPriceView(adView.findViewById(R.id.ad_price));
+        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
+        adView.setStoreView(adView.findViewById(R.id.ad_store));
+        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
+
+        // The headline is guaranteed to be in every UnifiedNativeAd.
+        ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
+
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.getBody() == null) {
+            adView.getBodyView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getBodyView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+        }
+
+        if (nativeAd.getCallToAction() == null) {
+            adView.getCallToActionView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getCallToActionView().setVisibility(View.VISIBLE);
+            ((Button) adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+        }
+
+        if (nativeAd.getIcon() == null) {
+            adView.getIconView().setVisibility(View.GONE);
+        } else {
+            ((ImageView) adView.getIconView()).setImageDrawable(
+                    nativeAd.getIcon().getDrawable());
+            adView.getIconView().setVisibility(View.VISIBLE);
+        }
+
+        if (nativeAd.getPrice() == null) {
+            adView.getPriceView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getPriceView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
+        }
+
+        if (nativeAd.getStore() == null) {
+            adView.getStoreView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getStoreView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
+        }
+
+        if (nativeAd.getStarRating() == null) {
+            adView.getStarRatingView().setVisibility(View.INVISIBLE);
+        } else {
+            ((RatingBar) adView.getStarRatingView())
+                    .setRating(nativeAd.getStarRating().floatValue());
+            adView.getStarRatingView().setVisibility(View.VISIBLE);
+        }
+
+        if (nativeAd.getAdvertiser() == null) {
+            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
+        } else {
+            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
+            adView.getAdvertiserView().setVisibility(View.VISIBLE);
+        }
+
+        // This method tells the Google Mobile Ads SDK that you have finished populating your
+        // native ad view with this native ad. The SDK will populate the adView's MediaView
+        // with the media content from this native ad.
+        adView.setNativeAd(nativeAd);
+
+        // Get the video controller for the ad. One will always be provided, even if the ad doesn't
+        // have a video asset.
+        VideoController vc = nativeAd.getVideoController();
+
+        // Updates the UI to say whether or not this ad has a video asset.
+        if (vc.hasVideoContent()) {
+
+            // Create a new VideoLifecycleCallbacks object and pass it to the VideoController. The
+            // VideoController will call methods on this object when events occur in the video
+            // lifecycle.
+            vc.setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
+                @Override
+                public void onVideoEnd() {
+                    // Publishers should allow native ads to complete video playback before
+                    // refreshing or replacing them with another ad in the same UI location.
+                    super.onVideoEnd();
+                }
+            });
+        } else {
+
+        }
+
     }
 
     private void setU3KNativeAdView(com.u3k.app.external.NativeAd ad) {
@@ -484,29 +594,41 @@ public class NativeViewBuild {
 
         /**
          * 判断广告有视频的时候显示视频广告
+         * 判断广告有视频的时候显示视频广告 升级之后不需要，视频和图片都是用MediaView这一个控件
          */
-        MediaView mediaView = (MediaView) adView.findViewById(R.id.contentad_media);
-        ImageView coverImage = (ImageView) adView.findViewById(R.id.contentad_image);
         if (nativeContentAd.getVideoController().hasVideoContent()) {
+            com.google.android.gms.ads.formats.MediaView coverImage = (MediaView) adView.findViewById(R.id.contentad_image);
+            adView.setMediaView(coverImage);
+            Log.d("MY_TEST", "populateContentAdView:  ------------ >  " + nativeContentAd.getVideoController().hasVideoContent());
+//        com.google.android.gms.ads.formats.MediaView mediaView = adView.findViewById(R.id.contentad_media);
+        /*if (nativeContentAd.getVideoController().hasVideoContent()) {
             mediaView.setVisibility(View.VISIBLE);
             coverImage.setVisibility(View.GONE);
             adView.setMediaView(mediaView);
         } else {
             adView.setImageView(coverImage);
+            adView.setMediaView(coverImage);
             coverImage.setVisibility(View.VISIBLE);
             mediaView.setVisibility(View.GONE);
             List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeContentAd.getImages();
             if (images.size() > 0) {
                 ((ImageView) adView.getImageView()).setImageDrawable(images.get(0).getDrawable());
             }
-        }
+        }*/
 
-        com.google.android.gms.ads.formats.NativeAd.Image logoImage = nativeContentAd.getLogo();
-        if (logoImage == null) {
-            adView.getLogoView().setVisibility(View.INVISIBLE);
-        } else {
-            ((ImageView) adView.getLogoView()).setImageDrawable(logoImage.getDrawable());
-            adView.getLogoView().setVisibility(View.VISIBLE);
+            List<com.google.android.gms.ads.formats.NativeAd.Image> images = nativeContentAd.getImages();
+            if (images != null && images.size() > 0 && adView.getImageView() != null) {
+                ((ImageView) adView.getImageView()).setImageDrawable(images.get(0).getDrawable());
+            }
+
+
+            com.google.android.gms.ads.formats.NativeAd.Image logoImage = nativeContentAd.getLogo();
+            if (logoImage == null) {
+                adView.getLogoView().setVisibility(View.INVISIBLE);
+            } else {
+                ((ImageView) adView.getLogoView()).setImageDrawable(logoImage.getDrawable());
+                adView.getLogoView().setVisibility(View.VISIBLE);
+            }
         }
     }
 
