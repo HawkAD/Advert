@@ -9,8 +9,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.ads.AdChoicesView;
-import com.facebook.ads.AdIconView;
-import com.facebook.ads.NativeBannerAd;
 import com.hawk.android.adsdk.demo.R;
 
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class NativeBannerViewBuild {
 
-    final protected Context mContext;
+    /*final protected Context mContext;
     protected View adView;
 
     public static View createAdView(Context context, ViewGroup nativeBannerAdContainer, Object Ad) {
@@ -67,7 +65,7 @@ public class NativeBannerViewBuild {
         clickableViews.add(nativeAdTitle);
         clickableViews.add(nativeAdCallToAction);
         nativeBannerAd.registerViewForInteraction(adView, nativeAdIconView, clickableViews);
-    }
+    }*/
 
 
 }

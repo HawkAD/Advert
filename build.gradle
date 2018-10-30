@@ -2,8 +2,8 @@
 
 buildscript {
     repositories {
-        jcenter()
         google()
+        jcenter()
         maven {
             url uri('./u3kbuild')
         }
@@ -19,6 +19,7 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
         //AdColony
         maven {
@@ -31,7 +32,6 @@ allprojects {
         maven {
             url "https://maven.google.com"
         }
-        google()
     }
 }
 
