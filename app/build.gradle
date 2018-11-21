@@ -15,7 +15,7 @@ android {
         versionCode 28
         versionName "2.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        multiDexEnabled false
     }
     buildTypes {
         release {
@@ -37,15 +37,15 @@ repositories{
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:25.0.0'
+    testImplementation 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    compile(name: 'hawk-adsdk-v4.2.2-release-20181030', ext: 'aar')
+    implementation(name: 'hawk-adsdk-v4.2.5-release-20181121', ext: 'aar')
 
     /**
      *   以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
@@ -56,10 +56,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:15.0.1'
 
     //引入facebook sdk
-    implementation 'com.facebook.android:audience-network-sdk:4.25.0'
+    implementation 'com.facebook.android:audience-network-sdk:5.1.0'
 
     //引入baidu sdk
-    compile(name: 'DuappsAd-CW-v1.1.1.0-release', ext: 'aar')
+    implementation(name: 'DuappsAd-CW-v1.1.1.0-release', ext: 'aar')
 
     //百度视频需要引入
     implementation(name: 'DuVideoSdk-v1.0.1-release', ext: 'aar')
@@ -68,28 +68,28 @@ dependencies {
     }
 
     //引入俄罗斯Vk sdk
-    compile(name: 'mytarget-sdk-4.6.19', ext: 'aar')
+    implementation(name: 'mytarget-sdk-4.6.19', ext: 'aar')
 
     //引入直客 sdk
-    compile(name: 'hawk-mobpalm-v1.5.8-release', ext: 'aar')
+    implementation(name: 'hawk-mobpalm-v1.5.8-release', ext: 'aar')
 
     //引入mopub Banner广告sdk
-    compile('com.mopub:mopub-sdk-banner:4.10.0@aar') {
+    implementation('com.mopub:mopub-sdk-banner:4.10.0@aar') {
         transitive = true
     }
 
     //引入mopub 插屏广告sdk
-    compile('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
+    implementation('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
         transitive = true
     }
 
     //引入mopub 原生广告sdk
-    compile('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
+    implementation('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
         transitive = true
     }
 
     //引入flurry 广告sdk
-    compile 'com.flurry.android:ads:7.2.0'
+    implementation 'com.flurry.android:ads:7.2.0'
 
     //引入yandex 广告sdk
     implementation 'com.yandex.android:mobileads:2.62'
@@ -102,10 +102,10 @@ dependencies {
     implementation 'com.github.vungle:vungle-android-sdk:5.3.0'
 
     //Glispa 需要引入的包
-    compile(name: 'core', version: '4.6.2', ext: 'aar')
-    compile(name: 'insights', version: '4.6.2', ext: 'aar')
-    compile(name: 'mediation-sdk', version: '4.6.2', ext: 'aar')
-    compile(name: 'mediation-sdk-native-assets', version: '4.6.2', ext: 'aar')
+    implementation(name: 'core', version: '4.6.2', ext: 'aar')
+    implementation(name: 'insights', version: '4.6.2', ext: 'aar')
+    implementation(name: 'mediation-sdk', version: '4.6.2', ext: 'aar')
+    implementation(name: 'mediation-sdk-native-assets', version: '4.6.2', ext: 'aar')
 
     //mobvista 需要引入的包
     implementation(name: 'mobvista_alphab', ext: 'aar')
@@ -122,27 +122,28 @@ dependencies {
     implementation 'com.altamob:sdk:5.2.0.3'
 
     // inmobi
-    compile files('libs/InMobi-7.1.0.jar')
+    implementation files('libs/InMobi-7.1.0.jar')
     implementation 'com.google.android.gms:play-services:11.0.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //display
-    compile files('libs/io.display.sdk-1.6.3.jar')
-    compile 'com.android.support:appcompat-v7:25.0.1'
+    implementation files('libs/io.display.sdk-1.6.3.jar')
+    implementation 'com.android.support:appcompat-v7:25.0.1'
 
     //and higher
-    compile 'com.android.support:support-v4:25.0.1'
+    implementation 'com.android.support:support-v4:25.0.1'
 
     //and higher
 
     //MobPower
-    implementation(name: 'mobpowerlib-release', ext: 'aar')
+    implementation(name: 'mobpower_core', ext: 'aar')
+    implementation(name: 'mobpower_nativead', ext: 'aar')
 
     //AppLovin
-    compile 'com.applovin:applovin-sdk:+'
+    implementation 'com.applovin:applovin-sdk:+'
 
     //Unity ads
-    compile(name: 'unity-ads', ext: 'aar')
+    implementation(name: 'unity-ads', ext: 'aar')
 
     //SOLO
     implementation files('libs/PingStartSDK-v-3.7.4.jar')

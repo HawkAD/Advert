@@ -16,7 +16,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.hawk.android.adsdk.ads.HkMobileAds;
 import com.hawk.android.adsdk.ads.U3KSdk;
 import com.mobi.sdk.ADSDK;
-import com.mobpower.api.SDK;
+import com.mobpower.core.api.SDK;
+import com.mobpower.core.api.SDKInitListener;
 import com.mobvista.msdk.MobVistaSDK;
 import com.mobvista.msdk.out.MobVistaSDKFactory;
 import com.pingstart.adsdk.PingStartSDK;
@@ -53,7 +54,18 @@ public class MyApplication extends Application {
         Controller.getInstance().init(this, "6456", false);
 
         //MobPower
-        SDK.init(this,"91916","8d13022f378ed1294818a1fc9e5dfbb5");
+        SDK.setUploadDataLevel(this,SDK.UPLOAD_DATA_ALL);
+        SDK.init(this, "91916", "8d13022f378ed1294818a1fc9e5dfbb5", new SDKInitListener() {
+            @Override
+            public void initSuccess() {
+
+            }
+
+            @Override
+            public void initFail(String s) {
+
+            }
+        });
         //Altamob
         ADSDK.getInstance(this).init();
 

@@ -3,10 +3,16 @@ package com.hawk.android.adsdk.demo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applovin.nativeAds.AppLovinNativeAd;
+import com.facebook.ads.AdIconView;
 import com.facebook.ads.AdSettings;
+import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.google.android.gms.ads.AdRequest;
 import com.hawk.android.adsdk.ads.HKNativeAd;
@@ -14,6 +20,9 @@ import com.hawk.android.adsdk.ads.mediator.HawkAdRequest;
 import com.hawk.android.adsdk.ads.mediator.HkNativeAdListener;
 import com.hawk.android.adsdk.demo.view.NativeViewBuild;
 import com.mopub.nativeads.ViewBinder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -131,8 +140,29 @@ public class NativeAdSpreadSampleActivity extends Activity implements View.OnCli
             }
             //the mAdView is custom by publisher
             mAdView = NativeViewBuild.createAdView(getApplicationContext(), mHKNativeAd, Ad);
-            if (mHKNativeAd != null && !(Ad instanceof NativeAd)) {
+            if (mHKNativeAd != null) {
                 mHKNativeAd.unregisterView();
+                if (Ad instanceof AppLovinNativeAd) {
+                    ImageView appIcon = (ImageView) mAdView.findViewById(R.id.appIcon);
+                    Button appDownloadButton = (Button) mAdView.findViewById(R.id.appDownloadButton);
+                    mHKNativeAd.registerViewForInteraction(mAdView,appIcon,appDownloadButton);
+                } else if (Ad instanceof NativeAd) {//FaceBook NativeAd
+                    AdIconView nativeAdIcon = (AdIconView) mAdView.findViewById(R.id.native_ad_icon);
+                    TextView nativeAdTitle = (TextView) mAdView.findViewById(R.id.native_ad_title);
+                    MediaView nativeAdMedia = (MediaView) mAdView.findViewById(R.id.native_ad_media);
+                    Button nativeAdCallToAction = (Button) mAdView.findViewById(R.id.native_ad_call_to_action);
+
+                    List<View> clickableViews = new ArrayList<>();
+                    clickableViews.add(nativeAdTitle);
+                    clickableViews.add(nativeAdCallToAction);
+                    NativeAd ad = (NativeAd) Ad;
+                    ad.registerViewForInteraction(
+                            mAdView,
+                            nativeAdMedia,
+                            nativeAdIcon);
+                } else {
+                    mHKNativeAd.registerViewForInteraction(mAdView);
+                }
                 //The app must call this method,or click event will unavailable
                 mHKNativeAd.registerViewForInteraction(mAdView);
             }

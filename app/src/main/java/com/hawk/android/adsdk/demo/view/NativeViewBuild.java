@@ -26,6 +26,7 @@ import com.duapps.ad.DuNativeAd;
 import com.etap.Ad;
 import com.etap.EtapNative;
 import com.facebook.ads.AdChoicesView;
+import com.facebook.ads.AdIconView;
 import com.facebook.ads.NativeAd;
 import com.flurry.android.ads.FlurryAdNative;
 import com.flurry.android.ads.FlurryAdNativeAsset;
@@ -227,12 +228,12 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.inmobi_native_ad, null);
             setInmobiNativeAdView((InMobiNative) ad);
-        } else if (ad instanceof com.mobpower.api.Ad) {
+        } else if (ad instanceof com.mobpower.core.api.Ad) {
             /**
              * MobPower广告
              */
             mNativeAdView = View.inflate(mContext, R.layout.layout_mobpower_native_ad, null);
-            setMobPowerNativeAdView((com.mobpower.api.Ad) ad);
+            setMobPowerNativeAdView((com.mobpower.core.api.Ad) ad);
         } else if (ad instanceof AppLovinNativeAd) {
             /**
              * AppLovin广告
@@ -477,7 +478,7 @@ public class NativeViewBuild {
         return mContext.getResources().getDrawable( drawableId );
     }
 
-    private void setMobPowerNativeAdView(com.mobpower.api.Ad adReg) {
+    private void setMobPowerNativeAdView(com.mobpower.core.api.Ad adReg) {
         ImageView nativeImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_big_image);
         ImageView adIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_image);
         TextView titleView = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
@@ -486,7 +487,7 @@ public class NativeViewBuild {
         ImageView faceBookAdIcon = (ImageView) mNativeAdView.findViewById(R.id.fb_native_ad_logo);
         mNativeAdView.setVisibility(View.INVISIBLE);
         if (adReg != null) {
-            if (adReg.getNativeType() == com.mobpower.api.Ad.MP_NATIVE_TYPE) {
+            if (adReg.getNativeType() == com.mobpower.core.api.Ad.MP_NATIVE_TYPE) {
                 faceBookAdIcon.setVisibility(View.GONE);
             } else {
                 faceBookAdIcon.setVisibility(View.VISIBLE);
@@ -713,45 +714,30 @@ public class NativeViewBuild {
      */
     private void setFacebookAdView(NativeAd nativeAd) {
 
+        nativeAd.unregisterView();
+
+        // Add the AdChoices icon
+        LinearLayout adChoicesContainer = (LinearLayout) mNativeAdView.findViewById(R.id.ad_choices_container);
+        AdChoicesView adChoicesView = new AdChoicesView(mContext, nativeAd, true);
+        adChoicesContainer.addView(adChoicesView, 0);
+
         // Create native UI using the ad metadata.
-        ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
+        AdIconView nativeAdIcon = (AdIconView) mNativeAdView.findViewById(R.id.native_ad_icon);
         TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
-//        ImageView nativeAdImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_media);
         com.facebook.ads.MediaView nativeAdMedia = (com.facebook.ads.MediaView) mNativeAdView.findViewById(R.id.native_ad_media);
         TextView nativeAdSocialContext = (TextView) mNativeAdView.findViewById(R.id.native_ad_social_context);
         TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
+        TextView sponsoredLabel = (TextView) mNativeAdView.findViewById(R.id.native_ad_sponsored_label);
         Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
 
-        if (nativeAd.getAdTitle() != null) {
-            nativeAdTitle.setText(nativeAd.getAdTitle());
-        }
-        if (nativeAd.getAdSocialContext() != null) {
-            nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
-        }
-        if (nativeAd.getAdBody() != null) {
-            nativeAdBody.setText(nativeAd.getAdBody());
-        }
-        if (nativeAd.getAdCallToAction() != null) {
-            nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
-        }
+        // Set the Text.
+        nativeAdTitle.setText(nativeAd.getAdvertiserName());
+        nativeAdBody.setText(nativeAd.getAdBodyText());
+        nativeAdSocialContext.setText(nativeAd.getAdSocialContext());
+        nativeAdCallToAction.setVisibility(nativeAd.hasCallToAction() ? View.VISIBLE : View.INVISIBLE);
+        nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
+        sponsoredLabel.setText(nativeAd.getSponsoredTranslation());
 
-        // Download and display the ad icon.
-        NativeAd.Image adIcon = nativeAd.getAdIcon();
-        if (adIcon != null) {
-            NativeAd.downloadAndDisplayImage(adIcon, nativeAdIcon);
-        }
-        // Download and display the cover image.
-        nativeAdMedia.setNativeAd(nativeAd);
-//        NativeAd.Image adImage = nativeAd.getAdCoverImage();
-//        if (adImage != null) {
-//            NativeAd.downloadAndDisplayImage(adImage, nativeAdImage);
-//        }
-        /**
-         * facebook广告必须要加AdChoicesView
-         */
-        LinearLayout adChoicesContainer = (LinearLayout) mNativeAdView.findViewById(R.id.ad_choices_container);
-        AdChoicesView adChoicesView = new AdChoicesView(mContext, nativeAd, true);
-        adChoicesContainer.addView(adChoicesView);
 
     }
 
