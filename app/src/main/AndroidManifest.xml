@@ -116,21 +116,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"></activity>
         <!-- mopub广告SDK需要加入的配置 end-->
 
-        <!-- Batmobi广告SDK需要加入的配置 start-->
-        <activity
-            android:name="com.etap.EtapActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-
-        <receiver android:name="com.etap.EtapBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        <!-- Batmobi广告SDK需要加入的配置 end-->
-
         <!-- Altamob -->
         <meta-data
             android:name="appKey"

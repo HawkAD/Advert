@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    implementation(name: 'hawk-adsdk-v4.2.5-release-20181121', ext: 'aar')
+    implementation(name: 'hawk-adsdk-v4.2.6-release-20181210', ext: 'aar')
 
     /**
      *   以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
@@ -119,7 +119,7 @@ dependencies {
     implementation(name: 'SmartAdServer-Android-SDK-6.7.2', ext: 'aar')
 
     //altamob sdk
-    implementation 'com.altamob:sdk:5.2.0.3'
+//    implementation 'com.altamob:sdk:5.2.0.3'
 
     // inmobi
     implementation files('libs/InMobi-7.1.0.jar')

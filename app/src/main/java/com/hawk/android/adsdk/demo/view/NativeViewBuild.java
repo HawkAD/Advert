@@ -23,8 +23,6 @@ import com.avocarrot.sdk.nativeassets.model.AdChoice;
 import com.criteo.render.ViewBinder;
 import com.criteo.view.CriteoNativeAd;
 import com.duapps.ad.DuNativeAd;
-import com.etap.Ad;
-import com.etap.EtapNative;
 import com.facebook.ads.AdChoicesView;
 import com.facebook.ads.AdIconView;
 import com.facebook.ads.NativeAd;
@@ -39,7 +37,6 @@ import com.google.android.gms.ads.formats.NativeContentAdView;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.hawk.android.adsdk.ads.HKNativeAd;
-import com.hawk.android.adsdk.ads.mediator.implAdapter.altamob.AltamobAd;
 import com.hawk.android.adsdk.ads.mediator.implAdapter.glispa.GlispaNativeAssetsAd;
 import com.hawk.android.adsdk.ads.nativ.HawkNativeAd;
 import com.hawk.android.adsdk.demo.R;
@@ -186,9 +183,6 @@ public class NativeViewBuild {
             mNativeAdView = View.inflate(mContext, R.layout.flurry_native_ad_layout, null);
             mAdNative.setTrackingView(mNativeAdView);
             setFlurryAdView(mAdNative);
-        } else if (ad instanceof EtapNative) {//batmobi平台
-            mNativeAdView = View.inflate(mContext, R.layout.batmobi_native_ad_layout, null);
-            setBatmobiAdView((EtapNative) ad);
         } else if (ad instanceof GlispaNativeAssetsAd) {//Glispa平台
             mNativeAdView = View.inflate(mContext, R.layout.glispa_native_ad_layout, null);
             setGlispaAdView((GlispaNativeAssetsAd) ad);
@@ -216,12 +210,6 @@ public class NativeViewBuild {
              */
             mNativeAdView = View.inflate(mContext, R.layout.smart_native_ad_layout, null);
             setSmartNativeAdView((SASNativeAdElement) ad);
-        }else if (ad instanceof AltamobAd) {
-            /**
-             * AltamobAd广告
-             */
-            mNativeAdView = View.inflate(mContext, R.layout.hawk_native_ad_layout, null);
-            setAltamobNativeAdView((AltamobAd) ad);
         }else if(ad instanceof InMobiNative){
             /**
              * InMobi广告
@@ -505,36 +493,6 @@ public class NativeViewBuild {
         }
     }
 
-
-    private void setBatmobiAdView(EtapNative etapNatives) {
-        if (null == mNativeAdView || null == etapNatives || null == etapNatives.getAds() || 1 > etapNatives.getAds().size()) {
-            return;
-        }
-        TextView appName = (TextView) mNativeAdView.findViewById(R.id.app_name);
-        TextView appDes = (TextView) mNativeAdView.findViewById(R.id.app_des);
-        ImageView icon = (ImageView) mNativeAdView.findViewById(R.id.icon);
-        ImageView img = (ImageView) mNativeAdView.findViewById(R.id.img_big);
-        TextView install = (TextView) mNativeAdView.findViewById(R.id.btn_install);
-        TextView campId = (TextView) mNativeAdView.findViewById(R.id.text_camp_id);
-        Ad item = etapNatives.getAds().get(0);
-        if (null != item) {
-            imageLoader.displayImage(item.getIcon(), icon);
-            List<String> creatives = item.getCreatives(Ad.AD_CREATIVE_SIZE_1200x627);//聚合SDk里面请求了两种尺寸的广告（Ad.AD_CREATIVE_SIZE_1200
-            // x627和Ad.AD_CREATIVE_SIZE_320X200)请根据广告使用的场景大小去取对应合适的图片.
-            if (null == creatives || creatives.size() == 0) {//如果没有这个尺寸的图片，正常情况下应该不会出现，各app根据情况自己选择是否加上这个处理逻辑
-                creatives = item.getCreatives(Ad.AD_CREATIVE_SIZE_320X200);
-            }
-            if (null != creatives && creatives.size() > 0 && null != creatives.get(0)) {
-                imageLoader.displayImage(creatives.get(0), img);
-            }
-
-            appName.setText(item.getName());
-            appDes.setText(item.getDescription());
-            install.setText(item.getAdCallToAction());
-            campId.setText(new StringBuilder("CampId:").append(item.getCampId()).toString());
-        }
-        etapNatives.registerView(mNativeAdView, item);
-    }
 
     /**
      * 百度广告
@@ -1116,31 +1074,6 @@ public class NativeViewBuild {
         nativeAd.registerView(mNativeAdView, clickViews);
     }
 
-    /**
-     * Altamob
-     * @param ad
-     */
-    private void setAltamobNativeAdView(AltamobAd ad) {
-        ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
-        TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
-        ImageView nativeAdImage = (ImageView) mNativeAdView.findViewById(R.id.native_ad_image);
-        TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
-        Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
-
-        // Set the Text.
-        nativeAdTitle.setText(ad.getAd().getTitle());
-        nativeAdBody.setText(ad.getAd().getDesc());
-        nativeAdCallToAction.setText(ad.getAd().getAdAction());
-        if (ad.getAd().getIcon_url() != null)
-            imageLoader.displayImage(ad.getAd().getIcon_url(), nativeAdIcon);
-        if (ad.getAd().getCover_url() != null)
-            imageLoader.displayImage(ad.getAd().getCover_url(), nativeAdImage);
-        List<View> clickViews = new ArrayList<>();
-        clickViews.add(nativeAdIcon);
-        clickViews.add(nativeAdImage);
-        clickViews.add(nativeAdCallToAction);
-        ad.getAdNatived().registerViewForInteraction(ad.getAd(), clickViews);
-    }
 
     /**
      * inmobi

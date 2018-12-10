@@ -280,7 +280,6 @@ public class InlineCarouselCardMediaView
                         }
                         catch ( Exception ex )
                         {
-                            sdk.getLogger().e( TAG, "Unable to perform post-preparation setup", ex );
                         }
                     }
                 } );
@@ -342,7 +341,6 @@ public class InlineCarouselCardMediaView
                     @Override
                     public boolean onError(MediaPlayer mp, int what, int extra)
                     {
-                        sdk.getLogger().w( TAG, "MediaPlayer error: (" + what + ", " + extra + ")" );
                         return true;
                     }
                 } );
@@ -350,7 +348,6 @@ public class InlineCarouselCardMediaView
             }
             catch ( Exception ex )
             {
-                sdk.getLogger().e( TAG, "Unable to build media player.", ex );
             }
         }
     }

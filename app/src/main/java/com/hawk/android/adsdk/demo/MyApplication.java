@@ -9,13 +9,11 @@ import android.util.Log;
 import com.applovin.sdk.AppLovinSdk;
 import com.avocarrot.sdk.Avocarrot;
 import com.criteo.Criteo;
-import com.etap.EtapLib;
 import com.flurry.android.FlurryAgent;
 import com.flurry.android.FlurryAgentListener;
 import com.google.android.gms.ads.MobileAds;
 import com.hawk.android.adsdk.ads.HkMobileAds;
 import com.hawk.android.adsdk.ads.U3KSdk;
-import com.mobi.sdk.ADSDK;
 import com.mobpower.core.api.SDK;
 import com.mobpower.core.api.SDKInitListener;
 import com.mobvista.msdk.MobVistaSDK;
@@ -66,8 +64,6 @@ public class MyApplication extends Application {
 
             }
         });
-        //Altamob
-        ADSDK.getInstance(this).init();
 
         //AppLovin
         AppLovinSdk.initializeSdk(this);
@@ -102,7 +98,6 @@ public class MyApplication extends Application {
                 .withLogLevel(Log.VERBOSE)
                 .build(this, "S2D44W5RVZ5QPSH42W5S");
 
-        EtapLib.init(this, "GFRX634FKMLQ10OXN2VJ789P");//batmobi平台初始化，app需要替换各自batmobi平台的appkey
         Avocarrot.setTestMode(true);//测试Glispa广告的时候打开，发版时请关闭
 
         /**
