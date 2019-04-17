@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    implementation(name: 'hawk-adsdk-v4.2.6-release-20181210', ext: 'aar')
+    implementation(name: 'hawk-adsdk-v4.2.8-release-20190417', ext: 'aar')
 
     /**
      *   以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:15.0.1'
 
     //引入facebook sdk
-    implementation 'com.facebook.android:audience-network-sdk:5.1.0'
+    implementation 'com.facebook.android:audience-network-sdk:5.2.0'
 
     //引入baidu sdk
     implementation(name: 'DuappsAd-CW-v1.1.1.0-release', ext: 'aar')
@@ -68,7 +68,7 @@ dependencies {
     }
 
     //引入俄罗斯Vk sdk
-    implementation(name: 'mytarget-sdk-4.6.19', ext: 'aar')
+    implementation(name: 'mytarget-sdk-5.3.9', ext: 'aar')
 
     //引入直客 sdk
     implementation(name: 'hawk-mobpalm-v1.5.8-release', ext: 'aar')
