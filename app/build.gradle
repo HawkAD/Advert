@@ -6,7 +6,7 @@ u3k {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.hawk.android.adsdk.demo"
@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    implementation(name: 'hawk-adsdk-v4.3.1-release-20190716', ext: 'aar')
+    implementation(name: 'hawk-adsdk-v4.3.3-release-20190729', ext: 'aar')
 
     /**
      *   以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
@@ -74,17 +74,17 @@ dependencies {
     implementation(name: 'hawk-mobpalm-v1.5.8-release', ext: 'aar')
 
     //引入mopub Banner广告sdk
-    implementation('com.mopub:mopub-sdk-banner:4.10.0@aar') {
+    implementation('com.mopub:mopub-sdk-banner:5.0.0@aar') {
         transitive = true
     }
 
     //引入mopub 插屏广告sdk
-    implementation('com.mopub:mopub-sdk-interstitial:4.10.0@aar') {
+    implementation('com.mopub:mopub-sdk-interstitial:5.0.0@aar') {
         transitive = true
     }
 
     //引入mopub 原生广告sdk
-    implementation('com.mopub:mopub-sdk-native-static:4.10.0@aar') {
+    implementation('com.mopub:mopub-sdk-native-static:5.0.0@aar') {
         transitive = true
     }
 
@@ -108,12 +108,14 @@ dependencies {
     implementation(name: 'mediation-sdk-native-assets', version: '4.6.2', ext: 'aar')
 
     //mobvista 需要引入的包
-    implementation(name: 'mobvista_alphab', ext: 'aar')
-    implementation(name: 'mobvista_common', ext: 'aar')
-    implementation(name: 'mobvista_mvnative', ext: 'aar')
-    implementation(name: 'mobvista_nativeex', ext: 'aar')
-    implementation(name: 'mobvista_playercommon', ext: 'aar')
-    implementation(name: 'mobvista_videocommon', ext: 'aar')
+    implementation 'com.mintegral.msdk:common:9.12.41'
+    implementation 'com.mintegral.msdk:mtgnative:9.12.41'
+    implementation 'com.mintegral.msdk:nativeex:9.12.41'
+    implementation 'com.mintegral.msdk:playercommon:9.12.41'
+    implementation 'com.mintegral.msdk:videocommon:9.12.41'
+    implementation 'com.mintegral.msdk:mtgjscommon:9.12.41'
+    implementation 'com.mintegral.msdk:mtgdownloads:9.12.41'
+    implementation 'com.mintegral.msdk:interstitial:9.12.41'
 
     //引入Smart sdk
     implementation(name: 'SmartAdServer-Android-SDK-6.7.2', ext: 'aar')

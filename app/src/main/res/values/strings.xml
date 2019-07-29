@@ -17,6 +17,10 @@
     <!-- 测试AdMob新建 -->
     <string name="admob_app_key">dc71452ee9fc494aa296babe420a7129</string>
     <string name="admob_native_ad_unitid">097e1e6a2edc427e9b0e40ad6576a0b8</string>
+
+    <!-- 测试Mobvista新建 -->
+    <string name="mobvista_native">ba7138693436400e95243b29a951213b</string>
+    <string name="mobvista_interstitial">eb8de9c8191444e09990e0f37a11d8df</string>
 </resources>
 
 

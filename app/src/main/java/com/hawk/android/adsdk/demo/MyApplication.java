@@ -14,10 +14,10 @@ import com.flurry.android.FlurryAgentListener;
 import com.google.android.gms.ads.MobileAds;
 import com.hawk.android.adsdk.ads.HkMobileAds;
 import com.hawk.android.adsdk.ads.U3KSdk;
+import com.mintegral.msdk.MIntegralSDK;
+import com.mintegral.msdk.out.MIntegralSDKFactory;
 import com.mobpower.core.api.SDK;
 import com.mobpower.core.api.SDKInitListener;
-import com.mobvista.msdk.MobVistaSDK;
-import com.mobvista.msdk.out.MobVistaSDKFactory;
 import com.pingstart.adsdk.PingStartSDK;
 import com.smartadserver.android.library.ui.SASAdView;
 import com.vungle.publisher.VungleInitListener;
@@ -121,8 +121,8 @@ public class MyApplication extends Application {
         /**
          * Mobvista init
          */
-        MobVistaSDK sdk = MobVistaSDKFactory.getMobVistaSDK();
-        Map<String, String> map = sdk.getMVConfigurationMap("90089", "dec6fe8fd0fca1791ee12bde327d40b3");
+        MIntegralSDK sdk = MIntegralSDKFactory.getMIntegralSDK();
+        Map<String, String> map = sdk.getMTGConfigurationMap("93066", "dec6fe8fd0fca1791ee12bde327d40b3");
         sdk.init(map, this);
         /**
          * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
@@ -141,7 +141,8 @@ public class MyApplication extends Application {
         HkMobileAds.initialize(getApplicationContext(), getString(R.string.app_key),
                 getString(R.string.banner_ad_unitid), getString(R.string.intersitial_ad_unitid),
                 getString(R.string.native_ad_unitid), getString(R.string.reward_ad_unitid),
-                getString(R.string.native_banner_ad_unitid));
+                getString(R.string.native_banner_ad_unitid), getString(R.string.mobvista_native),
+                getString(R.string.mobvista_interstitial));
         //AdMob SDK 升级测试
         /*HkMobileAds.initialize(getApplicationContext(),getString(R.string.admob_app_key),
                 getString(R.string.admob_native_ad_unitid));*/

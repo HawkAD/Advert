@@ -47,8 +47,9 @@ import com.hawk.ownadsdk.HkOwnNativeAd;
 import com.hawk.ownadsdk.nativeview.NativeAdView;
 import com.hawk.ownadsdk.nativeview.NativeAdViewListenter;
 import com.inmobi.ads.InMobiNative;
-import com.mobvista.msdk.nativex.view.MVMediaView;
-import com.mobvista.msdk.out.Campaign;
+import com.mintegral.msdk.nativex.view.MTGMediaView;
+import com.mintegral.msdk.out.Campaign;
+import com.mintegral.msdk.widget.MTGAdChoice;
 import com.my.target.nativeads.banners.NativePromoBanner;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.pingstart.adsdk.model.BaseNativeAd;
@@ -1010,10 +1011,11 @@ public class NativeViewBuild {
         // Create native UI using the ad metadata.
         ImageView nativeAdIcon = (ImageView) mNativeAdView.findViewById(R.id.native_ad_icon);
         TextView nativeAdTitle = (TextView) mNativeAdView.findViewById(R.id.native_ad_title);
-        MVMediaView nativeMediaView = (MVMediaView) mNativeAdView.findViewById(R.id.native_ad_media);
+        MTGMediaView nativeMediaView = (MTGMediaView) mNativeAdView.findViewById(R.id.native_ad_media);
         TextView nativeAdBody = (TextView) mNativeAdView.findViewById(R.id.native_ad_body);
         Button nativeAdCallToAction = (Button) mNativeAdView.findViewById(R.id.native_ad_call_to_action);
-
+        MTGAdChoice adChoice = mNativeAdView.findViewById(R.id.ad_choice);
+        adChoice.setCampaign(nativeAd);
         // Set the Text.
         nativeAdTitle.setText(nativeAd.getAppName());
         nativeAdBody.setText(nativeAd.getAppDesc());
