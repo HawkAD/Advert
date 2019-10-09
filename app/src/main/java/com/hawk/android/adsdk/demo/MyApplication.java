@@ -6,23 +6,10 @@ import android.content.Context;
 import android.os.Process;
 import android.util.Log;
 
-import com.applovin.sdk.AppLovinSdk;
-import com.avocarrot.sdk.Avocarrot;
 import com.criteo.Criteo;
-import com.flurry.android.FlurryAgent;
-import com.flurry.android.FlurryAgentListener;
 import com.google.android.gms.ads.MobileAds;
 import com.hawk.android.adsdk.ads.HkMobileAds;
-import com.hawk.android.adsdk.ads.U3KSdk;
-import com.mintegral.msdk.MIntegralSDK;
-import com.mintegral.msdk.out.MIntegralSDKFactory;
-import com.mobpower.core.api.SDK;
-import com.mobpower.core.api.SDKInitListener;
 import com.pingstart.adsdk.PingStartSDK;
-import com.smartadserver.android.library.ui.SASAdView;
-import com.vungle.publisher.VungleInitListener;
-import com.vungle.publisher.VunglePub;
-import com.yandex.metrica.YandexMetrica;
 
 import java.util.List;
 import java.util.Map;
@@ -51,22 +38,7 @@ public class MyApplication extends Application {
         //display
         Controller.getInstance().init(this, "6456", false);
 
-        //MobPower
-        SDK.setUploadDataLevel(this,SDK.UPLOAD_DATA_ALL);
-        SDK.init(this, "91916", "8d13022f378ed1294818a1fc9e5dfbb5", new SDKInitListener() {
-            @Override
-            public void initSuccess() {
 
-            }
-
-            @Override
-            public void initFail(String s) {
-
-            }
-        });
-
-        //AppLovin
-        AppLovinSdk.initializeSdk(this);
 
         // SOLO
         PingStartSDK.initializeSdk(this, "5625" );
@@ -74,63 +46,10 @@ public class MyApplication extends Application {
         //init Criteo
         Criteo.initialize(this);
 
-        //init U3K
-        U3KSdk.init(this,"180912000105173243","11879956-abcd");
 
         //AdMob
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
-        /**
-         * 初始化flurry
-         */
-//        FlurryAgent.setLogEnabled(true);
-//        FlurryAgent.init(this, "S2D44W5RVZ5QPSH42W5S");
-        new FlurryAgent.Builder()
-//                .withCaptureUncaughtExceptions(true)
-                .withListener(new FlurryAgentListener() {
-                    @Override
-                    public void onSessionStarted() {
-                        Log.i("Flurry", "Flurry onSessionStarted");
-                    }
-                })
-                .withContinueSessionMillis(5)
-                .withLogEnabled(true)
-                .withLogLevel(Log.VERBOSE)
-                .build(this, "S2D44W5RVZ5QPSH42W5S");
-
-        Avocarrot.setTestMode(true);//测试Glispa广告的时候打开，发版时请关闭
-
-        /**
-         * 接入Vungle激励视频，需要调用初始化方法、出入Vungle的appid、广告位id（可以有多个），Vungle会预加载激励视频
-         */
-        VunglePub.getInstance().init(this, "5916309cb46f6b5a3e00009c", new String[]{"DEFAULT32590"}, new VungleInitListener() {
-            @Override
-            public void onSuccess() {
-                Log.i("adSdk", "Vungle init success");
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                Log.i("adSdk", "Vungle init failure");
-            }
-        });
-        /**
-         * Yandex init
-         */
-        YandexMetrica.activate(getApplicationContext(), "43614695-4bad-431c-9e14-fa588179b756");
-        /**
-         * Mobvista init
-         */
-        MIntegralSDK sdk = MIntegralSDKFactory.getMIntegralSDK();
-        Map<String, String> map = sdk.getMTGConfigurationMap("93066", "dec6fe8fd0fca1791ee12bde327d40b3");
-        sdk.init(map, this);
-        /**
-         * 可以通过这个方法打开和关闭日志,用关键字“adSdk”可过滤广告的关键字
-         */
-        if (BuildConfig.DEBUG) {
-            HkMobileAds.openLog();
-            SASAdView.enableLogging();
-        }
         /**
          * sdk初始化方法，拉取并刷新后台配置的相关信息，拉取成功后会保存在本地，请确保在load广告之前调用。
          * 参数：

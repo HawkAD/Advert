@@ -1,7 +1,5 @@
 package com.hawk.android.adsdk.demo;
 
-import com.adcolony.sdk.AdColony;
-import com.adcolony.sdk.AdColonyAppOptions;
 import com.facebook.ads.AdSettings;
 import com.hawk.android.adsdk.ads.HKRewardVedioAd;
 import com.hawk.android.adsdk.ads.RewardVedioAdListener;
@@ -62,13 +60,6 @@ public class RewardVedioActivity extends AppCompatActivity {
          */
         AdSettings.addTestDevice("5545e13a65e654f10f8e1fc4b7a35ca2");
 
-        /**
-         * Configure AdColony in your launching Activity's onCreate() method so that cached ads can
-         * be available as soon as possible.
-         * 必须在activity里调用此方法，传入appid、和zoneid(如果有多个就传入多个)，调用此方法后才能拉取到广告，不然会失败。
-         * 调用此方法默认会开始缓存广告。
-         */
-        AdColony.configure( this, "app9a9ce3f173ef40539d", "vz568b78984af8487e95" );
         ad.setAdListener(new RewardVedioAdListener() {
 
             @Override

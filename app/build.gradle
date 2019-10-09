@@ -1,9 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'u3kbuild'
-u3k {
-    addApiRefferer 'com.hawk.android.adsdk.ads.mediator.implAdapter.adflash.U3KNativeAdAdapter'
-    addApiRefferer 'com.hawk.android.adsdk.ads.mediator.implAdapter.adflash.U3KAdAdapter'
-}
 
 android {
     compileSdkVersion 26
@@ -15,7 +10,7 @@ android {
         versionCode 28
         versionName "2.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled false
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,7 +40,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     //引入聚合广告SDK
-    implementation(name: 'hawk-adsdk-v4.3.4-release-20190910', ext: 'aar')
+    implementation(name: 'hawk-adsdk-v4.3.7-release-20191009', ext: 'aar')
 
     /**
      *   以下的渠道和聚合sdk配合使用，和运营确认需要用到哪个渠道就引入哪个渠道的sdk，不需要的渠道可以不引用
@@ -60,100 +55,98 @@ dependencies {
     implementation 'com.facebook.android:audience-network-sdk:5.4.1'
 
     //引入baidu sdk
-    implementation(name: 'DuappsAd-CW-1.2.8-release', ext: 'aar')
+//    implementation(name: 'DuappsAd-CW-1.2.8-release', ext: 'aar')
 
     //百度视频需要引入
-    implementation(name: 'DuVideoSdk-v1.0.1-release', ext: 'aar')
-    implementation('com.android.support:palette-v7:23.4.0') {
-        transitive = false
-    }
+//    implementation(name: 'DuVideoSdk-v1.0.1-release', ext: 'aar')
+//    implementation('com.android.support:palette-v7:23.4.0') {
+//        transitive = false
+//    }
 
     //引入俄罗斯Vk sdk
     implementation(name: 'mytarget-sdk-5.3.9', ext: 'aar')
 
     //引入直客 sdk
-    implementation(name: 'hawk-mobpalm-v1.5.8-release', ext: 'aar')
+//    implementation(name: 'hawk-mobpalm-v1.5.8-release', ext: 'aar')
 
     //引入mopub Banner广告sdk
-    implementation('com.mopub:mopub-sdk-banner:5.0.0@aar') {
+    implementation('com.mopub:mopub-sdk-banner:5.3.0@aar') {
         transitive = true
     }
 
     //引入mopub 插屏广告sdk
-    implementation('com.mopub:mopub-sdk-interstitial:5.0.0@aar') {
+    implementation('com.mopub:mopub-sdk-interstitial:5.3.0@aar') {
         transitive = true
     }
 
     //引入mopub 原生广告sdk
-    implementation('com.mopub:mopub-sdk-native-static:5.0.0@aar') {
+    implementation('com.mopub:mopub-sdk-native-static:5.3.0@aar') {
         transitive = true
     }
 
     //引入flurry 广告sdk
-    implementation 'com.flurry.android:ads:7.2.0'
+//    implementation 'com.flurry.android:ads:7.2.0'
 
     //引入yandex 广告sdk
-    implementation 'com.yandex.android:mobileads:2.62'
-    implementation 'com.yandex.android:mobmetricalib:2.73'
+//    implementation 'com.yandex.android:mobileads:2.62'
+//    implementation 'com.yandex.android:mobmetricalib:2.73'
 
     //引入 adcolony 激励视频Sdk
-    implementation 'com.adcolony:sdk:3.2.1'
+//    implementation 'com.adcolony:sdk:3.2.1'
 
     //引入 vungle 激励视频Sdk
-    implementation 'com.github.vungle:vungle-android-sdk:5.3.0'
+//    implementation 'com.github.vungle:vungle-android-sdk:5.3.0'
 
     //Glispa 需要引入的包
-    implementation(name: 'core', version: '4.6.2', ext: 'aar')
-    implementation(name: 'insights', version: '4.6.2', ext: 'aar')
-    implementation(name: 'mediation-sdk', version: '4.6.2', ext: 'aar')
-    implementation(name: 'mediation-sdk-native-assets', version: '4.6.2', ext: 'aar')
+//    implementation(name: 'core', version: '4.6.2', ext: 'aar')
+//    implementation(name: 'insights', version: '4.6.2', ext: 'aar')
+//    implementation(name: 'mediation-sdk', version: '4.6.2', ext: 'aar')
+//    implementation(name: 'mediation-sdk-native-assets', version: '4.6.2', ext: 'aar')
 
     //mobvista 需要引入的包
-    implementation 'com.mintegral.msdk:common:9.12.41'
-    implementation 'com.mintegral.msdk:mtgnative:9.12.41'
-    implementation 'com.mintegral.msdk:nativeex:9.12.41'
-    implementation 'com.mintegral.msdk:playercommon:9.12.41'
-    implementation 'com.mintegral.msdk:videocommon:9.12.41'
-    implementation 'com.mintegral.msdk:mtgjscommon:9.12.41'
-    implementation 'com.mintegral.msdk:mtgdownloads:9.12.41'
-    implementation 'com.mintegral.msdk:interstitial:9.12.41'
+//    implementation 'com.mintegral.msdk:common:9.12.41'
+//    implementation 'com.mintegral.msdk:mtgnative:9.12.41'
+//    implementation 'com.mintegral.msdk:nativeex:9.12.41'
+//    implementation 'com.mintegral.msdk:playercommon:9.12.41'
+//    implementation 'com.mintegral.msdk:videocommon:9.12.41'
+//    implementation 'com.mintegral.msdk:mtgjscommon:9.12.41'
+//    implementation 'com.mintegral.msdk:mtgdownloads:9.12.41'
+//    implementation 'com.mintegral.msdk:interstitial:9.12.41'
 
     //引入Smart sdk
-    implementation(name: 'SmartAdServer-Android-SDK-6.7.2', ext: 'aar')
+//    implementation(name: 'SmartAdServer-Android-SDK-6.7.2', ext: 'aar')
 
     //altamob sdk
 //    implementation 'com.altamob:sdk:5.2.0.3'
 
     // inmobi
-    implementation files('libs/InMobi-7.1.0.jar')
-    implementation 'com.google.android.gms:play-services:11.0.1'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+//    implementation files('libs/InMobi-7.1.0.jar')
+//    implementation 'com.google.android.gms:play-services:11.0.1'
+//    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //display
-    implementation files('libs/io.display.sdk-1.6.3.jar')
-    implementation 'com.android.support:appcompat-v7:25.0.1'
+//    implementation files('libs/io.display.sdk-1.6.3.jar')
+//    implementation 'com.android.support:appcompat-v7:25.0.1'
 
     //and higher
-    implementation 'com.android.support:support-v4:25.0.1'
+//    implementation 'com.android.support:support-v4:25.0.1'
 
     //and higher
 
     //MobPower
-    implementation(name: 'mobpower_core', ext: 'aar')
-    implementation(name: 'mobpower_nativead', ext: 'aar')
+//    implementation(name: 'mobpower_core', ext: 'aar')
+//    implementation(name: 'mobpower_nativead', ext: 'aar')
 
     //AppLovin
-    implementation 'com.applovin:applovin-sdk:+'
+//    implementation 'com.applovin:applovin-sdk:+'
 
     //Unity ads
     implementation(name: 'unity-ads', ext: 'aar')
 
     //SOLO
-    implementation files('libs/PingStartSDK-v-3.7.4.jar')
+//    implementation files('libs/PingStartSDK-v-3.7.4.jar')
 
     //Criteo
     implementation(name: 'criteopublishersdk-1.4.0', ext: 'aar')
-    //U3K
-    implementation files('libs/u3ksdk.jar')
 }
 //apply plugin: 'com.google.gms.google-services'
